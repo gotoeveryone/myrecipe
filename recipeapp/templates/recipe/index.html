@@ -1,0 +1,33 @@
+{% extends 'recipe/_partial/base.html' %} {% block content %}
+<section class="container">
+    <header>
+        <h1>レシピ管理 ログイン</h1>
+    </header>
+    <section class="login">
+        <form id="loginForm">
+            <section class="row">
+                <label>ID：</label>
+                <input type="text" id="account">
+            </section>
+            <section class="row">
+                <label>パスワード：</label>
+                <input type="password" id="password">
+            </section>
+            <section class="row center">
+                <button type="button" id="login">ログイン</button>
+                <button type="reset">クリア</button>
+                <button type="button" id="top">トップへ</button>
+            </section>
+        </form>
+    </section>
+</section>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#back').click(function() {
+            window.location.href = '/';
+        });
+    });
+</script>
+{% endblock %}

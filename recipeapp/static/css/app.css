@@ -1,0 +1,59 @@
+@charset "UTF-8";
+.field-validation-error {
+    color: red;
+    font-size: 14px;
+}
+
+.field-validation-valid {
+    font-size: 14px;
+}
+
+.input-validation-error {
+    background-color: #ffddff;
+}
+
+.dialog {
+    font-size: 14px;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-top: 10px;
+}
+
+header section.userName {
+    font-size: 12px;
+    text-align: right;
+}
+
+footer {
+    font-size: 12px;
+}
+
+table thead {
+    background-color: #ffffbb;
+}
+
+table tbody {
+    background-color: #ffffff;
+}
+
+.loginForm {
+    max-width: 500px;
+}
+
+.buttonArea {
+    height: 60px;
+    position: relative;
+    margin-right: 0px;
+}
+
+.buttonArea section {
+    position: absolute;
+    bottom: 0px;
+    right: 15px;
+}
+
+.form-control[readonly=true] {
+    background-color: #dddddd;
+}
