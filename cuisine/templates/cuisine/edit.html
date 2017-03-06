@@ -1,0 +1,119 @@
+{% extends 'recipe/_partial/base.html' %}
+{% block content %}
+<section>
+    <form method="post" action="save">
+        <section>
+            <section class="form-group row">
+                <section class="col-md-8">
+                    <label>名前：</label>
+                    <input type="text" value="{{ cuisine.name }}" class="form-control text-box">
+                </section>
+                <section class="col-md-4">
+                    <label>種類：</label>
+                    <input type="text" value="{{ cuisine.classification }}" class="form-control text-box">
+                </section>
+                <section class="col-md-4">
+                    <label>Kcal：</label>
+                    <input type="text" value="{{ cuisine.kcal }}" class="form-control text-box">
+                </section>
+                <section class="col-md-4">
+                    <label>種類：</label>
+                    <input type="text" value="{{ cuisine.create_number_of_times }}" class="form-control text-box">
+                </section>
+                <section class="col-md-4 buttonArea">
+                    <section>
+                        <button type="submit" name="Regist" class="btn btn-default">
+                            <span class="glyphicon glyphicon-floppy-save">{% if cuisine.id %}更新{% else %}登録{% endif%}</span>
+                        </button>
+                        <button type="button" name="SendMail" class="btn btn-default">
+                            <span class="glyphicon glyphicon-envelope">メール送信</span>
+                        </button>
+                    </section>
+                </section>
+            </section>
+            <section class="cooking col-md-6 center">
+                <section class="center">
+                    <button type="button" name="CookingRow" value="Add" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus">追加</span>
+                    </button>
+                    <button type="button" name="CookingRow" value="Delete" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-minus">削除</span>
+                    </button>
+                </section>
+                <table border="1" class="table result">
+                    <thead>
+                        <tr class="header">
+                            <td>
+                                手順
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody class="cookings">
+                        @for (var i = 0; i < Model.Cookings.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(model => model.Cookings[i].Id)
+                                    @Html.TextBoxFor(model => model.Cookings[i].SortOrder, new { @class = "form-control text-box", placeholder = "順番" })
+                                    @Html.TextBoxFor(model => model.Cookings[i].Description, new { @class = "form-control text-box", placeholder = "詳細" })
+                                    <section>
+                                        @Html.ValidationMessageFor(model => model.Cookings[i].SortOrder)
+                                    </section>
+                                    <section>
+                                        @Html.ValidationMessageFor(model => model.Cookings[i].Description)
+                                    </section>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </section>
+            <section class="quantity col-md-6 center">
+                <section class="center">
+                    <button type="button" name="QuantityRow" value="Add" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus">追加</span>
+                    </button>
+                    <button type="button" name="QuantityRow" value="Delete" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-minus">削除</span>
+                    </button>
+                </section>
+                <table border="1" class="table result">
+                    <thead>
+                        <tr class="header">
+                            <td>
+                                食材・分量
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody class="quantities">
+                        @for (var i = 0; i < Model.Quantities.Count(); i++)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(model => model.Quantities[i].Id)
+                                    @Html.TextBoxFor(model => model.Quantities[i].Foodstuff.Name, new { @class = "form-control text-box", placeholder = "食材", autocomplete = "off" })
+                                    @{
+                                        var selected = Model.Quantities[i].Foodstuff != null ? Model.Quantities[i].Foodstuff.Classification : Model.FoodstuffClassification.First().Value;
+                                    }
+                                    @Html.DropDownListFor(model => model.Quantities[i].Foodstuff.Classification, new SelectList(Model.FoodstuffClassification, "Value", "Text", selected), new { @class = "form-control text-box", placeholder = "分類", autocomplete = "off" })
+                                    @Html.TextBoxFor(model => model.Quantities[i].Detail, new { @class = "form-control text-box", placeholder = "分量" })
+                                    <section>
+                                        @Html.ValidationMessageFor(model => model.Quantities[i].Foodstuff.Name)
+                                    </section>
+                                    <section>
+                                        @Html.ValidationMessageFor(model => model.Quantities[i].Detail)
+                                    </section>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </section>
+        </section>
+    </form>
+</section>
+<section class="center col-md-12">
+    <a href="/recipe/cuisine/" class="btn btn-default glyphicon glyphicon-search">検索画面へ</a>
+    <a href="/recipe/menu.html" class="btn btn-default glyphicon glyphicon-arrow-left">メニューへ</a>
+</section>
+{% endblock %}

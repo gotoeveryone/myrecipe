@@ -1,25 +1,21 @@
 {% extends 'recipe/_partial/base.html' %} {% block content %}
-<section class="container">
-    <header>
-        <h1>レシピ管理 ログイン</h1>
-    </header>
-    <section class="login">
-        <form id="loginForm">
-            <section class="row">
-                <label>ID：</label>
-                <input type="text" id="account">
-            </section>
-            <section class="row">
-                <label>パスワード：</label>
-                <input type="password" id="password">
-            </section>
-            <section class="row center">
-                <button type="button" id="login">ログイン</button>
-                <button type="reset">クリア</button>
-                <button type="button" id="top">トップへ</button>
-            </section>
-        </form>
-    </section>
+<section class="login">
+    <form class="loginForm" action="/recipe/login/" method="post">
+        {% csrf_token %}
+        <section class="row">
+            <label>ID：</label>
+            <input type="text" id="account">
+        </section>
+        <section class="row">
+            <label>パスワード：</label>
+            <input type="password" id="password">
+        </section>
+        <section class="row center">
+            <button type="submit" id="login">ログイン</button>
+            <button type="reset">クリア</button>
+            <button type="button" id="top">トップへ</button>
+        </section>
+    </form>
 </section>
 {% endblock %}
 {% block script %}

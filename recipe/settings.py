@@ -25,7 +25,7 @@ SECRET_KEY = 'y5^32_$on)_pa+b@2-7kbv(r)yen0@s_=z2@q4jr*x+$tn56od'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["local.kazukisv.com", 'localhost']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'recipeapp',
+    'cuisine',
 ]
 
 MIDDLEWARE = [
@@ -79,8 +80,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'recipe',
         'HOST': 'localhost',
-        'USER': '',
-        'PASSWORD': '',
+        'USER': os.environ['DB_RECIPE_USER'],
+        'PASSWORD': os.environ['DB_RECIPE_PASSWORD'],
         'PORT': 3306
     }
 }
@@ -122,4 +123,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/recipe/static/'
+
+# FORCE_SCRIPT_NAME = '/recipe/'
