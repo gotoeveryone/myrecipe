@@ -1,0 +1,51 @@
+@charset "UTF-8";
+.field-validation-error {
+    color: red;
+    font-size: 14px;
+}
+
+.field-validation-valid {
+    font-size: 14px;
+}
+
+.input-validation-error {
+    background-color: #ffddff;
+}
+
+.dialog {
+    font-size: 14px;
+}
+
+table thead {
+    background-color: #ffffbb;
+}
+
+table tbody {
+    background-color: #ffffff;
+}
+
+.login {
+    max-width: 300px;
+    width: 20%;
+    margin: 0.5rem auto;
+}
+
+.buttonArea {
+    height: 60px;
+    position: relative;
+    margin-right: 0px;
+}
+
+.buttonArea section {
+    position: absolute;
+    bottom: 0px;
+    right: 15px;
+}
+
+.form-control[readonly=true] {
+    background-color: #dddddd;
+}
+
+label {
+    width: 30%;
+}

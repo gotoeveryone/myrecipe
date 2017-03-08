@@ -13,17 +13,8 @@
         <section class="row center">
             <button type="submit" id="login">ログイン</button>
             <button type="reset">クリア</button>
-            <button type="button" id="top">トップへ</button>
+            <button type="button" id="top" v-on:click="toTop()">トップへ</button>
         </section>
     </form>
 </section>
-{% endblock %}
-{% block script %}
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#back').click(function() {
-            window.location.href = '/';
-        });
-    });
-</script>
 {% endblock %}

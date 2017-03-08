@@ -1,0 +1,33 @@
+{
+  "name": "recipe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/k2ss/recipe.git"
+  },
+  "author": "k2ss",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/k2ss/recipe#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-webpack": "^1.5.0",
+    "vue": "^2.2.1",
+    "webpack": "^2.2.1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.26.4",
+    "gulp-typescript": "^3.1.5",
+    "typescript": "^2.2.1",
+    "vue-loader": "^11.1.4",
+    "vue-template-compiler": "^2.2.1",
+    "vue-ts-loader": "0.0.3"
+  }
+}
