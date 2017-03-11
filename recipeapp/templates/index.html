@@ -1,0 +1,21 @@
+{% extends '_partial/base.html' %}
+{% block content %}
+<section class="login">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="row">
+            <label>ID：</label>
+            <input type="text" name="loginid">
+        </div>
+        <div class="row">
+            <label>パスワード：</label>
+            <input type="password" name="password">
+        </div>
+        <div class="row">
+            <button type="submit">ログイン</button>
+            <button type="reset">クリア</button>
+            <button type="button" v-on:click="toTop()">トップへ</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

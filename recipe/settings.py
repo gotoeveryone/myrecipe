@@ -20,13 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'y5^32_$on)_pa+b@2-7kbv(r)yen0@s_=z2@q4jr*x+$tn56od'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["local.kazukisv.com", 'localhost']
-
+ALLOWED_HOSTS = [
+    'localhost',
+    'local.kazukisv.com',
+]
 
 # Application definition
 
@@ -38,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'recipeapp',
-    'cuisine',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,7 @@ ROOT_URLCONF = 'recipe.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -79,13 +81,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'recipe',
-        'HOST': 'localhost',
-        'USER': os.environ['DB_RECIPE_USER'],
-        'PASSWORD': os.environ['DB_RECIPE_PASSWORD'],
+        'HOST': '',
+        'USER': '',
+        'PASSWORD': '',
         'PORT': 3306
     }
 }
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -126,3 +129,6 @@ USE_TZ = True
 STATIC_URL = '/recipe/static/'
 
 # FORCE_SCRIPT_NAME = '/recipe/'
+STATICFILES_DIRS = [
+    'public'
+]

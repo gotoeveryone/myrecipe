@@ -1,0 +1,86 @@
+{% extends '_partial/base.html' %}
+{% block content %}
+<form method="post" action="save">
+    <section class="menu-detail">
+        <label>名前：</label>
+        <input type="text" value="{{ cuisine.name }}" class="form-control text-box">
+        <label>種類：</label>
+        <input type="text" value="{{ cuisine.classification }}" class="form-control text-box">
+        <label>Kcal：</label>
+        <input type="text" value="{{ cuisine.kcal }}" class="form-control text-box">
+        <label>種類：</label>
+        <input type="text" value="{{ cuisine.create_number_of_times }}" class="form-control text-box">
+        <div class="button-wrap">
+            <button type="submit" name="Regist" class="btn btn-default">
+                <span class="glyphicon glyphicon-floppy-save">{% if cuisine.id %}更新{% else %}登録{% endif%}</span>
+            </button>
+            <button type="button" name="SendMail" class="btn btn-default">
+                <span class="glyphicon glyphicon-envelope">メール送信</span>
+            </button>
+        </div>
+    </section>
+    <section class="menu-detail-other">
+        <section class="menu-cooking">
+            <section class="center">
+                <button type="button" name="CookingRow" value="Add" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus">追加</span>
+                </button>
+                <button type="button" name="CookingRow" value="Delete" class="btn btn-warning">
+                    <span class="glyphicon glyphicon-minus">削除</span>
+                </button>
+            </section>
+            <table border="1" class="table result">
+                <thead>
+                    <tr class="header">
+                        <td>
+                            手順
+                        </td>
+                    </tr>
+                </thead>
+                <tbody class="cookings">
+                    {% for instruction in cuisine.instructions_set %}
+                        <tr>
+                            <td>
+                                {{ instruction.sort_order }}：{{ instruction.description }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        <section class="menu-quantity">
+            <section class="center">
+                <button type="button" name="QuantityRow" value="Add" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus">追加</span>
+                </button>
+                <button type="button" name="QuantityRow" value="Delete" class="btn btn-warning">
+                    <span class="glyphicon glyphicon-minus">削除</span>
+                </button>
+            </section>
+            <table border="1" class="table result">
+                <thead>
+                    <tr class="header">
+                        <td>
+                            食材・分量
+                        </td>
+                    </tr>
+                </thead>
+                <tbody class="quantities">
+                    {% for quantity in cuisine.quantities_set %}
+                        <tr>
+                            <td>
+                                {{ quantity.foodstuff.name }}
+                                {{ quantity.detail }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </section>
+    <section class="footer-button">
+        <button type="button" v-on:click="toSearch('cuisine')">検索画面へ</a>
+        <button type="button" v-on:click="toMenu()">メニューへ</a>
+    </diuv>
+</form>
+{% endblock %}

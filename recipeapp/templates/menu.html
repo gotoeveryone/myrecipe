@@ -1,8 +1,8 @@
-{% extends 'recipe/_partial/base.html' %}
+{% extends '_partial/base.html' %}
 {% block content %}
 <section class="center">
     <div>
-        <a href="cuisine/search">メニュー検索</a>
+        <a href="{% url 'search_cuisine' %}">メニュー検索</a>
     </div>
     <div>
         <a href="cuisine/add">メニュー登録</a>

@@ -1,0 +1,46 @@
+{% extends '_partial/base.html' %}
+{% block content %}
+<form method="post" action="{% url 'search_cuisine' %}">
+    {% csrf_token %}
+    <ul class="search-header">
+        <li class="search-row">
+            <label>名前：</label>
+            {{ form.name }}
+            {{ form.name.errors }}
+            <label>分類：</label>
+            {{ form.classification }}
+            {{ form.classification.errors }}
+            <label>カロリー：</label>
+            {{ form.ingestion_kcal }}
+            {{ form.ingestion_kcal.errors }}
+            <div class="button-wrap">
+                <button type="submit" class="btn btn-deault">検索</button>
+            </div>
+        </li>
+    </ul>
+</form>
+<div class="search-results">
+    <ul class="table-header">
+        <li class="table-row">
+            <span>メニュー</span>
+            <span>分類</span>
+            <span>Kcal</span>
+            <span>作成回数</span>
+            <span>詳細</span>
+        </li>
+    </ul>
+    <ul class="table-body">
+        {% for cuisine in cuisines %}
+        <li class="table-row">
+            <span>{{ cuisine.name }}</span>
+            <span>{{ cuisine.classification }}</span>
+            <span>{{ cuisine.kcal }}Kcal</span>
+            <span>{{ cuisine.create_number_of_times }}回</span>
+            <span>
+                <a href="{% url 'edit_cuisine' id=cuisine.id %}">詳細を見る</a>
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
