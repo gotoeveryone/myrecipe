@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
-const webpack = require('gulp-webpack');
+const webpack = require('webpack-stream');
 const webpackConfig = require('./webpack.config.js');
 
 gulp.task('sass', function() {
