@@ -1,21 +1,21 @@
 // declare var require: any
 
 // import Vue from 'vue/dist/vue.js';
-const Vue = require('vue/dist/Vue');
+const Vue = require('vue/dist/vue');
 
-const app = new Vue({
+new Vue({
     el: '.container',
     methods: {
-        toTop: () => {
+        toTop: function() {
             location.href = '/';
         },
-        toMenu: () => {
+        toMenu: function() {
             location.href = '/recipe/menu/';
         },
-        toSearch: (obj) => {
+        toSearch: function(obj) {
             location.href = '/recipe/' + obj + '/search/';
         },
-        block: () => {
+        block: function() {
             console.log(this);
             $(this.$el).block();
         }

@@ -1,24 +1,23 @@
 {
-    "name": "recipe",
-    "private": true,
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+ssh://git@bitbucket.org/k2ss/recipe.git"
-    },
-    "author": "k2ss",
-    "license": "MIT",
-    "homepage": "https://bitbucket.org/k2ss/recipe#readme",
-    "dependencies": {
-        "gulp": "^3.9.1",
-        "gulp-sass": "^3.1.0",
-        "gulp-webpack": "^1.5.0",
-        "vue": "^2.2.1",
-        "webpack-stream": "^3.2.0"
-    }
+  "name": "recipe",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/k2ss/recipe.git"
+  },
+  "author": "k2ss",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/k2ss/recipe#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
+    "vue": "^2.2.1",
+    "webpack-stream": "^3.2.0"
+  }
 }
