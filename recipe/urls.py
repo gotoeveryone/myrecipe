@@ -13,10 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+import os
 from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^', include('recipeapp.urls', namespace='recipe')),
+    url(r'^' + os.environ.get('RECIPE_PREFIX', default=''),\
+        include('recipeapp.urls', namespace='recipe')),
     url(r'^admin/', admin.site.urls),
 ]
