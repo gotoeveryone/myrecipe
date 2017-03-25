@@ -47,15 +47,66 @@
     margin: .5em 0;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     position: relative;
+    label {
+        margin: auto 1em auto .5em;
+    }
     .button-wrap {
         position: absolute;
         right: .5em;
     }
 }
 
+%button {
+    color: #fff;
+    border: none;
+}
+
+.container button {
+    @extend %button;
+    &:enabled:hover {
+        background-color: #666;
+    }
+    background-color: #999;
+}
+
+button.btn-add {
+    &:enabled:hover {
+        background-color: #118923;
+    }
+    background-color: #20ab32;
+}
+
+button.btn-delete {
+    &:enabled:hover {
+        background-color: #ae2345;
+    }
+    background-color: #ff3216;
+}
+
 .menu-detail-other {
     display: flex;
+    width: 100%;
+    .menu-cooking, .menu-quantity {
+        width: 50%;
+        ul {
+            list-style: none;
+            margin: .5em;
+            padding: 0;
+            li {
+                display: flex;
+                align-items: center;
+                span {
+                    width: 30px;
+                    text-align: right;
+                }
+                input {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
 
 .footer-button {

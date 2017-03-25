@@ -1,11 +1,14 @@
 """
 レシピ関係のアクションマッピング
 """
+from django import forms
 from django.shortcuts import render, Http404
 from django.http import HttpRequest
+from rest_framework import viewsets
 import requests
 from .models import Cuisine, Instruction, Quantity
 from .forms import CuisineForm
+from .serializer import InstructionSerializer, QuantitySerializer
 
 def index(request: HttpRequest):
     """
@@ -97,6 +100,18 @@ def cuisine_search(request: HttpRequest):
         'cuisines': obj.all()
     })
 
+def cuisine_add(request: HttpRequest):
+    """
+    料理追加
+    @param request
+    @return: django template
+    """
+    return render(request, 'cuisine/edit.html', {
+        'title': 'レシピ追加',
+        'cuisine': Cuisine(),
+        'classification': (('', ''), ('1', '主菜'), ('2', '主食'), ('3', '副菜'), ('4', 'デザート')),
+    })
+
 def cuisine_edit(request: HttpRequest, primary_key: int):
     """
     料理編集
@@ -122,4 +137,17 @@ def cuisine_edit(request: HttpRequest, primary_key: int):
     return render(request, 'cuisine/edit.html', {
         'title': 'レシピ編集',
         'cuisine': model,
+        'classification': (('', ''), ('1', '主菜'), ('2', '主食'), ('3', '副菜'), ('4', 'デザート')),
     })
+
+class InstructionViewSet(viewsets.ModelViewSet):
+    """ 調理手順 REST API """
+    queryset = Instruction.objects.all()
+    serializer_class = InstructionSerializer
+    filter_fields = ('cuisine_id')
+
+class QuantityViewSet(viewsets.ModelViewSet):
+    """ 調理手順 REST API """
+    queryset = Quantity.objects.all()
+    serializer_class = QuantitySerializer
+    filter_fields = ('id')
