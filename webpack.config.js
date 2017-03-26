@@ -19,7 +19,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.webpack.optimize.UglifyJsPlugin({ minimize: true })
+        // new webpack.webpack.optimize.UglifyJsPlugin({ minimize: true })
     ],
     vue: {
         esModule: true

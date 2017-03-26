@@ -1,6 +1,6 @@
 {% extends '_partial/base.html' %}
 {% block content %}
-<form method="post" action="{% url 'recipe:search_cuisine' %}">
+<form method="post" action="{% url 'recipe:cuisine' %}">
     {% csrf_token %}
     <ul class="search-header">
         <li class="search-row">
@@ -37,7 +37,7 @@
             <span>{{ cuisine.kcal }}Kcal</span>
             <span>{{ cuisine.create_number_of_times }}回</span>
             <span>
-                <a href="{% url 'recipe:edit_cuisine' primary_key=cuisine.id %}">詳細を見る</a>
+                <a href="{% url 'recipe:edit_cuisine' pk=cuisine.id %}">詳細を見る</a>
             </span>
         </li>
         {% endfor %}

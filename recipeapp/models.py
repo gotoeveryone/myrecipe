@@ -48,7 +48,7 @@ class Quantity(models.Model):
     foodstuff = models.OneToOneField(Foodstuff, related_name='foodstuff')
 
     def __str__(self):
-        return self.name
+        return self.detail
 
     class Meta:
         db_table = 'quantities'
