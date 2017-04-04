@@ -11,8 +11,8 @@
 
 ## セットアップ
 
-1. `pip install django`, `pip install rest_framework`を実行し、ローカルに`django`をインストールします。
-2. ルートディレクトリで`npm install`を実行します。
+1. ルートディレクトリで`npm install`を実行します。
+2. `npm run django-install`でローカルに`django`をインストールします。
 3. 同じくルートディレクトリで`./manage.py runserver`を実行することで、開発サーバを立ち上げられます。
 
 ## 注意事項

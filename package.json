@@ -5,7 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "django-install": "pip install django && pip install djangorestframework",
+    "dev": "gulp watch",
+    "prod": "gulp --production"
   },
   "repository": {
     "type": "git",
