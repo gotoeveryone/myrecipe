@@ -22,3 +22,5 @@ gulp.task('watch', () => {
 
 gulp.task('production', ['sass', 'webpack'], () => {
 });
+
+gulp.task('default', ['watch']);

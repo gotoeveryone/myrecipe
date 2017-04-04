@@ -7,7 +7,7 @@
         <input type="text" name="name" value="{{ cuisine.name }}">
         <label>種類：</label>
         <select name="classification" value="{{ cuisine.classification }}">
-            {% for v in classification %}
+            {% for v in classifications %}
             <option value="{{v}}"{% if v == cuisine.classification %} selected{% endif %}>{{v}}</option>
             {% endfor %}
         </select>
@@ -45,6 +45,11 @@
                     <li>
                         <input type="text" name="quantities.foodstuff.name" value="{{ quantity.foodstuff.name }}" class="">
                         <input type="text" name="quantities.detail" value="{{ quantity.detail }}" class="">
+                        <select name="quantities.foodstuff.classification" value="{{ quantity.foodstuff.classification }}">
+                            {% for v in foodstuff_classifications %}
+                            <option value="{{v}}"{% if v == quantity.foodstuff.classification %} selected{% endif %}>{{v}}</option>
+                            {% endfor %}
+                        </select>
                     </li>
                 {% endfor %}
             </ul>

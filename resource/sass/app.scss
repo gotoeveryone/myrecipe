@@ -94,6 +94,14 @@ button.btn-delete {
             list-style: none;
             margin: .5em;
             padding: 0;
+            &.quantities {
+                input {
+                    width: 40%;
+                }
+                select {
+                    width: 20%;
+                }
+            }
             li {
                 display: flex;
                 align-items: center;

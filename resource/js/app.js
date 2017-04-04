@@ -38,9 +38,6 @@ new Vue({
         toMenu: function() {
             location.href = '/recipe/menu/';
         },
-        // toSearch: function(obj) {
-        //     location.href = '/recipe/' + obj + '/search/';
-        // },
         block: () => {
             $(this.$el).block();
         },
@@ -73,9 +70,5 @@ new Vue({
         deleteRow: (parentSelector) => {
             $(`${parentSelector} li:last-child`).remove();
         }
-    // },
-    // mounted() {
-    //         console.log('aaaa');
-    //     this.loadCuisine(1);
     }
 });

@@ -1,8 +1,30 @@
 """ Models """
+import datetime
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
-class Cuisine(models.Model):
+class BaseModel(models.Model):
+    """ 基底モデル """
+
+    created = models.DateTimeField()
+    modified = models.DateTimeField()
+    created_by = models.CharField(max_length=10)
+    modified_by = models.CharField(max_length=10)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.id is None:
+            self.created = datetime.datetime.now()
+
+        self.modified = datetime.datetime.now()
+
+        # 親の処理を呼び出し
+        super().save(force_insert, force_update, using, update_fields)
+
+    class Meta:
+        abstract = True
+
+class Cuisine(BaseModel):
     """ メニュー """
     name = models.CharField(max_length=255)
     classification = models.CharField(max_length=5)
@@ -17,7 +39,7 @@ class Cuisine(models.Model):
     class Meta:
         db_table = 'cuisine'
 
-class Instruction(models.Model):
+class Instruction(BaseModel):
     """ 調理手順 """
     sort_order = models.IntegerField('並び順',\
         validators=[MinValueValidator(1), MaxValueValidator(3)])
@@ -30,7 +52,7 @@ class Instruction(models.Model):
     class Meta:
         db_table = 'cooking_instructions'
 
-class Foodstuff(models.Model):
+class Foodstuff(BaseModel):
     """ 食材 """
     name = models.CharField(max_length=255)
     classification = models.CharField(max_length=5)
@@ -41,7 +63,7 @@ class Foodstuff(models.Model):
     class Meta:
         db_table = 'foodstuffs'
 
-class Quantity(models.Model):
+class Quantity(BaseModel):
     """ 数量 """
     detail = models.CharField(max_length=100)
     cuisine = models.ForeignKey(Cuisine, related_name='quantities')

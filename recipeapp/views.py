@@ -1,8 +1,8 @@
 """
 レシピ関係のアクションマッピング
 """
-from django import forms
-from django.shortcuts import render, Http404
+import logging
+from django.shortcuts import render
 from django.http import HttpRequest
 from django.views import generic
 from rest_framework import viewsets
@@ -40,6 +40,9 @@ def login(request: HttpRequest):
     user = requests.get('https://' + request.get_host() + '/web-resource/users/detail',\
         params={'access_token': request.session['access_token']}, verify=False)
 
+    logger = logging.getLogger('recipe')
+    logging.info('ユーザ【%s】がログインしました。', user.name)
+
     request.session['user'] = user.json()
 
     return render(request, 'menu.html', {
@@ -53,8 +56,23 @@ def menu(request: HttpRequest):
     @param request
     @return: django template
     """
+    logger = logging.getLogger('recipe')
+    logger.info('test!!')
     return render(request, 'menu.html', {
         'title': 'メニュー'
+    })
+
+def cuisine_add(request: HttpRequest):
+    """
+    料理追加
+    @param request
+    @return: django template
+    """
+    return render(request, 'cuisine/edit.html', {
+        'title': 'レシピ追加',
+        'cuisine': Cuisine(),
+        'classification': (('', ''), ('1', '主菜'), ('2', '主食'), ('3', '副菜'), ('4', 'デザート')),
+        'foodstuff_classification': (('', ''), ('1', '野菜'), ('2', '肉'), ('3', '調味料')),
     })
 
 class CuisineListView(generic.ListView):
@@ -101,18 +119,6 @@ class CuisineListView(generic.ListView):
             'classifications': self.classifications,
         })
 
-def cuisine_add(request: HttpRequest):
-    """
-    料理追加
-    @param request
-    @return: django template
-    """
-    return render(request, 'cuisine/edit.html', {
-        'title': 'レシピ追加',
-        'cuisine': Cuisine(),
-        'classification': (('', ''), ('1', '主菜'), ('2', '主食'), ('3', '副菜'), ('4', 'デザート')),
-    })
-
 class CuisineDetailView(generic.edit.UpdateView):
     """ レシピ詳細ビュー """
     model = Cuisine
@@ -123,6 +129,7 @@ class CuisineDetailView(generic.edit.UpdateView):
     def __init__(self):
         self.title = 'レシピ詳細'
         self.classifications = ['主菜', '副菜', '主食', 'デザート', 'その他']
+        self.foodstuff_classifications = ['野菜', '肉', '調味料']
 
     def post(self, request: HttpRequest, *args, **kwargs):
 
@@ -153,7 +160,9 @@ class CuisineDetailView(generic.edit.UpdateView):
         quantities = Quantity.objects.filter(cuisine=cuisine)
         input_detail = request.POST.getlist('quantities.detail')
         input_foodstuff = request.POST.getlist('quantities.foodstuff.name')
+        print(input_foodstuff)
         input_classification = request.POST.getlist('quantities.foodstuff.classification')
+        print(input_classification)
         for idx, obj in enumerate(input_detail):
             if len(quantities) < idx + 1:
                 item = Quantity()
@@ -162,14 +171,15 @@ class CuisineDetailView(generic.edit.UpdateView):
                 item = quantities[idx]
 
             # 食材
-            foodstuff = Foodstuff.objects.get(quantity=item)
+            foodstuff = Foodstuff.objects.get(name=input_foodstuff[idx])
             if foodstuff is None:
                 foodstuff = Foodstuff()
+                foodstuff.name = input_foodstuff[idx]
 
-            foodstuff.name = input_foodstuff[idx]
             foodstuff.classification = input_classification[idx]
             foodstuff.save()
 
+            item.foodstuff = foodstuff
             item.detail = obj
             item.save()
 
@@ -183,7 +193,8 @@ class CuisineDetailView(generic.edit.UpdateView):
         return render(request, self.template_name, {
             'title': self.title,
             'cuisine': self.get_object(),
-            'classification': self.classifications,
+            'classifications': self.classifications,
+            'foodstuff_classifications': self.foodstuff_classifications,
         })
 
     def get_object(self, queryset=None):
@@ -197,21 +208,10 @@ class CuisineDetailView(generic.edit.UpdateView):
         quantities = Quantity.objects.filter(cuisine=target).prefetch_related('foodstuff')
         target.quantities_set = quantities
 
-        return target
+        logger = logging.getLogger('recipe')
+        logger.info('レシピ【%s】が参照されました。', target.name)
 
-def cuisine_save(request: HttpRequest):
-    """
-    料理一覧初期表示
-    @param request
-    @return: django template
-    """
-    cuisine = Cuisine(request.POST)
-    print(cuisine)
-    return render(request, 'cuisine/edit.html', {
-        'title': 'レシピ一覧',
-        'form': CuisineForm(),
-        'classifications': ['主菜', '副菜', '主食', 'デザート', 'その他'],
-    })
+        return target
 
 class CuisineViewSet(viewsets.ModelViewSet):
     """ メニュー REST API """
