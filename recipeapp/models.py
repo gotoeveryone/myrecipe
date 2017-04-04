@@ -13,10 +13,14 @@ class BaseModel(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
+        # TODO(k2ss): set login user
+
         if self.id is None:
             self.created = datetime.datetime.now()
+#            self.created_by = 
 
         self.modified = datetime.datetime.now()
+#        self.modified_by = 
 
         # 親の処理を呼び出し
         super().save(force_insert, force_update, using, update_fields)
@@ -29,9 +33,9 @@ class Cuisine(BaseModel):
     name = models.CharField(max_length=255)
     classification = models.CharField(max_length=5)
     ingestion_kcal = models.IntegerField(\
-        validators=[MinValueValidator(1), MaxValueValidator(9999)])
+        blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(9999)])
     create_number_of_times = models.IntegerField(\
-        validators=[MinValueValidator(1), MaxValueValidator(999)])
+        blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(999)])
 
     def __str__(self):
         return self.name

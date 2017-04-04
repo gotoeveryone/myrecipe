@@ -183,13 +183,13 @@ class CuisineDetailView(generic.edit.UpdateView):
             item.detail = obj
             item.save()
 
-        return render(request, self.template_name, {
-            'title': self.title,
-            'cuisine': self.get_object(),
-            'classification': self.classifications,
-        })
+        return self.render_view(request)
 
     def get(self, request: HttpRequest, *args, **kwargs):
+        return self.render_view(request)
+
+    def render_view(self, request: HttpRequest):
+        """ 描画処理 """
         return render(request, self.template_name, {
             'title': self.title,
             'cuisine': self.get_object(),
