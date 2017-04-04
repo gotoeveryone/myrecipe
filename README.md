@@ -5,7 +5,7 @@
 ## 前提
 以下がインストールされていること。
 
-- python3.6
+- python3.x
 - pip
 - nodejs
 
