@@ -1,20 +1,20 @@
 {% extends '_partial/base.html' %}
 {% block content %}
-<form method="post" action="{% url 'recipe:edit_cuisine'  pk=cuisine.id %}">
+<form method="post" cuisine action="{% url 'recipe:edit_cuisine'  pk=cuisine.id %}">
     {% csrf_token %}
     <div class="menu-detail">
         <label>名前：</label>
-        <input type="text" name="name" value="{{ cuisine.name }}">
+        <input type="text" name="name" v-model="cuisine.name">
         <label>種類：</label>
-        <select name="classification" value="{{ cuisine.classification }}">
+        <select name="classification" v-model="cuisine.classification">
             {% for v in classifications %}
             <option value="{{v}}"{% if v == cuisine.classification %} selected{% endif %}>{{v}}</option>
             {% endfor %}
         </select>
         <label>Kcal：</label>
-        <input type="text" value="{{ cuisine.ingestion_kcal }}">
+        <input type="text" v-model="cuisine.ingestion_kcal">
         <label>種類：</label>
-        <input type="text" value="{{ cuisine.create_number_of_times }}">
+        <input type="text" v-model="cuisine.create_number_of_times">
         <div class="button-wrap">
             <button type="submit" class="btn btn-default">{% if cuisine.id %}更新{% else %}登録{% endif%}</button>
             <button type="button" class="btn btn-default">メール送信</button>
@@ -23,36 +23,17 @@
     <div class="menu-detail-other">
         <div class="menu-cooking">
             <div class="center">
-                <button type="button" class="btn-add" v-on:click="addRow('.cookings');">追加</button>
-                <button type="button" class="btn-delete" v-on:click="deleteRow('.cookings');">削除</button>
+                <button type="button" class="btn-add" @click="addRow('instructions');">追加</button>
+                <button type="button" class="btn-delete" @click="deleteRow('instructions');">削除</button>
             </div>
-            <ul class="cookings">
-                {% for instruction in cuisine.instructions_set %}
-                    <li>
-                        <span class="cooking-order">{{ instruction.sort_order }}：</span>
-                        <input type="text" name="instructions.description" value="{{ instruction.description }}" class="cooking-description">
-                    </li>
-                {% endfor %}
-            </ul>
+            <instructions :instructions="cuisine.instructions"></instructions>
         </div>
         <div class="menu-quantity">
             <div class="center">
-                <button type="button" class="btn-add" v-on:click="addRow('.quantities');">追加</button>
-                <button type="button" class="btn-delete" v-on:click="deleteRow('.quantities');">削除</button>
+                <button type="button" class="btn-add" @click="addRow('quantities');">追加</button>
+                <button type="button" class="btn-delete" @click="deleteRow('quantities');">削除</button>
             </div>
-            <ul class="quantities">
-                {% for quantity in cuisine.quantities_set %}
-                    <li>
-                        <input type="text" name="quantities.foodstuff.name" value="{{ quantity.foodstuff.name }}" class="">
-                        <input type="text" name="quantities.detail" value="{{ quantity.detail }}" class="">
-                        <select name="quantities.foodstuff.classification" value="{{ quantity.foodstuff.classification }}">
-                            {% for v in foodstuff_classifications %}
-                            <option value="{{v}}"{% if v == quantity.foodstuff.classification %} selected{% endif %}>{{v}}</option>
-                            {% endfor %}
-                        </select>
-                    </li>
-                {% endfor %}
-            </ul>
+            <quantities :quantities="cuisine.quantities"></quantities>
         </div>
     </div>
     <div class="footer-button">

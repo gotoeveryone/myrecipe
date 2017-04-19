@@ -186,12 +186,13 @@ class CuisineDetailView(generic.edit.UpdateView):
         return self.render_view(request)
 
     def get(self, request: HttpRequest, *args, **kwargs):
-        return self.render_view(request)
+        return self.render_view(request, **kwargs)
 
-    def render_view(self, request: HttpRequest):
+    def render_view(self, request: HttpRequest, **kwargs):
         """ 描画処理 """
         return render(request, self.template_name, {
             'title': self.title,
+            'id': kwargs['pk'],
             'cuisine': self.get_object(),
             'classifications': self.classifications,
             'foodstuff_classifications': self.foodstuff_classifications,

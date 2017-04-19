@@ -1,4 +1,17 @@
 @charset "UTF-8";
+
+.content {
+    opacity: 1.0;
+    visibility: visible;
+    transition-duration: .5s;
+    transition-property: opacity, visibility;
+    transition-timing-function: ease-in;
+    &.fade {
+        opacity: 0;
+        visibility: hidden;
+    }    
+}
+
 .field-validation-error {
     color: red;
     font-size: 14px;

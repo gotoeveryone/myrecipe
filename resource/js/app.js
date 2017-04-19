@@ -1,35 +1,62 @@
-// declare var require: any
+require('./bootstrap');
 
-// import Vue from 'vue/dist/vue.js';
 const $ = require('jquery');
-const Vue = require('vue/dist/vue');
-const VueResource = require('vue-resource');
-Vue.use(VueResource);
-
-// 作り方
-Vue.component('cooking-row', {
-    template: `
-        <li>
-            <input type="text" value="" class="">
-            <input type="text" value="" class="">
-        </li>`
-});
-
-// 調理手順
-Vue.component('quantity-row', {
-    template: `
-        <li>
-            <input type="text" value="" class="">
-            <input type="text" value="" class="">
-        </li>`
-});
 
 new Vue({
     delimiters: ['${', '}'],
-    el: '.container',
     data: {
-        cookings: $('.cookings').length,
-        quantities: $('.quantities').length
+        id: '',
+        cuisine: {},
+    },
+    components: {
+        instructions: {
+            props: ['instructions'],
+            template: `
+                <ul class="cookings">
+                    <li v-for="instruction in instructions">
+                        <span class="cooking-order" v-text="getSortOrder(instruction)"></span>：
+                        <input type="text" name="instructions.description" v-model="instruction.description" class="cooking-description">
+                    </li>
+                </ul>
+            `,
+            methods: {
+                getSortOrder(_instruction) {
+                    if (!_instruction.sort_order) {
+                        _instruction.sort_order = this.instructions.length;
+                    }
+                    return _instruction.sort_order;
+                },
+            },
+        },
+        quantities: {
+            props: ['quantities'],
+            data() {
+                return {
+                    classifications: [
+                        '野菜',
+                        '肉',
+                        '調味料',
+                        '魚',
+                    ],
+                };
+            },
+            template: `
+                <ul class="quantities">
+                    <li v-for="quantity in quantities">
+                        <input type="text" name="quantities.foodstuff.name" v-model="getFoodstuffName(quantity)">
+                        <input type="text" name="quantities.detail" v-model="quantity.detail">
+                        <select name="quantities.foodstuff.classification" v-model="quantity.foodstuff.classification">
+                            <option v-for="classification in classifications" v-text="classification"></option>
+                        </select>
+                    </li>
+                </ul>
+            `,
+            methods: {                
+                getFoodstuffName(_quantity) {
+                    return _quantity.foodstuff ? _quantity.foodstuff.name : '';
+                },
+            },
+        }
     },
     methods: {
         toTop: function() {
@@ -48,27 +75,16 @@ new Vue({
                 alert(JSON.stringify(response.body));
             }, () => {alert('error');});
         },
-        addRow: (parentSelector) => {
-            const len = $(`${parentSelector} li`).length;
-            switch (parentSelector) {
-                case '.cookings':
-                    $(parentSelector).append(`<li>
-                        <span class="cooking-order">${len + 1}：</span>
-                        <input type="text" name="instructions.description" value="" class="cooking-description">
-                    </li>`);
-                    break;
-                case '.quantities':
-                    $(parentSelector).append(`<li>
-                        <input type="text" name="quantities.foodstuff.name" value="" class="">
-                        <input type="text" name="quantities.detail" value="" class="">
-                    </li>`);
-                    break;
-                default:
-                    break;
-            }
+        addRow(_key) {
+            this.cuisine[_key].push({});
         },
-        deleteRow: (parentSelector) => {
-            $(`${parentSelector} li:last-child`).remove();
+        deleteRow(_key) {
+            this.cuisine[_key].pop();
         }
-    }
-});
+    },
+    mounted: function() {
+        this.$http.get('/recipe/api/cuisine/1').then((data) => {
+            this.cuisine = data.body;
+        });
+    },
+}).$mount('[cuisine]');

@@ -6,8 +6,12 @@
   "main": "index.js",
   "scripts": {
     "django-install": "pip install django && pip install djangorestframework",
-    "dev": "gulp watch",
-    "prod": "gulp --production"
+    "sass": "node-sass ./resource/sass/app.scss -o ./public/css/ -w --output-style compressed",
+    "sass-prod": "node-sass ./resource/sass/app.scss -o ./public/css/ --output-style compressed",
+    "webpack": "webpack -w --colors --config ./webpack.config.js",
+    "webpack-prod": "cross-env NODE_ENV=production webpack -p --progress --colors --config ./webpack.config.js",
+    "dev": "concurrently \"npm run sass\" \"npm run webpack\"",
+    "prod": "npm run sass-prod & npm run webpack-prod"
   },
   "repository": {
     "type": "git",
@@ -16,12 +20,15 @@
   "author": "k2ss",
   "license": "MIT",
   "homepage": "https://bitbucket.org/k2ss/recipe#readme",
-  "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-sass": "^3.1.0",
-    "jquery": "^3.2.1",
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^3.4.0",
+    "cross-env": "^4.0.0",
+    "eslint": "^3.19.0",
+    "node-sass": "^4.5.2",
+    "sass-lint": "^1.10.2",
     "vue": "^2.2.1",
     "vue-resource": "^1.2.1",
-    "webpack-stream": "^3.2.0"
+    "webpack": "^2.4.1"
   }
 }

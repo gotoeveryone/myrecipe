@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack-stream');
 
 module.exports = {
     entry: './resource/js/app.js',
@@ -8,7 +7,7 @@ module.exports = {
         filename: 'app.js'
     },
     resolve: {
-        extensions:['', '.vue', '.js']
+        extensions:['.vue', '.js']
     },
     module: {
         loaders: [
@@ -19,9 +18,5 @@ module.exports = {
         ]
     },
     plugins: [
-        // new webpack.webpack.optimize.UglifyJsPlugin({ minimize: true })
     ],
-    vue: {
-        esModule: true
-    }
 };
