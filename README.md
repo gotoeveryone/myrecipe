@@ -19,7 +19,7 @@
 
 ### タスクランナー
 
-`gulp watch`（または`npm run dev`）を実行すると、SCSS,Vue.jsの変更を監視して`public`ディレクトリに変換後のCSS,JSを出力します。
+`npm run dev`を実行すると、SCSS,Vue.jsの変更を監視して`public`ディレクトリに変換後のCSS,JSを出力します。
 
 ### ログ出力
 
