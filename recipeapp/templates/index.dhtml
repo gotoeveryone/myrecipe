@@ -1,4 +1,4 @@
-{% extends '_partial/base.html' %}
+{% extends '_partial/base.dhtml' %}
 {% block content %}
 <section class="login">
     <form method="post" action="{% url 'recipe:login' %}">

@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.views import generic
 from rest_framework import viewsets
+from rest_framework.decorators import detail_route
 import requests
 from .models import Cuisine, Instruction, Quantity, Foodstuff
 from .forms import CuisineForm
@@ -17,7 +18,7 @@ def index(request: HttpRequest):
     @param request
     @return: django template
     """
-    return render(request, 'index.html', {'title': 'ログイン'})
+    return render(request, 'index.dhtml', {'title': 'ログイン'})
 
 def login(request: HttpRequest):
     """
@@ -29,7 +30,7 @@ def login(request: HttpRequest):
         {'account': request.POST['loginid'], 'password': request.POST['password']}, verify=False)
 
     if response.status_code != 200:
-        return render(request, 'error.html', {
+        return render(request, 'error.dhtml', {
             'err': response
         })
 
@@ -45,7 +46,7 @@ def login(request: HttpRequest):
 
     request.session['user'] = user.json()
 
-    return render(request, 'menu.html', {
+    return render(request, 'menu.dhtml', {
         'title': 'メニュー',
         'username': request.session['user']['userName']
     })
@@ -58,7 +59,7 @@ def menu(request: HttpRequest):
     """
     logger = logging.getLogger('recipe')
     logger.info('test!!')
-    return render(request, 'menu.html', {
+    return render(request, 'menu.dhtml', {
         'title': 'メニュー'
     })
 
@@ -68,7 +69,7 @@ def cuisine_add(request: HttpRequest):
     @param request
     @return: django template
     """
-    return render(request, 'cuisine/edit.html', {
+    return render(request, 'cuisine/edit.dhtml', {
         'title': 'レシピ追加',
         'cuisine': Cuisine(),
         'classification': (('', ''), ('1', '主菜'), ('2', '主食'), ('3', '副菜'), ('4', 'デザート')),
@@ -79,7 +80,7 @@ class CuisineListView(generic.ListView):
     """ 料理一覧 """
     model = Cuisine
     form_class = CuisineForm
-    template_name = 'cuisine/index.html'
+    template_name = 'cuisine/index.dhtml'
 
     def __init__(self):
         self.title = 'レシピ一覧'
@@ -122,8 +123,8 @@ class CuisineListView(generic.ListView):
 class CuisineDetailView(generic.edit.UpdateView):
     """ レシピ詳細ビュー """
     model = Cuisine
-    template_name = 'cuisine/edit.html'
-    success_url = 'cuisine/edit.html'
+    template_name = 'cuisine/edit.dhtml'
+    success_url = 'cuisine/edit.dhtml'
     # fields = ['name', 'classification', 'ingestion_kcal', 'create_number_of_times']
 
     def __init__(self):
