@@ -1,6 +1,6 @@
-{% extends '_partial/base.html' %}
+{% extends '_partial/base.dhtml' %}
 {% block content %}
-<form method="post" cuisine action="{% url 'recipe:edit_cuisine'  pk=cuisine.id %}">
+<form method="post" cuisine action="{% url 'recipe:edit_cuisine' pk=cuisine.id %}">
     {% csrf_token %}
     <div class="menu-detail">
         <label>名前：</label>
@@ -16,7 +16,7 @@
         <label>種類：</label>
         <input type="text" v-model="cuisine.create_number_of_times">
         <div class="button-wrap">
-            <button type="submit" class="btn btn-default">{% if cuisine.id %}更新{% else %}登録{% endif%}</button>
+            <button type="button" @click="save()" class="btn btn-default">{% if cuisine.id %}更新{% else %}登録{% endif%}</button>
             <button type="button" class="btn btn-default">メール送信</button>
         </div>
     </div>
