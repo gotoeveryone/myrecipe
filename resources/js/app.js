@@ -1,7 +1,5 @@
 require('./bootstrap');
 
-const $ = require('jquery');
-
 new Vue({
     delimiters: ['${', '}'],
     data: {
@@ -65,25 +63,24 @@ new Vue({
         toMenu: function() {
             location.href = '/recipe/menu/';
         },
-        block: () => {
-            $(this.$el).block();
-        },
-        loadCuisine: function(id) {
-            // console.log(this.$http);
-            this.$http.get(`https://local.kazukisv.com/recipe/api/cuisine/${id}/`).then((response) => {
-                this.cuisine = response.body;
-                alert(JSON.stringify(response.body));
-            }, () => {alert('error');});
-        },
         addRow(_key) {
             this.cuisine[_key].push({});
         },
         deleteRow(_key) {
             this.cuisine[_key].pop();
+        },
+        save() {
+            console.log('ポストされたぜ！！！');
+            console.log(JSON.stringify(this.cuisine));
+            this.$http.put('/recipe/api/cuisine/1/', JSON.stringify(this.cuisine)).then((data) => {
+                this.cuisine = data.body;
+            }).catch((s, a, v) => {
+                console.log(s, a, v);
+            });
         }
     },
     mounted: function() {
-        this.$http.get('/recipe/api/cuisine/1').then((data) => {
+        this.$http.get('/recipe/api/cuisine/1/').then((data) => {
             this.cuisine = data.body;
         });
     },

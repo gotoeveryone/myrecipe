@@ -5,12 +5,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "django-install": "pip install django && pip install djangorestframework",
+    "django-install": "npm run django-install-prod & pip install django-debug-toolbar",
+    "django-install-prod": "pip install django djangorestframework",
+    "django-upgrade": "npm run django-upgrade-prod & pip install --upgrade django-debug-toolbar",
+    "django-upgrade-prod": "pip install --upgrade django djangorestframework",
     "sass": "node-sass ./resource/sass/app.scss -o ./public/css/ -w --output-style compressed",
     "sass-prod": "node-sass ./resource/sass/app.scss -o ./public/css/ --output-style compressed",
-    "webpack": "webpack -w --colors --config ./webpack.config.js",
-    "webpack-prod": "cross-env NODE_ENV=production webpack -p --progress --colors --config ./webpack.config.js",
-    "dev": "concurrently \"npm run sass\" \"npm run webpack\"",
+    "webpack": "webpack -w --progress --colors --config=./webpack.config.js",
+    "webpack-prod": "cross-env NODE_ENV=production webpack -p --progress --colors --config=./webpack.config.js",
+    "dev": "npm-run-all -p sass webpack",
     "prod": "npm run sass-prod & npm run webpack-prod"
   },
   "repository": {
@@ -22,10 +25,10 @@
   "homepage": "https://bitbucket.org/k2ss/recipe#readme",
   "dependencies": {},
   "devDependencies": {
-    "concurrently": "^3.4.0",
     "cross-env": "^4.0.0",
     "eslint": "^3.19.0",
     "node-sass": "^4.5.2",
+    "npm-run-all": "^4.0.2",
     "sass-lint": "^1.10.2",
     "vue": "^2.2.1",
     "vue-resource": "^1.2.1",

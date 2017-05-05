@@ -1,67 +1,12 @@
 """
-レシピ関係のアクションマッピング
+    メニュー関連
 """
 import logging
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.views import generic
-from rest_framework import viewsets
-from rest_framework.decorators import detail_route
-import requests
-from .models import Cuisine, Instruction, Quantity, Foodstuff
+from common.models import Cuisine, Instruction, Quantity, Foodstuff
 from .forms import CuisineForm
-from .serializer import CuisineSerializer, InstructionSerializer, QuantitySerializer
-
-def index(request: HttpRequest):
-    """
-    初期表示
-    @param request
-    @return: django template
-    """
-    return render(request, 'index.dhtml', {'title': 'ログイン'})
-
-def login(request: HttpRequest):
-    """
-    ログイン
-    @param request
-    @return: django template
-    """
-    response = requests.post('https://' + request.get_host() + '/web-resource/users/login',\
-        {'account': request.POST['loginid'], 'password': request.POST['password']}, verify=False)
-
-    if response.status_code != 200:
-        return render(request, 'error.dhtml', {
-            'err': response
-        })
-
-    json = response.json()
-    request.session['access_token'] = json['access_token']
-
-    # ユーザ情報
-    user = requests.get('https://' + request.get_host() + '/web-resource/users/detail',\
-        params={'access_token': request.session['access_token']}, verify=False)
-
-    logger = logging.getLogger('recipe')
-    logging.info('ユーザ【%s】がログインしました。', user.name)
-
-    request.session['user'] = user.json()
-
-    return render(request, 'menu.dhtml', {
-        'title': 'メニュー',
-        'username': request.session['user']['userName']
-    })
-
-def menu(request: HttpRequest):
-    """
-    メニュー
-    @param request
-    @return: django template
-    """
-    logger = logging.getLogger('recipe')
-    logger.info('test!!')
-    return render(request, 'menu.dhtml', {
-        'title': 'メニュー'
-    })
 
 def cuisine_add(request: HttpRequest):
     """
@@ -214,21 +159,3 @@ class CuisineDetailView(generic.edit.UpdateView):
         logger.info('レシピ【%s】が参照されました。', target.name)
 
         return target
-
-class CuisineViewSet(viewsets.ModelViewSet):
-    """ メニュー REST API """
-    queryset = Cuisine.objects.all()
-    serializer_class = CuisineSerializer
-    filter_fields = ('cuisine_id')
-
-class InstructionViewSet(viewsets.ModelViewSet):
-    """ 調理手順 REST API """
-    queryset = Instruction.objects.all()
-    serializer_class = InstructionSerializer
-    filter_fields = ('cuisine_id')
-
-class QuantityViewSet(viewsets.ModelViewSet):
-    """ 調理手順 REST API """
-    queryset = Quantity.objects.all()
-    serializer_class = QuantitySerializer
-    filter_fields = ('id')
