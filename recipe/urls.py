@@ -16,9 +16,18 @@ Including another URLconf
 import os
 from django.conf.urls import include, url
 from django.contrib import admin
+from . import settings
 
+PREFIX = os.environ.get('RECIPE_PREFIX', default='')
 urlpatterns = [
-    url(r'^' + os.environ.get('RECIPE_PREFIX', default=''),\
-        include('recipeapp.urls', namespace='recipe')),
+    url(r'^' + PREFIX, include('common.urls', namespace='recipe')),
+    url(r'^' + PREFIX + 'cuisine/', include('cuisine.urls', namespace='recipe_cuisine')),
+    url(r'^' + PREFIX + 'api/', include('api.urls', namespace='recipe_api')),
     url(r'^admin/', admin.site.urls),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^' + PREFIX + '__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'recipeapp',
+    'debug_toolbar',
     'rest_framework',
+    'common',
+    'cuisine',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'recipe.urls'
@@ -121,7 +125,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -145,15 +149,20 @@ LOGGING = {
             'format': '[%(levelname)s] %(message)s'
         },
     },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        }
+    },
     'handlers': {
         'file': {
-            'level': 'INFO',
+            'level': ('DEBUG' if DEBUG else 'INFO'),
             'class': 'logging.FileHandler',
             'filename': os.environ.get('LOG_DIR', '') + 'recipe.log',
             'formatter': 'verbose'
         },
         'console': {
-            'level': 'INFO',
+            'level': ('DEBUG' if DEBUG else 'INFO'),
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         }
@@ -161,8 +170,16 @@ LOGGING = {
     'loggers': {
         'recipe': {
             'handlers': ['console', 'file'],
-            'level': 'INFO',
+            'level': 'DEBUG',
             'propagate': True,
-        }
+        },
+        'django.db.backends': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+        },
     }
 }
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

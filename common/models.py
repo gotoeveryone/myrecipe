@@ -1,11 +1,14 @@
 """ Models """
-import datetime
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
+
+models.QuerySet
 
 class BaseModel(models.Model):
     """ 基底モデル """
 
+    id = models.AutoField(primary_key=True)
     created = models.DateTimeField()
     modified = models.DateTimeField()
     created_by = models.CharField(max_length=10)
@@ -16,10 +19,10 @@ class BaseModel(models.Model):
         # TODO(k2ss): set login user
 
         if self.id is None:
-            self.created = datetime.datetime.now()
+            self.created = timezone.now()
 #            self.created_by = 
 
-        self.modified = datetime.datetime.now()
+        self.modified = timezone.now()
 #        self.modified_by = 
 
         # 親の処理を呼び出し
