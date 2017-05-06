@@ -21,24 +21,13 @@
         </div>
     </div>
     <div class="menu-detail-other">
-        <div class="menu-cooking">
-            <div class="center">
-                <button type="button" class="btn-add" @click="addRow('instructions');">追加</button>
-                <button type="button" class="btn-delete" @click="deleteRow('instructions');">削除</button>
-            </div>
-            <instructions :instructions="cuisine.instructions"></instructions>
-        </div>
-        <div class="menu-quantity">
-            <div class="center">
-                <button type="button" class="btn-add" @click="addRow('quantities');">追加</button>
-                <button type="button" class="btn-delete" @click="deleteRow('quantities');">削除</button>
-            </div>
-            <quantities :quantities="cuisine.quantities"></quantities>
-        </div>
+        <instructions :instructions="cuisine.instructions"></instructions>
+        <quantities :quantities="cuisine.quantities"></quantities>
     </div>
     <div class="footer-button">
-        <button type="button" v-on:click="toSearch('cuisine')">検索画面へ</a>
-        <button type="button" v-on:click="toMenu()">メニューへ</a>
+        <button type="button" @click="toSearch('cuisine')">検索画面へ</a>
+        <button type="button" @click="toMenu()">メニューへ</a>
     </div>
+    <notice :title="title" :message="message"></notice>
 </form>
 {% endblock %}

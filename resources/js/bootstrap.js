@@ -5,3 +5,10 @@ require('vue-resource');
 window.addEventListener('load', () => {
     document.querySelector('.content').classList.remove('fade');
 }, false);
+
+window.Vue.http.interceptors.push((req, next) => {
+    document.querySelector('.block-ui').classList.add('blocked');
+    next((res) => {
+        document.querySelector('.block-ui').classList.remove('blocked');
+    });
+});
