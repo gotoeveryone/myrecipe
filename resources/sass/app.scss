@@ -1,15 +1,39 @@
 @charset "UTF-8";
 
+/* -------------------------------------------
+   共通レイアウト
+ ------------------------------------------- */
+.block-ui {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 300;
+    background-color: #000;
+    transition-property: visibility, opacity;
+    transition-timing-function: ease;
+    transition-duration: .3s;
+    &.blocked {
+        visibility: visible;
+        opacity: .8;
+    }
+}
+
 .content {
     opacity: 1.0;
     visibility: visible;
     transition-duration: .5s;
     transition-property: opacity, visibility;
     transition-timing-function: ease-in;
-    &.fade {
-        opacity: 0;
-        visibility: hidden;
-    }    
+    // &.fade {
+    //     opacity: 0;
+    //     visibility: hidden;
+    // }
 }
 
 .field-validation-error {
