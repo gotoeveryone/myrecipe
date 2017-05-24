@@ -2,7 +2,9 @@
 レシピ関係のアクションマッピング
 """
 import logging
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login as logged, logout as logged_out
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.http import HttpRequest
 import requests
 
@@ -20,30 +22,44 @@ def login(request: HttpRequest):
     @param request
     @return: django template
     """
-    response = requests.post('https://' + request.get_host() + '/web-resource/users/login',\
-        {'account': request.POST['loginid'], 'password': request.POST['password']}, verify=False)
+    user = authenticate(request,\
+        account=request.POST['loginid'], password=request.POST['password'])
 
-    if response.status_code != 200:
-        return render(request, 'error.dhtml', {
-            'err': response
-        })
+    if user is None:
+        return render(request, 'error.dhtml')
 
-    json = response.json()
-    request.session['access_token'] = json['access_token']
+    request.session['user'] = user
+    logged(request, user, backend=user.backend)
 
-    # ユーザ情報
-    user = requests.get('https://' + request.get_host() + '/web-resource/users/detail',\
-        params={'access_token': request.session['access_token']}, verify=False)
-    user_info = user.json()
-    request.session['user'] = user_info
+    logger = logging.getLogger('recipe')
+    logger.info('ユーザ【%s】がログインしました。', user.user_name)
 
-    logging.info('ユーザ【%s】がログインしました。', user_info['userName'])
+    next_url = request.POST.get('next', '')
+    if next_url != '':
+        return redirect(next_url)
 
     return render(request, 'menu.dhtml', {
-        'title': 'メニュー',
-        'username': user_info['userName']
+        'title': 'メニュー'
     })
 
+def logout(request: HttpRequest):
+    """
+    ログアウト
+    @param request
+    @return: django template
+    """
+    api_url = 'https://' + request.get_host() + '/web-resource/'
+
+    # トークンを保持していれば削除リクエストを投げる
+    if request.session.get('access_token') is not None:
+        requests.post(api_url + 'users/logout',\
+            {'access_token': request.session['access_token']}, verify=False)
+
+    logged_out(request)
+
+    return render(request, 'index.dhtml', {'title': 'ログイン'})
+
+@login_required
 def menu(request: HttpRequest):
     """
     メニュー
