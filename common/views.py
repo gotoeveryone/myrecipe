@@ -3,7 +3,6 @@
 """
 import logging
 from django.contrib.auth import authenticate, login as logged, logout as logged_out
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 import requests
@@ -28,7 +27,6 @@ def login(request: HttpRequest):
     if user is None:
         return render(request, 'error.dhtml')
 
-    request.session['user'] = user
     logged(request, user, backend=user.backend)
 
     logger = logging.getLogger('recipe')
@@ -59,7 +57,6 @@ def logout(request: HttpRequest):
 
     return render(request, 'index.dhtml', {'title': 'ログイン'})
 
-@login_required
 def menu(request: HttpRequest):
     """
     メニュー
