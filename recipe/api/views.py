@@ -1,6 +1,6 @@
 """ APIのビューセット """
 from rest_framework import viewsets
-from common.models import Cuisine, Instruction, Quantity, Foodstuff
+from recipe.core.models import Cuisine, Instruction, Quantity, Foodstuff
 from .serializer import CuisineSerializer, InstructionSerializer,\
     QuantitySerializer, FoodstuffSerializer
 
@@ -9,6 +9,13 @@ class CuisineViewSet(viewsets.ModelViewSet):
     queryset = Cuisine.objects.all()
     serializer_class = CuisineSerializer
     filter_fields = ('cuisine_id')
+
+    def get_serializer_context(self):
+        print(self.request.user)
+        return super(CuisineViewSet, self).get_serializer_context()
+
+    def dispatch(self, *args, **kwargs):
+        return super(CuisineViewSet, self).dispatch(*args, **kwargs)
 
 class InstructionViewSet(viewsets.ModelViewSet):
     """ 調理手順 REST API """

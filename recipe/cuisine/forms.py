@@ -1,7 +1,7 @@
 """ フォーム """
 from django import forms
 from django.core.validators import MinValueValidator, MaxValueValidator
-from common.models import Cuisine, Instruction, Quantity, Foodstuff
+from recipe.core.models import Cuisine, Instruction, Quantity, Foodstuff
 
 class CuisineForm(forms.ModelForm):
     """ 料理フォーム """
