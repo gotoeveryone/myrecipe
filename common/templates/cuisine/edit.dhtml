@@ -1,6 +1,10 @@
 {% extends '_partial/base.dhtml' %}
 {% block content %}
+{% if cuisine.id %}
 <form method="post" cuisine action="{% url 'recipe_cuisine:edit' pk=cuisine.id %}">
+{% else %}
+<form method="post" cuisine action="{% url 'recipe_cuisine:add' %}">
+{% endif %}
     {% csrf_token %}
     <div class="menu-detail">
         <label>名前：</label>

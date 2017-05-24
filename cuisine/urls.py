@@ -1,10 +1,10 @@
 """ URL """
-from django.conf.urls import url, include
-from rest_framework import routers
-from . import views
+from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
+from .views import CuisineListView, CuisineAddView, CuisineDetailView
 
 urlpatterns = [
-    url(r'^$', views.CuisineListView.as_view(), name='index'),
-    url(r'^add/', views.cuisine_add, name='add'),
-    url(r'^edit/(?P<pk>\d+)/', views.CuisineDetailView.as_view(), name='edit'),
+    url(r'^$', login_required(CuisineListView.as_view()), name='index'),
+    url(r'^add/', login_required(CuisineAddView.as_view()), name='add'),
+    url(r'^edit/(?P<pk>\d+)/', login_required(CuisineDetailView.as_view()), name='edit'),
 ]

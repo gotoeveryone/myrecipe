@@ -1,14 +1,12 @@
 """ Models """
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
-models.QuerySet
-
 class BaseModel(models.Model):
     """ 基底モデル """
 
-    id = models.AutoField(primary_key=True)
     created = models.DateTimeField()
     modified = models.DateTimeField()
     created_by = models.CharField(max_length=10)
@@ -20,16 +18,49 @@ class BaseModel(models.Model):
 
         if self.id is None:
             self.created = timezone.now()
-#            self.created_by = 
+#            self.created_by =
 
         self.modified = timezone.now()
-#        self.modified_by = 
+#        self.modified_by =
 
         # 親の処理を呼び出し
         super().save(force_insert, force_update, using, update_fields)
 
     class Meta:
         abstract = True
+
+class MyUser(AbstractBaseUser):
+    """
+    API認証を行うためのユーザモデル
+    """
+    USERNAME_FIELD = 'user_name'
+    EMAIL_FIELD = 'mail_address'
+    REQUIRED_FIELDS = ['user_id', 'user_name', 'mail_address', 'role']
+
+    user_id = models.CharField(max_length=16)
+    user_name = models.CharField(max_length=32)
+    sex = models.CharField(max_length=2)
+    email_address = models.CharField(max_length=50)
+    role = models.CharField(max_length=3)
+    token = models.CharField(max_length=50)
+
+    def __init__(self, token, user_info, *args, **kwargs):
+        super(MyUser, self).__init__(*args, **kwargs)
+        self.id = user_info.get('id')
+        self.user_id = user_info.get('userId')
+        self.user_name = user_info.get('userName')
+        self.sex = user_info.get('sex')
+        self.email_address = user_info.get('mailAddress')
+        self.sub_mail_address = user_info.get('subMailAddress')
+        self.role = user_info.get('role')
+        self.is_active = user_info.get('active')
+        self.token = token
+
+    def save(self, *args, **kwargs):
+        pass
+
+    # class Meta:
+    #     pk = 'access_token'
 
 class Cuisine(BaseModel):
     """ メニュー """
@@ -49,7 +80,7 @@ class Cuisine(BaseModel):
 class Instruction(BaseModel):
     """ 調理手順 """
     sort_order = models.IntegerField('並び順',\
-        validators=[MinValueValidator(1), MaxValueValidator(3)])
+        validators=[MinValueValidator(1), MaxValueValidator(999)])
     description = models.CharField('手順', max_length=255)
     cuisine = models.ForeignKey(Cuisine, related_name='instructions')
 

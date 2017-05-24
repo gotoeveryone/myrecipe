@@ -65,7 +65,19 @@ class CuisineListView(generic.ListView):
             'classifications': self.classifications,
         })
 
-class CuisineDetailView(generic.edit.UpdateView):
+class CuisineAddView(generic.CreateView):
+    """ レシピ登録ビュー """
+    model = Cuisine
+    template_name = 'cuisine/edit.dhtml'
+    success_url = 'cuisine/edit.dhtml'
+    fields = ['name', 'classification', 'ingestion_kcal', 'create_number_of_times']
+
+    def __init__(self):
+        self.title = 'レシピ詳細'
+        self.classifications = ['主菜', '副菜', '主食', 'デザート', 'その他']
+        self.foodstuff_classifications = ['野菜', '肉', '調味料']
+
+class CuisineDetailView(generic.detail.DetailView):
     """ レシピ詳細ビュー """
     model = Cuisine
     template_name = 'cuisine/edit.dhtml'
@@ -77,60 +89,6 @@ class CuisineDetailView(generic.edit.UpdateView):
         self.classifications = ['主菜', '副菜', '主食', 'デザート', 'その他']
         self.foodstuff_classifications = ['野菜', '肉', '調味料']
 
-    def post(self, request: HttpRequest, *args, **kwargs):
-
-        # 料理
-        cuisine = Cuisine.objects.get(pk=kwargs['pk'])
-        cuisine.name = request.POST.get('name')
-        cuisine.classification = request.POST.get('classification')
-        cuisine.ingestion_kcal = request.POST.get('ingestion_kcal')
-        cuisine.create_number_of_times = request.POST.get('create_number_of_times')
-        cuisine.save()
-
-        # 調理手順
-        instructions = Instruction.objects.filter(cuisine=cuisine).order_by('sort_order')
-        input_description = request.POST.getlist('instructions.description')
-        for idx, obj in enumerate(input_description):
-            print(idx, obj)
-            if len(instructions) < idx + 1:
-                item = Instruction()
-                item.cuisine = cuisine
-            else:
-                item = instructions[idx]
-
-            item.sort_order = idx + 1
-            item.description = obj
-            item.save()
-
-        # 食材・分量
-        quantities = Quantity.objects.filter(cuisine=cuisine)
-        input_detail = request.POST.getlist('quantities.detail')
-        input_foodstuff = request.POST.getlist('quantities.foodstuff.name')
-        print(input_foodstuff)
-        input_classification = request.POST.getlist('quantities.foodstuff.classification')
-        print(input_classification)
-        for idx, obj in enumerate(input_detail):
-            if len(quantities) < idx + 1:
-                item = Quantity()
-                item.cuisine = cuisine
-            else:
-                item = quantities[idx]
-
-            # 食材
-            foodstuff = Foodstuff.objects.get(name=input_foodstuff[idx])
-            if foodstuff is None:
-                foodstuff = Foodstuff()
-                foodstuff.name = input_foodstuff[idx]
-
-            foodstuff.classification = input_classification[idx]
-            foodstuff.save()
-
-            item.foodstuff = foodstuff
-            item.detail = obj
-            item.save()
-
-        return self.render_view(request)
-
     def get(self, request: HttpRequest, *args, **kwargs):
         return self.render_view(request, **kwargs)
 
@@ -138,7 +96,7 @@ class CuisineDetailView(generic.edit.UpdateView):
         """ 描画処理 """
         return render(request, self.template_name, {
             'title': self.title,
-            'id': kwargs['pk'],
+            'id': kwargs.get('pk', ''),
             'cuisine': self.get_object(),
             'classifications': self.classifications,
             'foodstuff_classifications': self.foodstuff_classifications,

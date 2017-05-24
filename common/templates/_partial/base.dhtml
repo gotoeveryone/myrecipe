@@ -10,14 +10,18 @@
 
 <body>
     <section class="container">
+        <!-- 見出し -->
         <header>
-            <!-- 見出し -->
+            <div class="system-name"></div>
             <div class="page-title">
                 <h1>レシピ管理 - {{title}}</h1>
             </div>
-            {% if username %}
-            <div class="other">{{username}}</div>
-            {% endif %}
+            <div class="other">
+                {% if request.session.user %}
+                <span>{{request.user}}</span>
+                <a href="{% url 'recipe:logout' %}">ログアウト</a>
+                {% endif %}
+            </div>
         </header>
         <main class="content fade">
             {% block content %}{% endblock %}

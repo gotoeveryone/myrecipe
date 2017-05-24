@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'rest_framework',
     'common',
     'cuisine',
@@ -51,10 +50,9 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'recipe.middlewares.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'recipe.urls'
@@ -94,6 +92,7 @@ DATABASES = {
 }
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# SESSION_ENGINE = 'recipe.sessions.MySessionStore'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -113,6 +112,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'recipe.backends.WebResourceBackend',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
@@ -183,3 +185,16 @@ LOGGING = {
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+LOGIN_URL = '/' + os.environ.get('RECIPE_PREFIX', default='')
+LOGIN_REDIRECT_URL = '/' + os.environ.get('RECIPE_PREFIX', default='') + 'menu'
+
+API_URL = 'http://localhost/web-api/v1/'
+
+if DEBUG:
+    MIDDLEWARE.append(
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+    INSTALLED_APPS.append(
+        'debug_toolbar',
+    )
