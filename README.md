@@ -1,6 +1,6 @@
-# レシピ管理システム
+# レシピ管理システム #
 
-[Django](https://github.com/django/django) 1.10 を利用したレシピ管理システムです。
+[Django](https://github.com/django/django) 1.x を利用したレシピ管理システムです。
 
 ## 前提
 以下がインストールされていること。
@@ -31,7 +31,7 @@ MySQLにて`recipe`スキーマを利用します。
 ユーザ・パスワードはアプリケーションが認識可能な環境変数に以下キーで設定してください。  
 ※Apache・FastCGIなどを利用する場合、そちらに設定すれば取得可能です。
 
-- RECIPE_DB_USER
-- RECIPE_DB_PASSWORD
+- DB_RECIPE_USER
+- DB_RECIPE_PASSWORD
 
-その他環境変数に必要なものがいくつかありますので、`settings.py`を確認してください。
+その他環境変数については、`settings.py`を確認のうえ、`.env`を配置して変数を設定してください。
