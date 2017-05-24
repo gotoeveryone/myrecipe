@@ -85,14 +85,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'recipe',
         'HOST': 'localhost',
-        'USER': os.environ['RECIPE_DB_USER'],
-        'PASSWORD': os.environ['RECIPE_DB_PASSWORD'],
+        'USER': os.environ['DB_RECIPE_USER'],
+        'PASSWORD': os.environ['DB_RECIPE_PASSWORD'],
         'PORT': 3306
     }
 }
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-# SESSION_ENGINE = 'recipe.sessions.MySessionStore'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

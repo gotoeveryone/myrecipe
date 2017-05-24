@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "django-install": "npm run django-install-prod -- django-debug-toolbar",
-    "django-install-prod": "pip install django djangorestframework",
+    "django-install-prod": "pip install django djangorestframework django-dotenv",
     "django-upgrade": "npm run django-upgrade-prod -- django-debug-toolbar",
     "django-upgrade-prod": "pip install --upgrade django djangorestframework",
     "sass": "node-sass ./resources/sass/app.scss -o ./public/css/ --output-style compressed",
