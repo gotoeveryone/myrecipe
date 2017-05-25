@@ -1,6 +1,6 @@
 """ API用シリアライザ """
-from rest_framework import serializers
-from common.models import Cuisine, Instruction, Quantity, Foodstuff
+from rest_framework import serializers, fields
+from recipe.core.models import Cuisine, Instruction, Quantity, Foodstuff
 
 class InstructionSerializer(serializers.ModelSerializer):
     """ 調理手順モデルのシリアライザ """
@@ -18,6 +18,20 @@ class FoodstuffSerializer(serializers.ModelSerializer):
 class QuantitySerializer(serializers.ModelSerializer):
     """ 分量モデルのシリアライザ """
     foodstuff = FoodstuffSerializer(read_only=True)
+
+    def validate_empty_values(self, data):
+        """
+        Validate empty values, and either:
+
+        * Raise `ValidationError`, indicating invalid data.
+        * Raise `SkipField`, indicating that the field should be ignored.
+        * Return (True, data), indicating an empty value that should be
+          returned without any further validation being applied.
+        * Return (False, data), indicating a non-empty value, that should
+          have validation applied as normal.
+        """
+        return super().validate_empty_values(data)
+
     class Meta:
         model = Quantity
         fields = ('id', 'cuisine_id', 'foodstuff', 'detail')

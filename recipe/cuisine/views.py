@@ -5,7 +5,7 @@ import logging
 from django.shortcuts import render
 from django.http import HttpRequest
 from django.views import generic
-from common.models import Cuisine, Instruction, Quantity, Foodstuff
+from recipe.core.models import Cuisine, Instruction, Quantity, Foodstuff
 from .forms import CuisineForm
 
 def cuisine_add(request: HttpRequest):

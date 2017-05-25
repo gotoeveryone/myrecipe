@@ -2,7 +2,7 @@
 import requests
 from django.conf import settings
 from django.http import HttpRequest
-from common import models
+from recipe.core.models import MyUser
 
 class WebResourceBackend(object):
     """
@@ -34,7 +34,7 @@ class WebResourceBackend(object):
         if user_response.status_code != 200:
             return None
 
-        user = models.MyUser(token, user_response.json())
+        user = MyUser(token, user_response.json())
         request.session['user'] = user
 
         return user
