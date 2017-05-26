@@ -5,10 +5,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "django-install": "npm run django-install-prod -- django-debug-toolbar",
-    "django-install-prod": "pip install django djangorestframework django-dotenv",
-    "django-upgrade": "npm run django-upgrade-prod -- django-debug-toolbar",
-    "django-upgrade-prod": "pip install --upgrade django djangorestframework django-dotenv",
     "sass": "node-sass ./resources/sass/app.scss -o ./public/css/ --output-style compressed",
     "sass-dev": "npm run sass -- -w",
     "sass-prod": "npm run sass -- -p",
@@ -25,18 +21,22 @@
   "author": "k2ss",
   "license": "MIT",
   "homepage": "https://bitbucket.org/k2ss/recipe#readme",
-  "dependencies": {},
-  "devDependencies": {
-    "cross-env": "^4.0.0",
-    "css-loader": "^0.28.1",
-    "eslint": "^3.19.0",
-    "node-sass": "^4.5.2",
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.3",
+    "node-sass": "^4.5.3",
     "npm-run-all": "^4.0.2",
-    "sass-lint": "^1.10.2",
-    "vue": "^2.3.2",
-    "vue-loader": "^12.0.3",
-    "vue-resource": "^1.3.1",
-    "vue-template-compiler": "^2.3.2",
-    "webpack": "^2.5.0"
+    "uglify-es": "^3.0.11",
+    "vue": "^2.3.3",
+    "vue-loader": "^12.1.1",
+    "vue-resource": "^1.3.3",
+    "vue-template-compiler": "^2.3.3",
+    "webpack": "^2.6.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "sass-lint": "^1.10.2"
   }
 }
