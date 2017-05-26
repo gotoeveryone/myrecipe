@@ -13,8 +13,18 @@ module.exports = {
         loaders: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
-            }
+                loader: 'vue-loader',
+                options: {
+                    loaders: {
+                        js: 'babel-loader'
+                    }
+                },
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
+            },
         ]
     },
     plugins: [
