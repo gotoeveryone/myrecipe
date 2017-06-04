@@ -7,10 +7,9 @@ class CuisineForm(forms.ModelForm):
     """ 料理フォーム """
     name = forms.CharField(required=False, max_length=255)
     classification = forms.ChoiceField(required=False,
-        choices=(('', ''), ('1', '主菜'), ('2', '主食'), ('3', '副菜'), ('4', 'デザート')))
+        choices=(('', ''), ('主菜', '主菜'), ('主食', '主食'), ('副菜', '副菜'), ('デザート', 'デザート')))
     ingestion_kcal = forms.CharField(required=False)
     create_number_of_times = forms.CharField(required=False)
-    instructions = forms.ModelMultipleChoiceField(queryset=Instruction.objects.all())
 
     class Meta:
         model = Cuisine

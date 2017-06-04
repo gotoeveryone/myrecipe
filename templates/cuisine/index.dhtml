@@ -22,25 +22,27 @@
 <div class="search-results">
     <ul class="table-header">
         <li class="table-row">
-            <span>メニュー</span>
-            <span>分類</span>
-            <span>Kcal</span>
-            <span>作成回数</span>
-            <span>詳細</span>
+            <span class="name">メニュー</span>
+            <span class="type">分類</span>
+            <span class="kcal">Kcal</span>
+            <span class="count">作成回数</span>
+            <span class="detail-link">詳細</span>
         </li>
     </ul>
+    {% if cuisines %}
     <ul class="table-body">
         {% for cuisine in cuisines %}
         <li class="table-row">
-            <span>{{ cuisine.name }}</span>
-            <span>{{ cuisine.classification }}</span>
-            <span>{{ cuisine.kcal }}Kcal</span>
-            <span>{{ cuisine.create_number_of_times }}回</span>
-            <span>
+            <span class="name">{{ cuisine.name }}</span>
+            <span class="type">{{ cuisine.classification }}</span>
+            <span class="kcal">{{ cuisine.kcal|default_if_none:'' }}Kcal</span>
+            <span class="count">{{ cuisine.create_number_of_times|default_if_none:'' }}回</span>
+            <span class="detail-link">
                 <a href="{% url 'recipe_cuisine:edit' pk=cuisine.id %}">詳細を見る</a>
             </span>
         </li>
         {% endfor %}
     </ul>
+    {% endif %}
 </div>
 {% endblock %}

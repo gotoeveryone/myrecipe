@@ -188,7 +188,7 @@ INTERNAL_IPS = [
 LOGIN_URL = '/' + os.environ.get('RECIPE_PREFIX', default='')
 LOGIN_REDIRECT_URL = '/' + os.environ.get('RECIPE_PREFIX', default='') + 'menu'
 
-API_URL = 'http://localhost/web-api/v1/'
+API_URL = '{}/web-api/v1/'.format(os.environ.get('WEB_API_DOMAIN', 'http://localhost/'))
 
 if DEBUG:
     MIDDLEWARE.append(

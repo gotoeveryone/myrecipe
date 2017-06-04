@@ -16,9 +16,6 @@ def cuisine_add(request: HttpRequest):
     """
     return render(request, 'cuisine/edit.dhtml', {
         'title': 'レシピ追加',
-        'cuisine': Cuisine(),
-        'classification': (('', ''), ('1', '主菜'), ('2', '主食'), ('3', '副菜'), ('4', 'デザート')),
-        'foodstuff_classification': (('', ''), ('1', '野菜'), ('2', '肉'), ('3', '調味料')),
     })
 
 class CuisineListView(generic.ListView):
@@ -45,7 +42,6 @@ class CuisineListView(generic.ListView):
         obj = Cuisine.objects
 
         if form.is_valid():
-
             # 値を取得
             name = form.cleaned_data['name']
             classification = form.cleaned_data['classification']
@@ -55,8 +51,6 @@ class CuisineListView(generic.ListView):
             obj = obj.filter(name__contains=name) if name else obj
             obj = obj.filter(classification__exact=classification) if classification else obj
             obj = obj.filter(ingestion_kcal__exact=ingestion_kcal) if ingestion_kcal else obj
-
-            print(obj.all().query)
 
         return render(request, self.template_name, {
             'title': self.title,
