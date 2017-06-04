@@ -2,6 +2,7 @@
 レシピ関係のアクションマッピング
 """
 import logging
+from django.conf import settings
 from django.contrib.auth import authenticate, login as logged, logout as logged_out
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
@@ -46,12 +47,11 @@ def logout(request: HttpRequest):
     @param request
     @return: django template
     """
-    api_url = 'https://' + request.get_host() + '/web-resource/'
-
     # トークンを保持していれば削除リクエストを投げる
     if request.session.get('access_token') is not None:
-        requests.post(api_url + 'users/logout',\
-            {'access_token': request.session['access_token']}, verify=False)
+        url = '{}auth/logout?access_token={}'.format(\
+            settings.API_URL, request.session['access_token'])
+        requests.delete(url)
 
     logged_out(request)
 

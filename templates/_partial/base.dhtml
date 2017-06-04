@@ -5,16 +5,17 @@
     <link rel="stylesheet" href="/css/common.css" />
     <link rel="stylesheet" href="{% static "css/app.css" %}"/>
     <title>レシピ管理 - {{title}}</title>
-    <!--<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}"/>-->
 </head>
 
 <body>
     <section class="container">
         <!-- 見出し -->
         <header>
-            <div class="system-name"></div>
+            <div class="system-name">
+                <span>レシピ管理システム</span>
+            </div>
             <div class="page-title">
-                <h1>レシピ管理 - {{title}}</h1>
+                <h1>{{title}}</h1>
             </div>
             <div class="other">
                 {% if request.session.user %}
@@ -25,6 +26,7 @@
         </header>
         <main class="content fade">
             {% block content %}{% endblock %}
+            <notice :title="title" :message="message"></notice>
         </main>
         <footer>
             <div>&copy; 2017 - レシピ管理</div>
@@ -32,7 +34,6 @@
     </section>
     <div class="block-ui"></div>
     <script src="{% static "js/app.js" %}"></script>
-    {% comment %}<script src="{% static "js/bootstrap.min.js" %}"></script>{% endcomment %}
     {% block script %}{% endblock %}
 </body>
 

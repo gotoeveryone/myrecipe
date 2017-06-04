@@ -22,6 +22,7 @@
         props: ['instructions'],
         methods: {
             addRow() {
+                console.log(this.instructions);
                 this.instructions.push({});
             },
             deleteRow() {

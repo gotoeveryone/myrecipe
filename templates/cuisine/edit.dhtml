@@ -1,37 +1,15 @@
 {% extends '_partial/base.dhtml' %}
 {% block content %}
-{% if cuisine.id %}
+{% if cuisine is not None %}
 <form method="post" cuisine action="{% url 'recipe_cuisine:edit' pk=cuisine.id %}">
 {% else %}
 <form method="post" cuisine action="{% url 'recipe_cuisine:add' %}">
 {% endif %}
     {% csrf_token %}
-    <div class="menu-detail">
-        <label>名前：</label>
-        <input type="text" name="name" v-model="cuisine.name">
-        <label>種類：</label>
-        <select name="classification" v-model="cuisine.classification">
-            {% for v in classifications %}
-            <option value="{{v}}"{% if v == cuisine.classification %} selected{% endif %}>{{v}}</option>
-            {% endfor %}
-        </select>
-        <label>Kcal：</label>
-        <input type="text" v-model="cuisine.ingestion_kcal">
-        <label>種類：</label>
-        <input type="text" v-model="cuisine.create_number_of_times">
-        <div class="button-wrap">
-            <button type="button" @click="save()" class="btn btn-default">{% if cuisine.id %}更新{% else %}登録{% endif%}</button>
-            <button type="button" class="btn btn-default">メール送信</button>
-        </div>
-    </div>
-    <div class="menu-detail-other">
-        <instructions :instructions="cuisine.instructions"></instructions>
-        <quantities :quantities="cuisine.quantities"></quantities>
-    </div>
-    <div class="footer-button">
-        <button type="button" @click="toSearch('cuisine')">検索画面へ</a>
-        <button type="button" @click="toMenu()">メニューへ</a>
-    </div>
-    <notice :title="title" :message="message"></notice>
+    {% if cuisine is not None %}
+        <detail :cuisine-id="{{ cuisine.id }}" @menu="toMenu()" />
+    {% else %}
+        <detail @menu="toMenu()" />
+    {% endif %}
 </form>
 {% endblock %}
