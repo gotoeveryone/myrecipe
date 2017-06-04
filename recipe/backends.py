@@ -16,7 +16,7 @@ class WebResourceBackend(object):
         @param password
         """
         # 認証リクエスト
-        auth_response = requests.post(settings.API_URL + 'auth/login',\
+        auth_response = requests.post('{}auth/login'.format(settings.API_URL),\
             {'account': account, 'password': password})
 
         # 認証エラーの場合
@@ -27,7 +27,7 @@ class WebResourceBackend(object):
         json = auth_response.json()
         token = json['access_token']
 
-        user_response = requests.get(settings.API_URL + 'users',\
+        user_response = requests.get('{}users'.format(settings.API_URL),\
             params={'access_token': token})
 
         # 取得エラーの場合
