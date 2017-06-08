@@ -1,0 +1,14 @@
+recipe:
+  build: ./python
+  env_file: ../.env
+  volumes:
+    - ../:/app
+  expose:
+    - 8000
+
+nginx-recipe:
+  build: ./nginx
+  ports:
+    - 80:80
+  links:
+    - recipe

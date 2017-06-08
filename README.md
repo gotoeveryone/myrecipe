@@ -11,9 +11,36 @@
 
 ## セットアップ
 
-1. ルートディレクトリで`npm install`を実行します。
-2. `npm run django-install`でローカルに`django`をインストールします。
-3. 同じくルートディレクトリで`./manage.py runserver`を実行することで、開発サーバを立ち上げられます。
+1. `.env.example`をもとに、`.env`ファイルを生成します。
+2. ルートディレクトリで`npm install`を実行します。
+3. 以下コマンドを実行して、必要なライブラリを取得します。
+
+```
+$ pip install \
+$     mysqlclient \
+$     requests \
+$     django \
+$     djangorestframework \
+$     django-dotenv \
+$     django-debug-toolbar
+```
+
+## 実行
+
+1. 以下コマンドを実行してください。
+
+```
+$ # フロントコード
+$ npm run dev
+$ # サーバ側
+$ ./manage.py runserver
+```
+
+### サーバ側でDockerを利用する場合
+
+```
+$ cd docker && docker-compose build && docker-compose up
+```
 
 ## 注意事項
 
@@ -27,11 +54,6 @@
 
 ### DB接続
 
-MySQLにて`recipe`スキーマを利用します。  
-ユーザ・パスワードはアプリケーションが認識可能な環境変数に以下キーで設定してください。  
-※Apache・FastCGIなどを利用する場合、そちらに設定すれば取得可能です。
+初期では`MySQL`を利用しますが、必要に応じて変更してください。
 
-- DB_RECIPE_USER
-- DB_RECIPE_PASSWORD
-
-その他環境変数については、`settings.py`を確認のうえ、`.env`を配置して変数を設定してください。
+その他環境変数については、`settings.py`を確認のうえ、必要に応じて`.env`に環境変数を定義してください。
