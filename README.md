@@ -27,18 +27,16 @@ $     django-debug-toolbar
 
 ## 実行
 
-以下コマンドを実行します。
+1. 以下コマンドを実行してください。
 
 ```
 $ # フロントコード
 $ npm run dev
-$ # django
+$ # サーバ側
 $ ./manage.py runserver
 ```
 
-### Dockerを利用する場合
-
-1. 以下コマンドを実行してください。
+### サーバ側でDockerを利用する場合
 
 ```
 $ cd docker && docker-compose build && docker-compose up
