@@ -25,9 +25,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = True if os.environ.get('ENVIRONMENT') != 'production' else False
 
 ALLOWED_HOSTS = [
-    'localhost',
-    'local.kazukisv.com',
-    'www.kazukisv.com',
+    '*',
 ]
 
 # Application definition
@@ -84,10 +82,10 @@ WSGI_APPLICATION = 'recipe.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'recipe',
-        'HOST': 'localhost',
-        'USER': os.environ['DB_RECIPE_USER'],
-        'PASSWORD': os.environ['DB_RECIPE_PASSWORD'],
+        'NAME': os.environ.get('DB_RECIPE_NAME', 'recipe'),
+        'HOST': os.environ.get('DB_RECIPE_HOST', 'localhost'),
+        'USER': os.environ.get('DB_RECIPE_USER', 'forge'),
+        'PASSWORD': os.environ.get('DB_RECIPE_PASSWORD', 'forge'),
         'PORT': 3306
     }
 }
@@ -159,7 +157,7 @@ LOGGING = {
         'file': {
             'level': ('DEBUG' if DEBUG else 'INFO'),
             'class': 'logging.FileHandler',
-            'filename': os.environ.get('LOG_DIR', '') + 'recipe.log',
+            'filename': os.path.join(os.environ.get('LOG_DIR', BASE_DIR + '/logs'), 'recipe.log'),
             'formatter': 'verbose'
         },
         'console': {
