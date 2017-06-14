@@ -5,6 +5,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "docker": "cd ./docker && docker-compose build && docker-compose up",
     "webpack": "webpack --colors --config=./webpack.config.js",
     "dev": "npm run webpack -- -w --progress",
     "prod": "npm run webpack -- -p"

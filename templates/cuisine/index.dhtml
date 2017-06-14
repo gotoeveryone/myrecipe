@@ -1,48 +1,4 @@
 {% extends '_partial/base.dhtml' %}
 {% block content %}
-<form method="post" action="{% url 'recipe_cuisine:index' %}">
-    {% csrf_token %}
-    <ul class="search-header">
-        <li class="search-row">
-            <label>名前：</label>
-            {{ form.name }}
-            {{ form.name.errors }}
-            <label>分類：</label>
-            {{ form.classification }}
-            {{ form.classification.errors }}
-            <label>カロリー：</label>
-            {{ form.ingestion_kcal }}
-            {{ form.ingestion_kcal.errors }}
-            <div class="button-wrap">
-                <button type="submit" class="btn btn-deault">検索</button>
-            </div>
-        </li>
-    </ul>
-</form>
-<div class="search-results">
-    <ul class="table-header">
-        <li class="table-row">
-            <span class="name">メニュー</span>
-            <span class="type">分類</span>
-            <span class="kcal">Kcal</span>
-            <span class="count">作成回数</span>
-            <span class="detail-link">詳細</span>
-        </li>
-    </ul>
-    {% if cuisines %}
-    <ul class="table-body">
-        {% for cuisine in cuisines %}
-        <li class="table-row">
-            <span class="name">{{ cuisine.name }}</span>
-            <span class="type">{{ cuisine.classification }}</span>
-            <span class="kcal">{{ cuisine.kcal|default_if_none:'' }}Kcal</span>
-            <span class="count">{{ cuisine.create_number_of_times|default_if_none:'' }}回</span>
-            <span class="detail-link">
-                <a href="{% url 'recipe_cuisine:edit' pk=cuisine.id %}">詳細を見る</a>
-            </span>
-        </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
+<search-cuisine :token="'{{ csrf_token }}'"></search-cuisine>
 {% endblock %}

@@ -1,15 +1,4 @@
 {% extends '_partial/base.dhtml' %}
 {% block content %}
-{% if cuisine is not None %}
-<form method="post" cuisine action="{% url 'recipe_cuisine:edit' pk=cuisine.id %}">
-{% else %}
-<form method="post" cuisine action="{% url 'recipe_cuisine:add' %}">
-{% endif %}
-    {% csrf_token %}
-    {% if cuisine is not None %}
-        <detail :cuisine-id="{{ cuisine.id }}" @menu="toMenu()" />
-    {% else %}
-        <detail @menu="toMenu()" />
-    {% endif %}
-</form>
+<detail-cuisine :cuisine-id="{{ cuisine.id|default:0 }}" @menu="toMenu()" />
 {% endblock %}

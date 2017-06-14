@@ -32,7 +32,9 @@
     import Quantity from './Quantity.vue';
 
     export default {
-        props: ['cuisineId'],
+        props: {
+            cuisineId: Number,
+        },
         data: () => {
             return {
                 cuisine: {
@@ -49,6 +51,9 @@
             quantities: Quantity,
         },
         methods: {
+            toSearch() {
+                history.back();
+            },
             getUrl(_type) {
                 _type = _type.toUpperCase();
                 switch (_type) {
