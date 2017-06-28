@@ -5,10 +5,10 @@
             <input type="text" name="name" @change="changeValue($event)">
             <label>分類：</label>
             <select name="classification" @change="changeValue($event)" v-model="classification">
-                <option v-for="list in types" :value="list" v-text="list"></option>
+                <option v-for="(list, idx) in types" :key="idx" :value="list" v-text="list"></option>
             </select>
             <label>カロリー：</label>
-            <input type="text" name="kcal" @change="changeValue($event)">
+            <input type="text" name="kcal" @change="changeValue($event)">以下
         </li>
     </ul>
 </template>
