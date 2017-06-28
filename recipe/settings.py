@@ -68,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'recipe.context_processors.site_common',
             ],
         },
     },
@@ -135,6 +136,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'public/')
 ]
+
+ASSETS_URL = os.environ.get('ASSETS_URL', '')
 
 # ロガーの設定
 LOGGING = {
