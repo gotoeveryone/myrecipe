@@ -18,15 +18,15 @@ class CuisineViewSet(viewsets.ModelViewSet):
 
         name = self.request.query_params.get('name')
         if name:
-            queryset = self.queryset.filter(name=name)
+            queryset = queryset.filter(name__contains=name)
 
         classification = self.request.query_params.get('classification')
         if classification:
-            queryset = self.queryset.filter(classification=classification)
+            queryset = queryset.filter(classification=classification)
 
         kcal = self.request.query_params.get('kcal')
         if kcal:
-            queryset = self.queryset.filter(ingestion_kcal=kcal)
+            queryset = queryset.filter(ingestion_kcal__lte=kcal)
 
         return queryset
 
