@@ -4,20 +4,24 @@
 import logging
 from django.conf import settings
 from django.contrib.auth import authenticate, login as logged, logout as logged_out
+from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 import requests
 from recipe.core.forms import LoginForm
 
-def index(request: HttpRequest):
+def index(request: HttpRequest, form=None):
     """
     初期表示
     @param request
+    @param form
     @return: django template
     """
     return render(request, 'index.dhtml', {
         'title': 'ログイン',
-        'form': LoginForm(),
+        'form': LoginForm() if form is None else form,
+        'messages': get_messages(request),
     })
 
 def login(request: HttpRequest):
@@ -28,20 +32,16 @@ def login(request: HttpRequest):
     """
     form = LoginForm(request.POST)
     if not form.is_valid():
-        return render(request, 'index.dhtml', {
-            'form': form,
-            'message': 'ログインに失敗しました。',
-        })
+        messages.add_message(request, messages.ERROR, 'ログインに失敗しました。')
+        return index(request, form)
 
     user = authenticate(request,\
         account=form.cleaned_data['account'],\
         password=form.cleaned_data['password'])
 
     if user is None:
-        return render(request, 'index.dhtml', {
-            'form': form,
-            'message': 'ログインに失敗しました。',
-        })
+        messages.add_message(request, messages.ERROR, 'ログインに失敗しました。')
+        return index(request, form)
 
     logged(request, user, backend=user.backend)
 
@@ -70,7 +70,7 @@ def logout(request: HttpRequest):
 
     logged_out(request)
 
-    return render(request, 'index.dhtml', {'title': 'ログイン'})
+    return redirect('recipe:index')
 
 def menu(request: HttpRequest):
     """
