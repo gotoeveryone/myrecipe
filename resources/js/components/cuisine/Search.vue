@@ -1,6 +1,6 @@
 <template>
     <div class="search-cuisine">
-        <search-header @search="search()"></search-header>
+        <search-header @search="search"></search-header>
         <search-data :items="items"></search-data>
     </div>
 </template>
@@ -13,6 +13,7 @@
         data() {
             return {
                 items: [],
+                params: {},
             }
         },
         components: {
@@ -20,14 +21,19 @@
             searchData: SearchData,
         },
         methods: {
-            search(_obj) {
-                this.$http.get('/recipe/api/cuisine').then(res => {
+            search(_data) {
+                Object.keys(_data).forEach(key => {
+                    this.params[key] = _data[key];
+                });
+                this.$http.get('/recipe/api/cuisine/', {
+                    params: this.params,
+                }).then(res => {
                     this.items = res.body;
                 });
             }
         },
         mounted() {
-            this.search();
+            this.search({});
         },
     };
 </script>

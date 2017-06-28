@@ -2,13 +2,13 @@
     <ul class="search-header">
         <li class="search-row">
             <label>名前：</label>
-            <input type="text" name="name" @change="changeValue()">
+            <input type="text" name="name" @change="changeValue($event)">
             <label>分類：</label>
-            <select name="classification" @change="changeValue()" v-model="classification">
+            <select name="classification" @change="changeValue($event)" v-model="classification">
                 <option v-for="list in types" :value="list" v-text="list"></option>
             </select>
             <label>カロリー：</label>
-            <input type="text" name="kcal" @change="changeValue()">
+            <input type="text" name="kcal" @change="changeValue($event)">
         </li>
     </ul>
 </template>
@@ -18,7 +18,7 @@
         data() {
             return {
                 types: [
-                    '主菜', '副菜', '主食', 'デザート', 'その他',
+                    '', '主菜', '副菜', '主食', 'デザート', 'その他',
                 ],
                 name: '',
                 classification: '',
@@ -26,13 +26,10 @@
             }
         },
         methods: {
-            changeValue() {
-                const params = {
-                    name: this.name,
-                    classification: this.classification,
-                    kcal: this.kcal,
-                };
-                this.$emit('search', params);
+            changeValue($event) {
+                this.$emit('search', {
+                    [$event.target.name]: $event.target.value,
+                });
             },
         },
     };

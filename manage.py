@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 import os
+from os.path import join, dirname
 import sys
+from dotenv import load_dotenv
 
-import dotenv
+# .envから環境変数を取得
+DOTENV_PATH = join(dirname(__file__), '.env')
+load_dotenv(DOTENV_PATH)
 
 if __name__ == "__main__":
-    dotenv.read_dotenv()
-
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "recipe.settings")
     try:
         from django.core.management import execute_from_command_line

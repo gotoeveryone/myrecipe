@@ -6,36 +6,28 @@ class InstructionSerializer(serializers.ModelSerializer):
     """ 調理手順モデルのシリアライザ """
     class Meta:
         model = Instruction
-        fields = ('id', 'sort_order', 'description')
+        fields = ('sort_order', 'description')
         extra_kwargs = {'id': {'read_only': False}}
 
 class FoodstuffSerializer(serializers.ModelSerializer):
     """ 食材モデルのシリアライザ """
     class Meta:
         model = Foodstuff
-        fields = ('id', 'name', 'classification')
+        fields = ('name', 'classification')
 
 class QuantitySerializer(serializers.ModelSerializer):
     """ 分量モデルのシリアライザ """
     foodstuff = FoodstuffSerializer(read_only=True)
 
-    def validate_empty_values(self, data):
-        """
-        Validate empty values, and either:
-
-        * Raise `ValidationError`, indicating invalid data.
-        * Raise `SkipField`, indicating that the field should be ignored.
-        * Return (True, data), indicating an empty value that should be
-          returned without any further validation being applied.
-        * Return (False, data), indicating a non-empty value, that should
-          have validation applied as normal.
-        """
-        return super().validate_empty_values(data)
-
     class Meta:
         model = Quantity
-        fields = ('id', 'cuisine_id', 'foodstuff', 'detail')
+        fields = ('detail', 'foodstuff')
         extra_kwargs = {'id': {'read_only': False}}
+
+class CuisineListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cuisine
+        fields = ('id', 'name', 'classification', 'ingestion_kcal', 'create_number_of_times')
 
 class CuisineSerializer(serializers.ModelSerializer):
     """ メニューモデルのシリアライザ """
@@ -64,3 +56,4 @@ class CuisineSerializer(serializers.ModelSerializer):
         model = Cuisine
         fields = ('id', 'name', 'classification', 'ingestion_kcal',\
             'create_number_of_times', 'instructions', 'quantities')
+        extra_kwargs = {'id': {'read_only': False, 'required': True}}

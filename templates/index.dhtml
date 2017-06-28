@@ -2,15 +2,18 @@
 {% block content %}
 <section class="login">
     <form method="post" action="{% url 'recipe:login' %}">
+        {% if message %}
+        <div class="field-validation-error">{{ message }}</div>
+        {% endif %}
         {% csrf_token %}
         <input type="hidden" name="next" value="{{request.GET.next}}" />
         <div class="row">
-            <label>ID：</label>
-            <input type="text" name="loginid">
+            <label>{{ form.account.label }}</label>
+            {{ form.account }}
         </div>
         <div class="row">
-            <label>パスワード：</label>
-            <input type="password" name="password">
+            <label>{{ form.password.label }}</label>
+            {{ form.password }}
         </div>
         <div class="row">
             <button type="submit">ログイン</button>

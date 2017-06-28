@@ -1,21 +1,34 @@
 """ APIのビューセット """
 from rest_framework import viewsets
 from recipe.core.models import Cuisine, Instruction, Quantity, Foodstuff
-from .serializer import CuisineSerializer, InstructionSerializer,\
-    QuantitySerializer, FoodstuffSerializer
+from .serializer import CuisineSerializer, CuisineListSerializer,\
+    InstructionSerializer, QuantitySerializer, FoodstuffSerializer
 
 class CuisineViewSet(viewsets.ModelViewSet):
     """ メニュー REST API """
     queryset = Cuisine.objects.all()
     serializer_class = CuisineSerializer
-    filter_fields = ('cuisine_id')
 
-    def get_serializer_context(self):
-        print(self.request.user)
-        return super(CuisineViewSet, self).get_serializer_context()
+    def list(self, request, *args, **kwargs):
+        self.serializer_class = CuisineListSerializer
+        return viewsets.ModelViewSet.list(self, request, *args, **kwargs)
 
-    def dispatch(self, *args, **kwargs):
-        return super(CuisineViewSet, self).dispatch(*args, **kwargs)
+    def get_queryset(self):
+        queryset = self.queryset
+
+        name = self.request.query_params.get('name')
+        if name:
+            queryset = self.queryset.filter(name=name)
+
+        classification = self.request.query_params.get('classification')
+        if classification:
+            queryset = self.queryset.filter(classification=classification)
+
+        kcal = self.request.query_params.get('kcal')
+        if kcal:
+            queryset = self.queryset.filter(ingestion_kcal=kcal)
+
+        return queryset
 
 class InstructionViewSet(viewsets.ModelViewSet):
     """ 調理手順 REST API """

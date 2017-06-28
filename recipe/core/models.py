@@ -105,7 +105,7 @@ class Quantity(BaseModel):
     """ 数量 """
     detail = models.CharField(max_length=100)
     cuisine = models.ForeignKey(Cuisine, related_name='quantities')
-    foodstuff = models.OneToOneField(Foodstuff, related_name='foodstuff')
+    foodstuff = models.OneToOneField(Foodstuff)
 
     def __str__(self):
         return self.detail

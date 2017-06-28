@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login as logged, logout as logged_
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 import requests
+from recipe.core.forms import LoginForm
 
 def index(request: HttpRequest):
     """
@@ -14,7 +15,10 @@ def index(request: HttpRequest):
     @param request
     @return: django template
     """
-    return render(request, 'index.dhtml', {'title': 'ログイン'})
+    return render(request, 'index.dhtml', {
+        'title': 'ログイン',
+        'form': LoginForm(),
+    })
 
 def login(request: HttpRequest):
     """
@@ -22,11 +26,22 @@ def login(request: HttpRequest):
     @param request
     @return: django template
     """
+    form = LoginForm(request.POST)
+    if not form.is_valid():
+        return render(request, 'index.dhtml', {
+            'form': form,
+            'message': 'ログインに失敗しました。',
+        })
+
     user = authenticate(request,\
-        account=request.POST['loginid'], password=request.POST['password'])
+        account=form.cleaned_data['account'],\
+        password=form.cleaned_data['password'])
 
     if user is None:
-        return render(request, 'error.dhtml')
+        return render(request, 'index.dhtml', {
+            'form': form,
+            'message': 'ログインに失敗しました。',
+        })
 
     logged(request, user, backend=user.backend)
 
