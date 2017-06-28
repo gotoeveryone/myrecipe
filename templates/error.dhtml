@@ -1,0 +1,6 @@
+{% extends '_partial/base.dhtml' %}
+{% block content %}
+<section>
+    エラーが発生しました。
+</section>
+{% endblock %}

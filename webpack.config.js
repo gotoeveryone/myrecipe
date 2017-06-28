@@ -3,10 +3,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = [
     {
-        entry: './resources/js/app.js',
+        entry: {
+            app: './resources/js/app.js',
+        },
         output: {
             path: path.join(__dirname, 'public/js'),
-            filename: 'app.js'
+            filename: '[name].js'
         },
         resolve: {
             extensions:['.vue', '.js']

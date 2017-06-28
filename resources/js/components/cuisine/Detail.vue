@@ -5,14 +5,14 @@
             <input type="text" name="name" v-model="cuisine.name">
             <label>種類：</label>
             <select name="classification" v-model="cuisine.classification">
-                <option v-for="list in types" :value="list" v-text="list"></option>
+                <option v-for="(list, idx) in types" :key="idx" :value="list" v-text="list"></option>
             </select>
             <label>Kcal：</label>
             <input type="text" v-model="cuisine.ingestion_kcal">
             <label>種類：</label>
             <input type="text" v-model="cuisine.create_number_of_times">
             <div class="button-wrap">
-                <button type="button" @click="save()" class="btn btn-default">更新</button>
+                <button type="button" @click="save()" class="btn btn-default" v-text="getLabel()"></button>
                 <button type="button" class="btn btn-default">メール送信</button>
             </div>
         </div>
@@ -32,7 +32,9 @@
     import Quantity from './Quantity.vue';
 
     export default {
-        props: ['cuisineId'],
+        props: {
+            cuisineId: Number,
+        },
         data: () => {
             return {
                 cuisine: {
@@ -49,6 +51,12 @@
             quantities: Quantity,
         },
         methods: {
+            toSearch() {
+                location.href = '/recipe/cuisine';
+            },
+            getLabel() {
+                return (this.cuisineId ? '更新' : '登録');
+            },
             getUrl(_type) {
                 _type = _type.toUpperCase();
                 switch (_type) {
@@ -62,13 +70,23 @@
                 return '';
             },
             save() {
-                this.$http.put(this.getUrl('put'), JSON.stringify(this.cuisine)).then((data) => {
-                    this.title = 'メッセージ';
-                    this.message = 'レシピを更新しました。';
-                    this.cuisine = data.body;
-                }).catch((s, a, v) => {
-                    console.log(s, a, v);
-                });
+                if (this.cuisineId) {
+                    this.$http.put(this.getUrl('put'), JSON.stringify(this.cuisine)).then((data) => {
+                        this.title = 'メッセージ';
+                        this.message = 'レシピを更新しました。';
+                        this.cuisine = data.body;
+                    }).catch((s, a, v) => {
+                        console.log(s, a, v);
+                    });
+                } else {
+                    this.$http.post(this.getUrl('post'), JSON.stringify(this.cuisine)).then((data) => {
+                        this.title = 'メッセージ';
+                        this.message = 'レシピを登録しました。';
+                        this.cuisine = data.body;
+                    }).catch((s, a, v) => {
+                        console.log(s, a, v);
+                    });
+                }
             }
         },
         created() {

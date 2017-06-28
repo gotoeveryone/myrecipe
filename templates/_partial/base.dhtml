@@ -14,9 +14,7 @@
             <div class="system-name">
                 <span>レシピ管理システム</span>
             </div>
-            <div class="page-title">
-                <h1>{{title}}</h1>
-            </div>
+            <h1 class="page-title">{{title}}</h1>
             <div class="other">
                 {% if request.session.user %}
                 <span>{{request.user}}</span>

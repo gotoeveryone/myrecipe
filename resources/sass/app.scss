@@ -1,5 +1,19 @@
 @charset "UTF-8";
 
+$smartStyle: 760px;
+
+@mixin sp() {
+    @media screen and (max-width: ($smartStyle)) {
+        @content;
+    }
+}
+
+@mixin pc() {
+    @media screen and (min-width: $smartStyle) {
+        @content;
+    }
+}
+
 /* -------------------------------------------
    共通レイアウト
  ------------------------------------------- */
@@ -13,10 +27,6 @@
     transition-duration: .5s;
     transition-property: opacity, visibility;
     transition-timing-function: ease-in;
-    // &.fade {
-    //     opacity: 0;
-    //     visibility: hidden;
-    // }
 }
 
 .field-validation-error {
@@ -34,7 +44,6 @@
 
 .login {
     max-width: 300px;
-    width: 20%;
     margin: 0.5rem auto;
     label {
         width: 30%;
@@ -102,10 +111,18 @@ button.btn-delete {
 }
 
 .menu-detail-other {
+    @include sp() {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
     display: flex;
     width: 100%;
     .menu-cooking, .menu-quantity {
+        @include sp() {
+            width: 100%;
+        }
         width: 50%;
+        margin: 5px 3px;
         ul {
             list-style: none;
             margin: .5em;
@@ -142,10 +159,6 @@ button.btn-delete {
 }
 
 .search-results {
-    .table-body {
-        display: flex;
-        overflow-y: auto;
-    }
     .name {
         width: 40%;
     }
@@ -161,4 +174,8 @@ button.btn-delete {
     .detail-link {
         width: 20%;
     }
+}
+
+.search-cuisine {
+    height: 100%;
 }

@@ -1,5 +1,7 @@
 import './bootstrap';
+
 import Dialog from './components/Dialog.vue';
+import Search from './components/cuisine/Search.vue';
 import Detail from './components/cuisine/Detail.vue';
 
 new Vue({
@@ -11,7 +13,8 @@ new Vue({
     },
     components: {
         notice: Dialog,
-        detail: Detail,
+        searchCuisine: Search,
+        detailCuisine: Detail,
     },
     methods: {
         toTop() {
