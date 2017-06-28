@@ -2,9 +2,9 @@
 {% block content %}
 <section class="login">
     <form method="post" action="{% url 'recipe:login' %}">
-        {% if message %}
+        {% for message in messages %}
         <div class="field-validation-error">{{ message }}</div>
-        {% endif %}
+        {% endfor %}
         {% csrf_token %}
         <input type="hidden" name="next" value="{{request.GET.next}}" />
         <div class="row">
