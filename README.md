@@ -19,9 +19,9 @@
 $ pip install \
 $     mysqlclient \
 $     requests \
+$     python-dotenv \
 $     django \
 $     djangorestframework \
-$     django-dotenv \
 $     django-debug-toolbar
 ```
 
