@@ -63,10 +63,10 @@ def logout(request: HttpRequest):
     @return: django template
     """
     # トークンを保持していれば削除リクエストを投げる
-    if request.session.get('access_token') is not None:
-        url = '{}auth/logout?access_token={}'.format(\
-            settings.API_URL, request.session['access_token'])
-        requests.delete(url)
+    user = request.session.get('user')
+    if user is not None:
+        url = '%sauth/logout' % settings.API_URL
+        requests.delete(url, headers={'Authorization': 'Bearer %s' % user.token})
 
     logged_out(request)
 
