@@ -16,8 +16,8 @@ class WebResourceBackend(object):
         @param password
         """
         # 認証リクエスト
-        auth_response = requests.post('{}auth/login'.format(settings.API_URL),\
-            {'account': account, 'password': password})
+        url = '%sauth/login' % settings.API_URL
+        auth_response = requests.post(url, {'account': account, 'password': password})
 
         # 認証エラーの場合
         if auth_response.status_code != 200:
@@ -27,8 +27,8 @@ class WebResourceBackend(object):
         json = auth_response.json()
         token = json['access_token']
 
-        user_response = requests.get('{}users'.format(settings.API_URL),\
-            params={'access_token': token})
+        user_url = '%susers' % settings.API_URL
+        user_response = requests.get(user_url, headers={'Authorization': 'Bearer %s' % token})
 
         # 取得エラーの場合
         if user_response.status_code != 200:
