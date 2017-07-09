@@ -4,10 +4,10 @@
             <button type="button" class="btn-add" @click="addRow()">追加</button>
             <button type="button" class="btn-delete" @click="deleteRow()">削除</button>
         </div>
-        <ul class="instructions">
+        <ul class="foodstuffs">
             <li v-for="(item, idx) in items" :key="idx">
-                <span class="cooking-order" v-text="getOrder(item)"></span>：
-                <input type="text" name="item.description" v-model="item.description" class="cooking-description">
+                <input type="text" v-model="item.name" list="foodstuffs">
+                <input type="text" v-model="item.quantity">
             </li>
         </ul>
     </div>
@@ -26,12 +26,6 @@
             },
             deleteRow() {
                 this.items.pop();
-            },
-            getOrder(_item) {
-                if (!_item.sort_order) {
-                    _item.sort_order = this.items.length;
-                }
-                return _item.sort_order;
             },
         },
     };

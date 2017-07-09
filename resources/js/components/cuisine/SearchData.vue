@@ -10,7 +10,7 @@
             </li>
         </ul>
         <ul class="table-body" v-if="items">
-            <li class="table-row" v-for="item in items">
+            <li class="table-row" v-for="(item, idx) in items" :key="idx">
                 <span class="name" v-text="item.name"></span>
                 <span class="type" v-text="item.classification"></span>
                 <span class="kcal" v-text="item.ingestion_kcal"></span>

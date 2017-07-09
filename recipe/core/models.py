@@ -93,22 +93,11 @@ class Instruction(BaseModel):
 class Foodstuff(BaseModel):
     """ 食材 """
     name = models.CharField(max_length=255)
-    classification = models.CharField(max_length=5)
+    quantity = models.CharField(max_length=100)
+    cuisine = models.ForeignKey(Cuisine, related_name='foodstuffs')
 
     def __str__(self):
         return self.name
 
     class Meta:
         db_table = 'foodstuffs'
-
-class Quantity(BaseModel):
-    """ 数量 """
-    detail = models.CharField(max_length=100)
-    cuisine = models.ForeignKey(Cuisine, related_name='quantities')
-    foodstuff = models.OneToOneField(Foodstuff)
-
-    def __str__(self):
-        return self.detail
-
-    class Meta:
-        db_table = 'quantities'

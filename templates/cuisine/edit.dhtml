@@ -1,4 +1,0 @@
-{% extends '_partial/base.dhtml' %}
-{% block content %}
-<detail-cuisine :cuisine-id="{{ cuisine.id|default:0 }}" @menu="toMenu()" />
-{% endblock %}

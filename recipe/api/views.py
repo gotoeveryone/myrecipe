@@ -1,8 +1,7 @@
 """ APIのビューセット """
 from rest_framework import viewsets
-from recipe.core.models import Cuisine, Instruction, Quantity, Foodstuff
-from .serializer import CuisineSerializer, CuisineListSerializer,\
-    InstructionSerializer, QuantitySerializer, FoodstuffSerializer
+from recipe.core.models import Cuisine, Foodstuff
+from .serializer import CuisineSerializer, CuisineListSerializer, FoodstuffListSerializer
 
 class CuisineViewSet(viewsets.ModelViewSet):
     """ メニュー REST API """
@@ -30,20 +29,7 @@ class CuisineViewSet(viewsets.ModelViewSet):
 
         return queryset
 
-class InstructionViewSet(viewsets.ModelViewSet):
-    """ 調理手順 REST API """
-    queryset = Instruction.objects.all()
-    serializer_class = InstructionSerializer
-    filter_fields = ('cuisine_id')
-
-class QuantityViewSet(viewsets.ModelViewSet):
-    """ 調理手順 REST API """
-    queryset = Quantity.objects.all()
-    serializer_class = QuantitySerializer
-    filter_fields = ('id')
-
 class FoodstuffViewSet(viewsets.ModelViewSet):
     """ 食材 REST API """
-    queryset = Foodstuff.objects.all()
-    serializer_class = FoodstuffSerializer
-    filter_fields = ('id')
+    queryset = Foodstuff.objects.distinct().order_by('name').values('name')
+    serializer_class = FoodstuffListSerializer

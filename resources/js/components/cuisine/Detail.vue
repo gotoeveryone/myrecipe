@@ -17,19 +17,21 @@
             </div>
         </div>
         <div class="menu-detail-other">
-            <instructions :instructions="cuisine.instructions"></instructions>
-            <quantities :quantities="cuisine.quantities"></quantities>
+            <instructions :items="cuisine.instructions"></instructions>
+            <foodstuffs :items="cuisine.foodstuffs"></foodstuffs>
         </div>
         <div class="footer-button">
             <button type="button" @click="toSearch('cuisine')">検索画面へ</button>
-            <button type="button" @click="$emit('menu')">メニューへ</button>
         </div>
+        <datalist id="foodstuffs">
+            <option v-for="(item, idx) in dataList" :key="idx" :value="item.name"></option>
+        </datalist>
     </div>
 </template>
 
 <script>
     import Instruction from './Instruction.vue';
-    import Quantity from './Quantity.vue';
+    import Foodstuff from './Foodstuff.vue';
 
     export default {
         props: {
@@ -39,16 +41,17 @@
             return {
                 cuisine: {
                     instructions: [],
-                    quantities: [],
+                    foodstuffs: [],
                 },
                 types: [
                     '主菜', '副菜', '主食', 'デザート', 'その他',
                 ],
+                dataList: [],
             }
         },
         components: {
             instructions: Instruction,
-            quantities: Quantity,
+            foodstuffs: Foodstuff,
         },
         methods: {
             toSearch() {
@@ -95,6 +98,9 @@
                 this.$http.get(this.getUrl('get')).then((data) => {
                     this.cuisine = data.body;
                 });
+                this.$http.get('/recipe/api/foodstuffs').then((data) => {
+                    this.dataList = data.body;
+                });
             }
         },
         mounted() {
@@ -103,9 +109,7 @@
                     this.cuisine.instructions.push({
                         sort_order: i + 1,
                     });
-                    this.cuisine.quantities.push({
-                        foodstuff: {},
-                    });
+                    this.cuisine.foodstuffs.push({});
                 }
             }
         }

@@ -52,9 +52,7 @@ def login(request: HttpRequest):
     if next_url != '':
         return redirect(next_url)
 
-    return render(request, 'menu.dhtml', {
-        'title': 'メニュー'
-    })
+    return redirect('recipe_cuisine:index')
 
 def logout(request: HttpRequest):
     """
@@ -71,13 +69,3 @@ def logout(request: HttpRequest):
     logged_out(request)
 
     return redirect('recipe:index')
-
-def menu(request: HttpRequest):
-    """
-    メニュー
-    @param request
-    @return: django template
-    """
-    return render(request, 'menu.dhtml', {
-        'title': 'メニュー'
-    })
