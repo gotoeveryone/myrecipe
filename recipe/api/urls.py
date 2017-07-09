@@ -5,8 +5,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'cuisine', views.CuisineViewSet)
-router.register(r'instructions', views.InstructionViewSet)
-router.register(r'quantities', views.QuantityViewSet)
+router.register(r'foodstuffs', views.FoodstuffViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
