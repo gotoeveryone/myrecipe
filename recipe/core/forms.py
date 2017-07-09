@@ -1,7 +1,5 @@
 """ フォーム """
 from django import forms
-from django.core.validators import MinValueValidator, MaxValueValidator
-from recipe.core.models import Cuisine, Instruction, Quantity, Foodstuff
 
 class LoginForm(forms.Form):
     """ ログインフォーム """
