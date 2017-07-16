@@ -6,15 +6,6 @@ class InstructionSerializer(serializers.ModelSerializer):
     """ 調理手順 """
     id = serializers.IntegerField(required=False)
 
-    def create(self, validated_data):
-        instruction = Instruction(
-            cuisine=validated_data['cuisine'],
-            description=validated_data['description'],
-            sort_order=validated_data['sort_order'],
-        )
-        instruction.save()
-        return instruction
-
     class Meta:
         model = Instruction
         fields = ('id', 'sort_order', 'description')
@@ -22,15 +13,6 @@ class InstructionSerializer(serializers.ModelSerializer):
 class FoodstuffSerializer(serializers.ModelSerializer):
     """ 食材 """
     id = serializers.IntegerField(required=False)
-
-    def create(self, validated_data):
-        foodstuff = Foodstuff(
-            cuisine=validated_data['cuisine'],
-            name=validated_data['name'],
-            quantity=validated_data['quantity'],
-        )
-        foodstuff.save()
-        return foodstuff
 
     class Meta:
         model = Foodstuff
