@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="content-inner">
         <div class="menu-detail">
             <label>名前：</label>
             <input type="text" name="name" v-model="cuisine.name">
@@ -47,6 +47,7 @@
                     '主菜', '副菜', '主食', 'デザート', 'その他',
                 ],
                 dataList: [],
+                selectId: 0,
             }
         },
         components: {
@@ -58,7 +59,7 @@
                 location.href = '/recipe/cuisine';
             },
             getLabel() {
-                return (this.cuisineId ? '更新' : '登録');
+                return (this.selectId ? '更新' : '登録');
             },
             getUrl(_type) {
                 _type = _type.toUpperCase();
@@ -66,26 +67,31 @@
                     case 'GET':
                     case 'PUT':
                     case 'DELETE':
-                        return `/recipe/api/cuisine/${this.cuisineId}/`;
+                        return `/recipe/api/cuisine/${this.selectId}/`;
                     case 'POST':
                         return `/recipe/api/cuisine/`;
                 }
                 return '';
             },
             save() {
-                if (this.cuisineId) {
+                if (this.selectId) {
                     this.$http.put(this.getUrl('put'), JSON.stringify(this.cuisine)).then((data) => {
-                        this.title = 'メッセージ';
-                        this.message = 'レシピを更新しました。';
                         this.cuisine = data.body;
+                        this.$emit('dialog', {
+                            title: 'メッセージ',
+                            message: '料理を更新しました。',
+                        });
                     }).catch((s, a, v) => {
                         console.log(s, a, v);
                     });
                 } else {
                     this.$http.post(this.getUrl('post'), JSON.stringify(this.cuisine)).then((data) => {
-                        this.title = 'メッセージ';
-                        this.message = 'レシピを登録しました。';
                         this.cuisine = data.body;
+                        this.selectId = this.cuisine.id;
+                        this.$emit('dialog', {
+                            title: 'メッセージ',
+                            message: '料理を登録しました。',
+                        });
                     }).catch((s, a, v) => {
                         console.log(s, a, v);
                     });
@@ -95,16 +101,18 @@
         created() {
             // レシピを取得
             if (this.cuisineId) {
+                this.selectId = this.cuisineId;
                 this.$http.get(this.getUrl('get')).then((data) => {
                     this.cuisine = data.body;
                 });
-                this.$http.get('/recipe/api/foodstuffs').then((data) => {
-                    this.dataList = data.body;
-                });
             }
+            // 食材の補完情報を取得
+            this.$http.get('/recipe/api/foodstuffs/').then((data) => {
+                this.dataList = data.body;
+            });
         },
         mounted() {
-            if (!this.cuisineId) {
+            if (!this.selectId) {
                 for (let i = 0; i < 3; i++) {
                     this.cuisine.instructions.push({
                         sort_order: i + 1,

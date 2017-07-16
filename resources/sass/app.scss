@@ -21,12 +21,20 @@ $smartStyle: 760px;
     padding: 10px;
 }
 
-.content {
-    opacity: 1.0;
-    visibility: visible;
-    transition-duration: .5s;
-    transition-property: opacity, visibility;
-    transition-timing-function: ease-in;
+.container {
+    .content {
+        opacity: 1.0;
+        visibility: visible;
+        transition-duration: .5s;
+        transition-property: opacity, visibility;
+        transition-timing-function: ease-in;
+
+        &-inner {
+            height: 100%;
+            margin: 0 -0.8rem;
+            overflow-y: auto;
+        }
+    }
 }
 
 .field-validation-error {
@@ -79,7 +87,40 @@ $smartStyle: 760px;
     }
     .button-wrap {
         position: absolute;
+        top: 0;
         right: .5em;
+    }
+
+    &-other {
+        @include sp() {
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+        display: flex;
+        width: 100%;
+        .menu-items {
+            @include sp() {
+                width: 100%;
+            }
+            width: 50%;
+            margin: 5px 3px;
+            ul {
+                list-style: none;
+                margin: .5em;
+                padding: 0;
+                li {
+                    display: flex;
+                    align-items: center;
+                    span {
+                        width: 30px;
+                        text-align: right;
+                    }
+                    input {
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -108,38 +149,6 @@ button.btn-delete {
         background-color: #ae2345;
     }
     background-color: #ff3216;
-}
-
-.menu-detail-other {
-    @include sp() {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-    }
-    display: flex;
-    width: 100%;
-    .menu-items {
-        @include sp() {
-            width: 100%;
-        }
-        width: 50%;
-        margin: 5px 3px;
-        ul {
-            list-style: none;
-            margin: .5em;
-            padding: 0;
-            li {
-                display: flex;
-                align-items: center;
-                span {
-                    width: 30px;
-                    text-align: right;
-                }
-                input {
-                    width: 100%;
-                }
-            }
-        }
-    }
 }
 
 .footer-button {

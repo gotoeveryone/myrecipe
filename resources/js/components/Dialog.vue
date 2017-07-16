@@ -21,9 +21,8 @@
         props: ['title', 'message'],
         methods: {
             close() {
-                this.title = '';
-                this.message = '';
-            }
+                this.$emit('close');
+            },
         },
     }
 </script>

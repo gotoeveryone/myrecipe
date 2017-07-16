@@ -1,38 +1,35 @@
 <html>
-
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="{{ ASSETS_URL }}css/common.css" />
-    <link rel="stylesheet" href="{% static "css/app.css" %}"/>
-    <title>レシピ管理 - {{title}}</title>
-</head>
-
-<body>
-    <section class="container">
-        <!-- 見出し -->
-        <header>
-            <div class="system-name">
-                <span>レシピ管理システム</span>
-            </div>
-            <h1 class="page-title">{{title}}</h1>
-            <div class="other">
-                {% if request.session.user %}
-                <span>{{request.user}}</span>
-                <a href="{% url 'recipe:logout' %}">ログアウト</a>
-                {% endif %}
-            </div>
-        </header>
-        <main class="content fade">
-            {% block content %}{% endblock %}
-            <notice :title="title" :message="message"></notice>
-        </main>
-        <footer>
-            <div>&copy; 2017 - レシピ管理</div>
-        </footer>
-    </section>
-    <div class="block-ui"></div>
-    <script src="{% static "js/app.js" %}"></script>
-    {% block script %}{% endblock %}
-</body>
-
+    <head>
+        {% load static %}
+        <link rel="stylesheet" href="{{ ASSETS_URL }}css/common.css" />
+        <link rel="stylesheet" href="{% static "css/app.css" %}"/>
+        <title>レシピ管理 - {{title}}</title>
+    </head>
+    <body>
+        <section class="container">
+            <!-- 見出し -->
+            <header>
+                <div class="system-name">
+                    <span>レシピ管理システム</span>
+                </div>
+                <h1 class="page-title">{{title}}</h1>
+                <div class="other">
+                    {% if request.session.user %}
+                    <span>{{request.user}}</span>
+                    <a href="{% url 'recipe:logout' %}">ログアウト</a>
+                    {% endif %}
+                </div>
+            </header>
+            <main class="content fade">
+                {% block content %}{% endblock %}
+                <notice :title="title" :message="message" @close="closeDialog"></notice>
+            </main>
+            <footer>
+                <div>&copy; 2017 - レシピ管理</div>
+            </footer>
+        </section>
+        <div class="block-ui"></div>
+        <script src="{% static "js/app.js" %}"></script>
+        {% block script %}{% endblock %}
+    </body>
 </html>
