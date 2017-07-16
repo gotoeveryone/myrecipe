@@ -1,4 +1,4 @@
 {% extends '_partial/base.dhtml' %}
 {% block content %}
-<detail-cuisine :cuisine-id="{{ id|default:0 }}" @menu="toMenu()" />
+<detail-cuisine :cuisine-id="{{ id|default:0 }}" @dialog="setDialog"></detail-cuisine>
 {% endblock %}

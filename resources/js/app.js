@@ -23,5 +23,13 @@ new Vue({
         toMenu() {
             location.href = '/recipe/menu/';
         },
+        setDialog(_obj) {
+            this.title = _obj.title;
+            this.message = _obj.message;
+        },
+        closeDialog() {
+            this.title = '';
+            this.message = '';
+        },
     },
 });
