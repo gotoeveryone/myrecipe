@@ -1,15 +1,13 @@
-@charset "UTF-8";
-
-$smartStyle: 760px;
+@import './module/_variables';
 
 @mixin sp() {
-    @media screen and (max-width: ($smartStyle)) {
+    @media screen and (max-width: ($breakpoint)) {
         @content;
     }
 }
 
 @mixin pc() {
-    @media screen and (min-width: $smartStyle) {
+    @media screen and (min-width: $breakpoint) {
         @content;
     }
 }
@@ -125,7 +123,7 @@ $smartStyle: 760px;
 }
 
 %button {
-    color: #fff;
+    color: $c_white;
     border: none;
 }
 
@@ -164,16 +162,24 @@ button.btn-delete {
         width: 40%;
     }
     .type {
-        width: 10%;
+        width: 20%;
     }
     .kcal {
-        width: 20%;
+        width: 10%;
     }
     .count {
         width: 10%;
     }
     .detail-link {
+        display: flex;
         width: 20%;
+        justify-content: center;
+        align-items: center;
+
+        .button {
+            width: 80px;
+            margin: 0 5px;
+        }
     }
 }
 

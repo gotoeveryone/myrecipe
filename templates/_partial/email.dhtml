@@ -1,0 +1,12 @@
+【料理名】
+　{{ name }}
+
+【調理手順】
+{% for instruction in instructions %}
+　{{ instruction.sort_order }}: {{ instruction.description }}
+{% endfor %}
+
+【食材】
+{% for foodstuff in foodstuffs %}
+　{{ foodstuff.name }}: {{ foodstuff.quantity }}
+{% endfor %}

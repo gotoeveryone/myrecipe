@@ -16,7 +16,8 @@
                 <span class="kcal" v-text="item.ingestion_kcal"></span>
                 <span class="count" v-text="item.create_number_of_times"></span>
                 <span class="detail-link">
-                    <a :href="getUrl(item)">詳細を見る</a>
+                    <a class="button" :href="detailUrl(item)">詳細を見る</a>
+                    <a class="button" :href="noticeUrl(item)">メール送信</a>
                 </span>
             </li>
         </ul>
@@ -33,9 +34,12 @@
             }
         },
         methods: {
-            getUrl(_item) {
+            detailUrl(_item) {
                 return `/recipe/cuisine/edit/${_item.id}`;
-            }
+            },
+            noticeUrl(_item) {
+                return `/recipe/cuisine/notice/${_item.id}`;
+            },
         },
     };
 </script>

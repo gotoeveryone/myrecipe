@@ -59,9 +59,6 @@ class MyUser(AbstractBaseUser):
     def save(self, *args, **kwargs):
         pass
 
-    # class Meta:
-    #     pk = 'access_token'
-
 class Cuisine(BaseModel):
     """ メニュー """
     name = models.CharField(max_length=255)

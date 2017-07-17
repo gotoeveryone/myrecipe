@@ -10,6 +10,9 @@
     import SearchData from './SearchData.vue';
 
     export default {
+        props: {
+            message: String,
+        },
         data() {
             return {
                 items: [],
@@ -33,6 +36,12 @@
             }
         },
         mounted() {
+            if (this.message) {
+                this.$emit('dialog', {
+                    title: 'メール送信完了',
+                    message: this.message,
+                });
+            }
             this.search({});
         },
     };
