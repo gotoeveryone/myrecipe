@@ -48,6 +48,8 @@ class CuisineSerializer(serializers.ModelSerializer):
                 sort_order=input_data['sort_order'],
             )
 
+        instruction.created_by = instance.created_by
+        instruction.modified_by = instance.modified_by
         return instruction.save()
 
     def save_foodstuff(self, instance, input_data):
@@ -63,6 +65,8 @@ class CuisineSerializer(serializers.ModelSerializer):
                 quantity=input_data['quantity'],
             )
 
+        foodstuff.created_by = instance.created_by
+        foodstuff.modified_by = instance.modified_by
         return foodstuff.save()
 
     def create(self, validated_data):
@@ -96,4 +100,4 @@ class CuisineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cuisine
         fields = ('id', 'name', 'classification', 'ingestion_kcal',\
-            'create_number_of_times', 'instructions', 'foodstuffs')
+            'create_number_of_times', 'instructions', 'foodstuffs', 'created_by', 'modified_by')

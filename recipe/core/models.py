@@ -9,22 +9,19 @@ class BaseModel(models.Model):
 
     created = models.DateTimeField()
     modified = models.DateTimeField()
-    created_by = models.CharField(max_length=10)
-    modified_by = models.CharField(max_length=10)
+    created_by = models.CharField(null=True, max_length=10)
+    modified_by = models.CharField(null=True, max_length=10)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        # TODO(k2ss): set login user
 
         if self.id is None:
             self.created = timezone.now()
-#            self.created_by =
 
         self.modified = timezone.now()
-#        self.modified_by =
 
         # 親の処理を呼び出し
-        super().save(force_insert, force_update, using, update_fields)
+        return super().save(force_insert, force_update, using, update_fields)
 
     class Meta:
         abstract = True

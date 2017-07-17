@@ -8,9 +8,9 @@
                 <option v-for="(list, idx) in types" :key="idx" :value="list" v-text="list"></option>
             </select>
             <label>Kcal：</label>
-            <input type="text" v-model="cuisine.ingestion_kcal">
+            <input type="number" v-model="cuisine.ingestion_kcal">
             <label>種類：</label>
-            <input type="text" v-model="cuisine.create_number_of_times">
+            <input type="number" v-model="cuisine.create_number_of_times">
             <div class="button-wrap">
                 <button type="button" @click="save()" class="btn btn-default" v-text="getLabel()"></button>
                 <button type="button" class="btn btn-default">メール送信</button>
@@ -36,6 +36,7 @@
     export default {
         props: {
             cuisineId: Number,
+            user: String,
         },
         data: () => {
             return {
@@ -75,28 +76,54 @@
             },
             save() {
                 if (this.selectId) {
-                    this.$http.put(this.getUrl('put'), JSON.stringify(this.cuisine)).then((data) => {
+                    this.$http.put(this.getUrl('put'), JSON.stringify(this.cuisine), {
+                        headers: {
+                            'X-Access-User': this.user,
+                        },
+                    }).then((data) => {
                         this.cuisine = data.body;
                         this.$emit('dialog', {
                             title: 'メッセージ',
-                            message: '料理を更新しました。',
+                            message: 'レシピを更新しました。',
                         });
-                    }).catch((s, a, v) => {
-                        console.log(s, a, v);
-                    });
+                    }).catch(this.apiError);
                 } else {
-                    this.$http.post(this.getUrl('post'), JSON.stringify(this.cuisine)).then((data) => {
+                    this.$http.post(this.getUrl('post'), JSON.stringify(this.cuisine), {
+                        headers: {
+                            'X-Access-User': this.user,
+                        },
+                    }).then((data) => {
                         this.cuisine = data.body;
                         this.selectId = this.cuisine.id;
                         this.$emit('dialog', {
                             title: 'メッセージ',
-                            message: '料理を登録しました。',
+                            message: 'レシピを登録しました。',
                         });
-                    }).catch((s, a, v) => {
-                        console.log(s, a, v);
-                    });
+                    }).catch(this.apiError);
                 }
-            }
+            },
+            apiError(res) {
+                console.log(res);
+                // エラーメッセージを生成
+                const errors = [];
+                const errorObj = JSON.parse(res.bodyText);
+                Object.keys(errorObj).forEach(k => {
+                    errorObj[k].forEach(v => {
+                        if (v instanceof Object) {
+                            Object.keys(v).forEach(ck => {
+                                errors.push(`${ck}: ${v[ck]}`);
+                            });
+                        } else {
+                            errors.push(`${k}: ${v}`);
+                        }
+                    });
+                })
+                this.$emit('dialog', {
+                    error: true,
+                    title: 'エラー',
+                    message: errors.join('<br>'),
+                });
+            },
         },
         created() {
             // レシピを取得

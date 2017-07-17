@@ -1,5 +1,5 @@
 {% extends '_partial/base.dhtml' %}
 {% block content %}
-<detail-cuisine :cuisine-id="{{ id|default:0 }}" :api-token="'{{ token }}'"
+<detail-cuisine :cuisine-id="{{ id|default:0 }}" :user="'{{ user_id }}'"
     @dialog="setDialog"></detail-cuisine>
 {% endblock %}

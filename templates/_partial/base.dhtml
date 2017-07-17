@@ -22,7 +22,7 @@
             </header>
             <main class="content fade">
                 {% block content %}{% endblock %}
-                <notice :title="title" :message="message" @close="closeDialog"></notice>
+                <notice :notices="notices" @close="closeDialog"></notice>
             </main>
             <footer>
                 <div>&copy; 2017 - レシピ管理</div>

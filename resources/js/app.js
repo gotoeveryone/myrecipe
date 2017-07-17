@@ -8,8 +8,11 @@ new Vue({
     delimiters: ['${', '}'],
     el: '.content',
     data: {
-        title: '',
-        message: '',
+        notices: {
+            error: false,
+            title: '',
+            message: '',
+        },
     },
     components: {
         notice: Dialog,
@@ -24,12 +27,18 @@ new Vue({
             location.href = '/recipe/menu/';
         },
         setDialog(_obj) {
-            this.title = _obj.title;
-            this.message = _obj.message;
+            this.notices = {
+                error: ('error' in _obj && _obj.error),
+                title: _obj.title,
+                message: _obj.message,
+            };
         },
         closeDialog() {
-            this.title = '';
-            this.message = '';
+            this.notices = {
+                error: false,
+                title: '',
+                message: '',
+            };
         },
     },
 });

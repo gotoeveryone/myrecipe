@@ -32,12 +32,18 @@ class CuisineAddView(generic.CreateView):
     """ 料理追加 """
     model = Cuisine
     template_name = 'cuisine/detail.dhtml'
-    fields = ['name', 'classification', 'ingestion_kcal', 'create_number_of_times']
+    fields = '__all__'
 
     def __init__(self):
         self.title = '料理追加'
 
-class CuisineDetailView(generic.detail.DetailView):
+    def get(self, request: HttpRequest, *args, **kwargs):
+        return render(request, self.template_name, {
+            'title': self.title,
+            'user_id': request.user.user_id,
+        })
+
+class CuisineDetailView(generic.DetailView):
     """ 料理詳細 """
     model = Cuisine
     template_name = 'cuisine/detail.dhtml'
@@ -46,13 +52,10 @@ class CuisineDetailView(generic.detail.DetailView):
         self.title = '料理詳細'
 
     def get(self, request: HttpRequest, *args, **kwargs):
-        return self.render_view(request, **kwargs)
-
-    def render_view(self, request: HttpRequest, **kwargs):
-        """ 描画処理 """
         return render(request, self.template_name, {
             'title': self.title,
             'id': kwargs.get('pk', ''),
+            'user_id': request.user.user_id,
         })
 
 def notice(request: HttpRequest, pk: int):
