@@ -1,0 +1,6 @@
+recipe:
+  build: ./
+  volumes:
+    - ../:/app
+  ports:
+    - 80:8000
