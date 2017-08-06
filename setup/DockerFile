@@ -1,0 +1,7 @@
+FROM python:latest
+MAINTAINER Kazuki_Kamizuru<kamizuru@k2ss.info>
+
+ADD ./requirements.txt /tmp/
+RUN pip install -r /tmp/requirements.txt
+
+CMD ["/app/manage.py", "runserver", "0.0.0.0:8000"]

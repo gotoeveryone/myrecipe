@@ -16,13 +16,7 @@
 3. 以下コマンドを実行して、必要なライブラリを取得します。
 
 ```
-$ pip install \
-$     mysqlclient \
-$     requests \
-$     python-dotenv \
-$     django \
-$     djangorestframework \
-$     django-debug-toolbar
+$ pip install -r setup/requirements.txt
 ```
 
 ## 実行
@@ -39,7 +33,7 @@ $ ./manage.py runserver
 ### サーバ側でDockerを利用する場合
 
 ```
-$ cd docker && docker-compose build && docker-compose up
+$ cd setup && docker-compose build && docker-compose up
 ```
 
 ## 注意事項
