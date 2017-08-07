@@ -132,10 +132,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/recipe/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'public/')
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'public/')
 
 ASSETS_URL = os.environ.get('ASSETS_URL', '')
 
@@ -187,7 +184,7 @@ INTERNAL_IPS = [
 ]
 
 LOGIN_URL = '/' + os.environ.get('RECIPE_PREFIX', default='')
-LOGIN_REDIRECT_URL = '/' + os.environ.get('RECIPE_PREFIX', default='') + 'menu'
+LOGIN_REDIRECT_URL = '/' + os.environ.get('RECIPE_PREFIX', default='') + 'cuisine'
 
 API_URL = '{}web-api/v1/'.format(
     os.environ.get('WEB_API_DOMAIN', 'http://localhost/'))
