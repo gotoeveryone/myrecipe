@@ -11,6 +11,7 @@ from django.http import HttpRequest
 import requests
 from recipe.core.forms import LoginForm
 
+
 def index(request: HttpRequest, form=None):
     """
     初期表示
@@ -24,6 +25,7 @@ def index(request: HttpRequest, form=None):
         'messages': get_messages(request),
     })
 
+
 def login(request: HttpRequest):
     """
     ログイン
@@ -35,9 +37,9 @@ def login(request: HttpRequest):
         messages.add_message(request, messages.ERROR, 'ログインに失敗しました。')
         return index(request, form)
 
-    user = authenticate(request,\
-        account=form.cleaned_data['account'],\
-        password=form.cleaned_data['password'])
+    user = authenticate(request,
+                        username=form.cleaned_data['account'],
+                        password=form.cleaned_data['password'])
 
     if user is None:
         messages.add_message(request, messages.ERROR, 'ログインに失敗しました。')
@@ -54,6 +56,7 @@ def login(request: HttpRequest):
 
     return redirect('recipe_cuisine:index')
 
+
 def logout(request: HttpRequest):
     """
     ログアウト
@@ -64,7 +67,8 @@ def logout(request: HttpRequest):
     user = request.session.get('user')
     if user is not None:
         url = '%sauth/logout' % settings.API_URL
-        requests.delete(url, headers={'Authorization': 'Bearer %s' % user.token})
+        requests.delete(
+            url, headers={'Authorization': 'Bearer %s' % user.get_access_token()})
 
     logged_out(request)
 

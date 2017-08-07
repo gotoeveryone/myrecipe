@@ -48,7 +48,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'recipe.middlewares.AuthenticationMiddleware',
+    'recipe.middlewares.WebResourceMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -189,7 +189,8 @@ INTERNAL_IPS = [
 LOGIN_URL = '/' + os.environ.get('RECIPE_PREFIX', default='')
 LOGIN_REDIRECT_URL = '/' + os.environ.get('RECIPE_PREFIX', default='') + 'menu'
 
-API_URL = '{}web-api/v1/'.format(os.environ.get('WEB_API_DOMAIN', 'http://localhost/'))
+API_URL = '{}web-api/v1/'.format(
+    os.environ.get('WEB_API_DOMAIN', 'http://localhost/'))
 
 # メール送信設定
 EMAIL_HOST = os.environ.get('EMAIL_HOST')

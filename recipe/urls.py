@@ -21,9 +21,10 @@ from . import settings
 PREFIX = os.environ.get('RECIPE_PREFIX', default='')
 urlpatterns = [
     url(r'^' + PREFIX, include('recipe.core.urls', namespace='recipe')),
-    url(r'^' + PREFIX + 'cuisine/', include('recipe.cuisine.urls', namespace='recipe_cuisine')),
+    url(r'^' + PREFIX + 'cuisine/',
+        include('recipe.cuisine.urls', namespace='recipe_cuisine')),
     url(r'^' + PREFIX + 'api/', include('recipe.api.urls', namespace='recipe_api')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^' + PREFIX + 'admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
