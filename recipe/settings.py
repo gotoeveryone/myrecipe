@@ -48,7 +48,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'recipe.middlewares.AuthenticationMiddleware',
+    'recipe.middlewares.WebResourceMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -132,10 +132,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/recipe/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'public/')
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'public/')
 
 ASSETS_URL = os.environ.get('ASSETS_URL', '')
 
@@ -187,9 +184,10 @@ INTERNAL_IPS = [
 ]
 
 LOGIN_URL = '/' + os.environ.get('RECIPE_PREFIX', default='')
-LOGIN_REDIRECT_URL = '/' + os.environ.get('RECIPE_PREFIX', default='') + 'menu'
+LOGIN_REDIRECT_URL = '/' + os.environ.get('RECIPE_PREFIX', default='') + 'cuisine'
 
-API_URL = '{}web-api/v1/'.format(os.environ.get('WEB_API_DOMAIN', 'http://localhost/'))
+API_URL = '{}web-api/v1/'.format(
+    os.environ.get('WEB_API_DOMAIN', 'http://localhost/'))
 
 # メール送信設定
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
