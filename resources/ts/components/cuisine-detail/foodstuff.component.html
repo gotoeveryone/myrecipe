@@ -1,0 +1,10 @@
+<div class="center">
+    <button type="button" class="btn-add" (click)="addRow()">追加</button>
+    <button type="button" class="btn-delete" (click)="deleteRow()">削除</button>
+</div>
+<ul class="foodstuffs">
+    <li *ngFor="let item of items">
+        <input type="text" [(ngModel)]="item.name" list="foodstuffs">
+        <input type="text" [(ngModel)]="item.quantity">
+    </li>
+</ul>

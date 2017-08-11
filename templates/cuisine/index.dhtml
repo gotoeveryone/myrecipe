@@ -1,5 +1,0 @@
-{% extends '_partial/base.dhtml' %}
-{% block content %}
-<search-cuisine :token="'{{ csrf_token }}'" :message="'{{ message }}'"
-    @dialog="setDialog"></search-cuisine>
-{% endblock %}

@@ -36,11 +36,19 @@ $ ./manage.py runserver
 $ cd setup && docker-compose build && docker-compose up
 ```
 
+### gunicornやwsgiなどで動作させる場合
+
+以下コマンドを実行し、静的ファイルを`static`ディレクトリにまとめます。
+
+```
+$ ./manage.py collectstatic
+```
+
 ## 注意事項
 
 ### タスクランナー
 
-`npm run dev`を実行すると、SCSS,Vue.jsの変更を監視して`public`ディレクトリに変換後のCSS,JSを出力します。
+`npm run dev`を実行すると、SCSS,TypeScriptの変更を監視して`public`ディレクトリに変換後のCSS,JSを出力します。
 
 ### ログ出力
 

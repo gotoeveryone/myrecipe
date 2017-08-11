@@ -1,0 +1,15 @@
+<ul class="search-header">
+    <li class="search-row">
+        <label>名前：</label>
+        <input type="text" name="name" ([ngModel])="name" (change)="changeValue($event)">
+        <label>分類：</label>
+        <select name="classification" ([ngModel])="classification" (change)="changeValue($event)" [ngModel]="classification">
+            <option *ngFor="let type of types" [value]="type" [innerText]="type"></option>
+        </select>
+        <label>カロリー：</label>
+        <input type="text" name="kcal" ([ngModel])="kcal" (change)="changeValue($event)">以下
+        <div class="button-wrap">
+            <button type="button" (click)="toAdd()">新規追加</button>
+        </div>
+    </li>
+</ul>
