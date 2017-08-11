@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = [
     {
         entry: {
-            app: './resources/ts/app',
+            app: './resources/ts/app.module',
         },
         output: {
             path: path.join(__dirname, 'public/js'),
@@ -21,9 +21,8 @@ module.exports = [
                     loader: 'ts-loader',
                 },
                 {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    loader: 'buble-loader',
+                    test: /\.(html|css)$/,
+                    loader: 'raw-loader',
                 },
             ],
         },
@@ -33,38 +32,6 @@ module.exports = [
             }),
         ],
     },
-    // {
-    //     entry: {
-    //         app: './resources/js/app.js',
-    //     },
-    //     output: {
-    //         path: path.join(__dirname, 'public/js'),
-    //         filename: '[name].js'
-    //     },
-    //     resolve: {
-    //         extensions: ['.vue', '.js']
-    //     },
-    //     module: {
-    //         loaders: [
-    //             {
-    //                 test: /\.vue$/,
-    //                 loader: 'vue-loader',
-    //                 options: {
-    //                     loaders: {
-    //                         js: 'buble-loader'
-    //                     }
-    //                 },
-    //             },
-    //             {
-    //                 test: /\.js$/,
-    //                 exclude: /node_modules/,
-    //                 loader: 'buble-loader',
-    //             },
-    //         ]
-    //     },
-    //     plugins: [
-    //     ],
-    // },
     {
         entry: './resources/sass/app.scss',
         output: {

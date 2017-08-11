@@ -1,4 +1,0 @@
-{% extends '_partial/base.dhtml' %}
-{% block content %}
-<search-cuisine :message="'{{ message }}'" (dialog)="setDialog"></search-cuisine>
-{% endblock %}

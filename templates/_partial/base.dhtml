@@ -15,21 +15,17 @@
                 <h1 class="page-title">{{title}}</h1>
                 <div class="other">
                     {% if request.session.user %}
-                    <span>{{request.user}}</span>
+                    <span>{{request.user}} ({{request.user.mail_address}})</span>
                     <a href="{% url 'recipe:logout' %}">ログアウト</a>
                     {% endif %}
                 </div>
             </header>
             <main class="content fade">
                 {% block content %}{% endblock %}
-                <notice :notices="notices" @close="closeDialog"></notice>
             </main>
             <footer>
                 <div>&copy; 2017 - レシピ管理</div>
             </footer>
         </section>
-        <div class="block-ui"></div>
-        <script src="{% static "js/app.js" %}"></script>
-        {% block script %}{% endblock %}
     </body>
 </html>

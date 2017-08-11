@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "module": "commonjs",
+        "module": "es2015",
         "moduleResolution": "node",
         "rootDir": "resources/ts",
-        "outDir": "webroot/js",
+        "outDir": "public/js",
         "sourceMap": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
