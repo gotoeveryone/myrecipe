@@ -33,7 +33,7 @@ $ <python_path> ./manage.py runserver
 ### サーバ側でDockerを利用する場合
 
 ```
-$ cd setup && docker-compose build && docker-compose up
+$ docker-compose build && docker-compose up
 ```
 
 ### gunicornやwsgiなどで動作させる場合
