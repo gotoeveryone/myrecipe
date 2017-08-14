@@ -21,10 +21,10 @@ export class SearchComponent {
 
     /**
      * 検索処理
-     * 
+     *
      * @param {any} _params
      */
-    search(_params: any) {
+    search(_params: any = {}) {
         Object.keys(_params).forEach(key => {
             this.params[key] = _params[key];
         });

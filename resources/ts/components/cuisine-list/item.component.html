@@ -1,23 +1,21 @@
-<div class="search-results">
-    <ul class="table-header">
-        <li class="table-row">
-            <span class="name">メニュー</span>
-            <span class="type">分類</span>
-            <span class="kcal">Kcal</span>
-            <span class="count">作成回数</span>
-            <span class="detail-link">詳細</span>
-        </li>
-    </ul>
-    <ul class="table-body" *ngIf="items.length">
-        <li class="table-row" *ngFor="let item of items">
-            <span class="name" [innerText]="item.name"></span>
-            <span class="type" [innerText]="item.classification"></span>
-            <span class="kcal" [innerText]="item.ingestion_kcal"></span>
-            <span class="count" [innerText]="item.create_number_of_times"></span>
-            <span class="detail-link">
-                <a class="button" (click)="detailUrl(item.id)">詳細を見る</a>
-                <a class="button" [href]="noticeUrl(item.id)">メール送信</a>
-            </span>
-        </li>
-    </ul>
-</div>
+<ul class="table-header">
+    <li class="table-row">
+        <span class="name">メニュー</span>
+        <span class="type">分類</span>
+        <span class="kcal">Kcal</span>
+        <span class="count">作成回数</span>
+        <span class="detail-link">詳細</span>
+    </li>
+</ul>
+<ul class="table-body" *ngIf="items.length">
+    <li class="table-row" *ngFor="let item of items">
+        <span class="name" [innerText]="item.name"></span>
+        <span class="type" [innerText]="item.classification"></span>
+        <span class="kcal" [innerText]="item.ingestion_kcal"></span>
+        <span class="count" [innerText]="item.create_number_of_times"></span>
+        <span class="detail-link">
+            <a class="button" (click)="detailUrl(item.id)">詳細を見る</a>
+            <a class="button" [href]="noticeUrl(item.id)">メール送信</a>
+        </span>
+    </li>
+</ul>

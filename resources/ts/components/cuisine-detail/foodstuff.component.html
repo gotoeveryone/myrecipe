@@ -1,10 +1,17 @@
-<div class="center">
-    <button type="button" class="btn-add" (click)="addRow()">追加</button>
-    <button type="button" class="btn-delete" (click)="deleteRow()">削除</button>
+<div class="category-header">
+    <div class="category-name">【食材】</div>
+    <div class="button-wrap">
+        <button type="button" class="btn-little btn-add" (click)="addRow()">＋</button>
+        <button type="button" class="btn-little btn-delete" (click)="deleteRow()">ー</button>
+    </div>
 </div>
-<ul class="foodstuffs">
-    <li *ngFor="let item of items">
-        <input type="text" [(ngModel)]="item.name" list="foodstuffs">
-        <input type="text" [(ngModel)]="item.quantity">
+<ul class="foodstuffs list-box">
+    <li class="list-box-header">
+        <span class="foodstuff-name">食材名</span>
+        <span class="foodstuff-quantity">個数</span>
+    </li>
+    <li class="list-box-item" *ngFor="let item of items">
+        <input type="text" class="foodstuff-name" [(ngModel)]="item.name" list="foodstuffs">
+        <input type="text" class="foodstuff-quantity" [(ngModel)]="item.quantity">
     </li>
 </ul>

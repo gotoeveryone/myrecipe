@@ -1,4 +1,4 @@
-# レシピ管理システム #
+# レシピ管理システム
 
 [Django](https://github.com/django/django) 1.x を利用したレシピ管理システムです。
 
@@ -27,13 +27,13 @@ $ pip install -r setup/requirements.txt
 $ # フロントコード
 $ npm run dev
 $ # サーバ側
-$ ./manage.py runserver
+$ <python_path> ./manage.py runserver
 ```
 
 ### サーバ側でDockerを利用する場合
 
 ```
-$ cd setup && docker-compose build && docker-compose up
+$ docker-compose build && docker-compose up
 ```
 
 ### gunicornやwsgiなどで動作させる場合
@@ -41,7 +41,7 @@ $ cd setup && docker-compose build && docker-compose up
 以下コマンドを実行し、静的ファイルを`static`ディレクトリにまとめます。
 
 ```
-$ ./manage.py collectstatic
+$ <python_path> ./manage.py collectstatic
 ```
 
 ## 注意事項

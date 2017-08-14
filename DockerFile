@@ -1,0 +1,12 @@
+FROM python:latest
+MAINTAINER Kazuki_Kamizuru<kamizuru@k2ss.info>
+
+RUN pip install virtualenv
+
+RUN virtualenv -p $(which python) /venv
+RUN . /venv/bin/activate
+
+ADD ./requirements.txt /tmp/
+RUN /venv/bin/pip install -r /tmp/requirements.txt
+
+CMD ["/venv/bin/python", "/app/manage.py", "runserver", "0.0.0.0:8000"]

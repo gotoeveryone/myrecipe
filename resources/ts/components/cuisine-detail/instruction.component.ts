@@ -27,6 +27,6 @@ export class InstructionComponent {
         if (!_item.sort_order) {
             _item.sort_order = this.items.length;
         }
-        return _item.sort_order;
+        return `${_item.sort_order}：`;
     }
 }

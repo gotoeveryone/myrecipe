@@ -1,26 +1,31 @@
 <div class="content-inner">
     <div class="menu-detail">
-        <label>名前：</label>
-        <input type="text" name="name" [(ngModel)]="cuisine.name">
-        <label>種類：</label>
-        <select name="classification" [(ngModel)]="cuisine.classification">
-            <option *ngFor="let type of types" [value]="type" [innerText]="type"></option>
-        </select>
-        <label>Kcal：</label>
-        <input type="number" [(ngModel)]="cuisine.ingestion_kcal">
-        <label>種類：</label>
-        <input type="number" [(ngModel)]="cuisine.create_number_of_times">
-        <div class="button-wrap">
-            <button type="button" (click)="save()" class="btn btn-default" [innerText]="getLabel()"></button>
-            <button type="button" class="btn btn-default">メール送信</button>
+        <div class="recipe-row-box wide">
+            <label>名前：</label>
+            <input type="text" class="name" name="name" [(ngModel)]="cuisine.name">
+        </div>
+        <div class="recipe-row-box">
+            <label>種類：</label>
+            <select name="classification" [(ngModel)]="cuisine.classification">
+                <option *ngFor="let type of types" [value]="type" [innerText]="type"></option>
+            </select>
+        </div>
+        <div class="recipe-row-box">
+            <label>Kcal：</label>
+            <input type="number" [(ngModel)]="cuisine.ingestion_kcal">
+        </div>
+        <div class="recipe-row-box">
+            <label>種類：</label>
+            <input type="number" [(ngModel)]="cuisine.create_number_of_times">
+        </div>
+        <div class="recipe-row-box button-wrap">
+            <button type="button" (click)="toSearch()">検索画面へ</button>
+            <button type="button" (click)="save()" class="btn btn-save" [innerText]="getLabel()"></button>
         </div>
     </div>
     <div class="menu-detail-other">
         <div class="menu-items" instructions [items]="cuisine.instructions"></div>
         <div class="menu-items" foodstuffs [items]="cuisine.foodstuffs"></div>  
-    </div>
-    <div class="footer-button">
-        <button type="button" (click)="toSearch()">検索画面へ</button>
     </div>
     <datalist id="foodstuffs">
         <option *ngFor="let item of dataList" [value]="item.name"></option>
