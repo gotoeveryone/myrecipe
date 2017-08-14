@@ -1,10 +1,17 @@
-<div class="center">
-    <button type="button" class="btn-add" (click)="addRow()">追加</button>
-    <button type="button" class="btn-delete" (click)="deleteRow()">削除</button>
+<div class="category-header">
+    <div class="category-name">【調理手順】</div>
+    <div class="button-wrap">
+        <button type="button" class="btn-little btn-add" (click)="addRow()">＋</button>
+        <button type="button" class="btn-little btn-delete" (click)="deleteRow()">ー</button>
+    </div>
 </div>
-<ul class="instructions">
-    <li *ngFor="let item of items">
-        <span class="cooking-order" [innerText]="getOrder(item)"></span>：
-        <input type="text" name="item.description" [(ngModel)]="item.description" class="cooking-description">
+<ul class="instructions list-box">
+    <li class="list-box-header">
+        <span class="cooking-order">No.</span>
+        <span>手順</span>
+    </li>
+    <li class="list-box-item" *ngFor="let item of items">
+        <span class="cooking-order" [innerText]="getOrder(item)"></span>
+        <textarea name="item.description" [(ngModel)]="item.description" class="cooking-description"></textarea>
     </li>
 </ul>

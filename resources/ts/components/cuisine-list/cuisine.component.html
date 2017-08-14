@@ -1,4 +1,4 @@
 <div class="search-cuisine">
-    <div cuisine-header (onSearch)="search($event)"></div>
-    <div cuisine-items [items]="items"></div>
+    <ul cuisine-header class="search-header" (onSearch)="search($event)"></ul>
+    <div cuisine-items class="search-results" [items]="items"></div>
 </div>
