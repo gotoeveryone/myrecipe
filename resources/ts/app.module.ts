@@ -7,7 +7,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgModule, enableProdMode } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule, Http, XHRBackend, RequestOptions } from '@angular/http';
+import { HttpModule, Http, XHRBackend, RequestOptions, XSRFStrategy, CookieXSRFStrategy } from '@angular/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 
 import { ROUTES } from './routes';
@@ -45,6 +45,10 @@ if (PRODUCTION) {
                 return new MyHttp(backend, options, blockUI);
             },
             deps: [XHRBackend, RequestOptions, BlockUIService],
+        },
+        {
+            provide: XSRFStrategy,
+            useValue: new CookieXSRFStrategy('csrftoken', 'X-CSRFToken'),
         },
         BlockUIService,
         DialogService,
