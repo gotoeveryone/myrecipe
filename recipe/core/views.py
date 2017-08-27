@@ -48,13 +48,17 @@ def login(request: HttpRequest):
     logged(request, user, backend=user.backend)
 
     logger = logging.getLogger('recipe')
-    logger.info('ユーザ【%s】がログインしました。', user.user_name)
+    logger.info('ユーザ【%s】がログインしました。', user.get_username())
 
     next_url = request.POST.get('next', '')
-    if next_url != '':
-        return redirect(next_url)
+    if next_url == "":
+        next_url = 'recipe_cuisine:index';
 
-    return redirect('recipe_cuisine:index')
+    # Cookieにログインユーザを設定してリダイレクト
+    response = redirect(next_url)
+    response.set_cookie(
+        'user', value=user.user_id, max_age=settings.SESSION_COOKIE_AGE)
+    return response
 
 
 def logout(request: HttpRequest):

@@ -14,14 +14,14 @@ class CuisineViewSet(viewsets.ModelViewSet):
         return viewsets.ModelViewSet.list(self, request, *args, **kwargs)
 
     def create(self, request: HttpRequest, *args, **kwargs):
-        user = request.META.get('HTTP_X_ACCESS_USER')
+        user = request.COOKIES.get('user')
         # 登録ユーザの追加
         request.data['created_by'] = user
         request.data['modified_by'] = user
         return super().create(request, *args, **kwargs)
 
     def update(self, request: HttpRequest, *args, **kwargs):
-        user = request.META.get('HTTP_X_ACCESS_USER')
+        user = request.COOKIES.get('user')
         # 更新ユーザの追加
         request.data['modified_by'] = user
         return super().update(request, *args, **kwargs)

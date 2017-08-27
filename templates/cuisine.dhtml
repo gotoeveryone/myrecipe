@@ -1,9 +1,6 @@
 {% extends '_partial/base.dhtml' %}
 {% load static %}
 {% block content %}
-{% csrf_token %}
-<input type="hidden" name="accessUser" value="{{ request.user.user_id }}">
-<input type="hidden" name="mailAddress" value="{{ request.user.mail_address }}">
 <app>Loading...</app>
 <script src="{% static 'js/app.js' %}"></script>
 {% endblock %}
