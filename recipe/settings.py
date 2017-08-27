@@ -161,6 +161,7 @@ LOGGING = {
             'level': ('DEBUG' if DEBUG else 'INFO'),
             'class': 'logging.FileHandler',
             'filename': os.path.join(os.environ.get('LOG_DIR', BASE_DIR + '/logs'), 'recipe.log'),
+            'encoding': 'utf-8',
             'formatter': 'verbose'
         },
         'console': {
@@ -190,8 +191,7 @@ LOGIN_URL = '/' + os.environ.get('RECIPE_PREFIX', default='')
 LOGIN_REDIRECT_URL = '/' + \
     os.environ.get('RECIPE_PREFIX', default='') + 'cuisine'
 
-API_URL = '{}web-api/v1/'.format(
-    os.environ.get('WEB_API_DOMAIN', 'http://localhost/'))
+API_URL = os.environ.get('API_URL', 'http://localhost/')
 
 # メール送信設定
 EMAIL_HOST = os.environ.get('EMAIL_HOST')

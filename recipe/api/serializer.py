@@ -1,5 +1,6 @@
 """ API用シリアライザ """
-from rest_framework import serializers, fields
+from logging import getLogger
+from rest_framework import serializers
 from recipe.core.models import Cuisine, Instruction, Foodstuff
 
 class InstructionSerializer(serializers.ModelSerializer):
@@ -70,6 +71,9 @@ class CuisineSerializer(serializers.ModelSerializer):
         return foodstuff.save()
 
     def create(self, validated_data):
+        logger = getLogger(__name__)
+        logger.info(validated_data)
+
         instructions_data = validated_data.pop('instructions')
         foodstuffs_data = validated_data.pop('foodstuffs')
         cuisine = super().create(validated_data)
@@ -85,6 +89,9 @@ class CuisineSerializer(serializers.ModelSerializer):
         return cuisine
 
     def update(self, instance: Cuisine, validated_data):
+        logger = getLogger(__name__)
+        logger.info(validated_data)
+
         # 調理手順を更新
         instructions_data = validated_data.pop('instructions')
         for instruction in instructions_data:

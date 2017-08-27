@@ -1,9 +1,9 @@
 """
 レシピ関係のアクションマッピング
 """
-import logging
+from logging import getLogger
 from django.conf import settings
-from django.contrib.auth import authenticate, login as logged, logout as logged_out
+from django.contrib.auth import authenticate, load_backend, login as logged, logout as logged_out
 from django.contrib import messages
 from django.contrib.messages import get_messages
 from django.shortcuts import render, redirect
@@ -47,7 +47,7 @@ def login(request: HttpRequest):
 
     logged(request, user, backend=user.backend)
 
-    logger = logging.getLogger('recipe')
+    logger = getLogger(__name__)
     logger.info('ユーザ【%s】がログインしました。', user.user_name)
 
     next_url = request.POST.get('next', '')
@@ -63,12 +63,10 @@ def logout(request: HttpRequest):
     @param request
     @return: django template
     """
-    # トークンを保持していれば削除リクエストを投げる
-    user = request.session.get('user')
-    if user is not None:
-        url = '%sauth/logout' % settings.API_URL
-        requests.delete(
-            url, headers={'Authorization': 'Bearer %s' % user.get_access_token()})
+    user = getattr(request, 'user', None)
+    if user is not None and getattr(user, 'backend', None) is not None:
+        backend = load_backend(user.backend)
+        backend.deauthenticate(user)
 
     logged_out(request)
 
