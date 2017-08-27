@@ -18,8 +18,14 @@
         <div class="row">
             <button type="submit">ログイン</button>
             <button type="reset">クリア</button>
-            <button type="button" v-on:click="toTop()">トップへ</button>
+            <button type="button" class="to-top">トップへ</button>
         </div>
     </form>
+    <script>
+        var icon = document.querySelector('.to-top');
+        icon.addEventListener('click', function() {
+            location.href = '/';
+        }, false);
+    </script>
 </section>
 {% endblock %}

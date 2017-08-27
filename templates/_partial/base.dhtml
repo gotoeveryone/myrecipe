@@ -46,6 +46,6 @@
             open.addEventListener('click', function() {
                 this.classList.remove('active');
             }, false);
-    </script>
+        </script>
     </body>
 </html>
