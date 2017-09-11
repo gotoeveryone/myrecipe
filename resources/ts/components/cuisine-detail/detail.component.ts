@@ -20,7 +20,6 @@ export class DetailComponent implements OnInit {
     items = new Array();
     params = new Object();
     cuisineId = 1;
-    user = 'k-amago';
     cuisine = {
         instructions: new Array(),
         foodstuffs: new Array(),
@@ -50,7 +49,7 @@ export class DetailComponent implements OnInit {
                     this.dialog.open('メッセージ', 'レシピを更新しました。');
                 }, err => this.apiError(err));
         } else {
-            this.http.post(this.getUrl('post'), JSON.stringify(this.cuisine))
+            this.http.post(this.getUrl('post'), this.cuisine)
                 .subscribe(res => {
                     this.cuisine = res.json();
                     this.dialog.open('メッセージ', 'レシピを登録しました。');
