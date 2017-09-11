@@ -5,17 +5,17 @@
             <input type="text" class="name" name="name" [(ngModel)]="cuisine.name">
         </div>
         <div class="recipe-row-box">
-            <label>種類：</label>
+            <label>分類：</label>
             <select name="classification" [(ngModel)]="cuisine.classification">
                 <option *ngFor="let type of types" [value]="type" [innerText]="type"></option>
             </select>
         </div>
         <div class="recipe-row-box">
-            <label>Kcal：</label>
+            <label>カロリー：</label>
             <input type="number" [(ngModel)]="cuisine.ingestion_kcal">
         </div>
         <div class="recipe-row-box">
-            <label>種類：</label>
+            <label>作成回数：</label>
             <input type="number" [(ngModel)]="cuisine.create_number_of_times">
         </div>
         <div class="recipe-row-box button-wrap">
