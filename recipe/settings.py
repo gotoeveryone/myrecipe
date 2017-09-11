@@ -87,7 +87,8 @@ DATABASES = {
         'HOST': os.environ.get('DB_RECIPE_HOST', 'localhost'),
         'USER': os.environ.get('DB_RECIPE_USER', 'forge'),
         'PASSWORD': os.environ.get('DB_RECIPE_PASSWORD', 'forge'),
-        'PORT': 3306
+        'PORT': 3306,
+        'ATOMIC_REQUESTS': True,
     }
 }
 
