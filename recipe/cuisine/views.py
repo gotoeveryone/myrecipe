@@ -26,7 +26,7 @@ class CuisineListView(generic.ListView):
 
         return render(request, self.template_name, {
             'title': self.title,
-            'message': '' if len(out_messages) == 0 else out_messages[0],
+            'message': '' if not out_messages else out_messages[0],
         })
 
 

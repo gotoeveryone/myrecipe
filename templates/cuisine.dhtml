@@ -2,5 +2,10 @@
 {% load static %}
 {% block content %}
 <app>Loading...</app>
+<script>
+window.Django = {
+    userId: '{{ request.user.user_id }}'
+};
+</script>
 <script src="{% static 'js/app.js' %}"></script>
 {% endblock %}

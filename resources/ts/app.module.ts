@@ -14,6 +14,7 @@ import { ROUTES } from './routes';
 import { MyHttp } from './services/http.service';
 import { BlockUIService } from './services/blockui.service';
 import { DialogService } from './services/dialog.service';
+import { MyRequestOptions } from './services/request.service';
 
 import { AppComponent } from './app.component';
 import { Dialog } from './components/parts/dialog.component';
@@ -49,6 +50,10 @@ if (PRODUCTION) {
         {
             provide: XSRFStrategy,
             useValue: new CookieXSRFStrategy('csrftoken', 'X-CSRFToken'),
+        },
+        {
+            provide: RequestOptions,
+            useClass: MyRequestOptions,
         },
         BlockUIService,
         DialogService,

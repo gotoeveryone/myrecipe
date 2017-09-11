@@ -8,7 +8,6 @@ from django.contrib import messages
 from django.contrib.messages import get_messages
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
-import requests
 from recipe.core.forms import LoginForm
 
 

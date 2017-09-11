@@ -6,24 +6,27 @@ from .serializer import CuisineSerializer, CuisineListSerializer, FoodstuffListS
 
 class CuisineViewSet(viewsets.ModelViewSet):
     """ メニュー REST API """
-    queryset = Cuisine.objects.all()
+    queryset = Cuisine.objects
     serializer_class = CuisineSerializer
+    user = None
 
-    def list(self, request, *args, **kwargs):
+    def dispatch(self, request: HttpRequest, *args, **kwargs):
+        self.user = request.META.get('HTTP_X_USERID')
+        return super(CuisineViewSet, self).dispatch(request, *args, **kwargs)
+
+    def list(self, request: HttpRequest, *args, **kwargs):
         self.serializer_class = CuisineListSerializer
         return viewsets.ModelViewSet.list(self, request, *args, **kwargs)
 
     def create(self, request: HttpRequest, *args, **kwargs):
-        user = request.COOKIES.get('user')
         # 登録ユーザの追加
-        request.data['created_by'] = user
-        request.data['modified_by'] = user
+        request.data['created_by'] = self.user
+        request.data['modified_by'] = self.user
         return super().create(request, *args, **kwargs)
 
     def update(self, request: HttpRequest, *args, **kwargs):
-        user = request.COOKIES.get('user')
         # 更新ユーザの追加
-        request.data['modified_by'] = user
+        request.data['modified_by'] = self.user
         return super().update(request, *args, **kwargs)
 
     def get_queryset(self):
