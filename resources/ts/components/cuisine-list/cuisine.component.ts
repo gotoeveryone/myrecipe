@@ -10,7 +10,7 @@ declare var require: any;
  * レシピ検索コンポーネント
  */
 @Component({
-    selector: 'search-cuisine',
+    selector: '.content-inner',
     template: require('./cuisine.component.html'),
 })
 export class SearchComponent {

@@ -4,10 +4,71 @@
 /* -------------------------------------------
    共通レイアウト
  ------------------------------------------- */
+%button {
+    color: $c_white;
+    border: none;
+}
+
+.container button {
+    @extend %button;
+    @include active-button(#404188);
+
+    &.btn-little {
+        min-width: 30px;
+        max-width: 30px;
+        min-height: 30px;
+        max-height: 30px;
+    }
+
+    &.btn-add {
+        @include active-button(#20ab32);
+        font-weight: bold;
+    }
+
+    &.btn-delete {
+        @include active-button(#ff3216);
+        font-weight: bold;
+    }
+
+    &.btn-save {
+        @include active-button(#ee982f);
+    }
+}
+
 .header {
-    .other {
-        @include sp() {
-            display: none;
+    * {
+        font-family: sans-serif;
+        font-weight: initial;
+    }
+    &-wrap {
+        display: flex;
+        width: 100%;
+        position: relative;
+
+        .system-name {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            z-index: 50;
+        }
+        .other {
+            @include sp() {
+                display: none;
+            }
+            display: flex;
+            height: auto;
+            flex-wrap: wrap;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 10px;
+            min-width: 150px;
+            z-index: 50;
+            
+            & > * {
+                width: 100%;
+                text-align: right;
+            }
         }
     }
     .other-icon {
@@ -22,31 +83,30 @@
         background-color: $c_black;
         background-image: url('/img/person.png');
         background-size: 3.5em 3.5em;
-        z-index: 3;
+        z-index: 30;
         &-open {
             display: flex;
             justify-content: flex-start;
             align-items: center;
             position: absolute;
             top: 0;
-            right: -300px;
-            width: 300px;
+            right: -250px;
+            width: 250px;
             height: 3.5rem;
             background-color: $c_black;
-            z-index: 5;
+            z-index: 20;
             color: $c_white;
-            text-decoration: underline;
             transition: right .5s ease-in-out;
             &.active {
                 right: 0;
             }
             &-item {
                 display: flex;
+                width: calc(250px - 30px);
                 flex-wrap: wrap;
                 padding: .3em .5em;
                 &-text {
                     width: 100%;
-                    font-family: sans-serif;
                     font-size: .6em;
                 }
             }
@@ -54,30 +114,22 @@
                 width: 30px;
                 text-align: center;
                 text-decoration: none;
-                font-family: sans-serif;
             }
         }
     }
 }
 
- .dialog-content-body {
-    padding: 10px;
+.app {
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    overflow-y: auto;
 }
 
-.container {
-    .content {
-        opacity: 1.0;
-        visibility: visible;
-        transition-duration: .5s;
-        transition-property: opacity, visibility;
-        transition-timing-function: ease-in;
-
-        &-inner {
-            height: 100%;
-            margin: 0 -.8rem;
-            padding: 0 .5rem;
-            overflow-y: auto;
-        }
+.content-inner {
+    @include pc() {
+        width: 100%;
+        height: 100%;
     }
 }
 
@@ -86,49 +138,20 @@
     font-size: 14px;
 }
 
-.field-validation-valid {
-    font-size: 14px;
-}
-
-.input-validation-error {
-    background-color: #ffddff;
-}
-
-.login {
-    max-width: 300px;
-    margin: 0.5rem auto;
-    label {
-        width: 30%;
-        text-align: right;
-        padding-right: .3em;
-    }
-}
-
-.buttonArea {
-    height: 60px;
-    position: relative;
-    margin-right: 0px;
-}
-
-.buttonArea section {
-    position: absolute;
-    bottom: 0px;
-    right: 15px;
-}
-
-.form-control[readonly=true] {
-    background-color: #dddddd;
-}
-
 .menu-detail {
+    @include sp() {
+        height: 120px;
+    }
     position: relative;
-    margin: .5em 0;
+    height: 50px;
+    margin: 0 0 10px;
     padding: .3em;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     border: 2px solid $c_black;
     border-radius: 5px;
+
     label {
         margin: auto 1em auto .5em;
     }
@@ -140,7 +163,10 @@
         @include sp() {
             flex-wrap: wrap;
             justify-content: flex-start;
+            height: calc(100% - 120px - 10px)
         }
+        height: calc(100% - 50px - 10px);   // content - detail - margin
+        overflow-y: auto;
         display: flex;
         width: 100%;
         border: 2px solid $c_black;
@@ -199,48 +225,6 @@
     resize: vertical;
 }
 
-%button {
-    color: $c_white;
-    border: none;
-}
-
-.container button {
-    @extend %button;
-    &:enabled:hover {
-        background-color: #666;
-    }
-    background-color: #999;
-}
-
-button.btn-little {
-    min-width: 30px;
-    max-width: 30px;
-    min-height: 30px;
-    max-height: 30px;
-}
-
-button.btn-add {
-    @include active-button(#20ab32);
-    font-weight: bold;
-}
-
-button.btn-delete {
-    @include active-button(#ff3216);
-    font-weight: bold;
-}
-
-button.btn-save {
-    @include active-button(#ee982f);
-}
-
-.footer-button {
-    display: flex;
-    justify-content: center;
-    button {
-        margin: 0 .2em 1.5em;
-    }
-}
-
 .recipe-row {
     padding: 0;
     flex-wrap: wrap;
@@ -257,14 +241,27 @@ button.btn-save {
 }
 
 .search-header {
+    @include sp() {
+        height: 130px;
+    }
     .search-row {
         padding: 0 .2rem;
     }
 }
 
 .search-results {
+    @include sp() {
+        height: calc(100% - 130px - .5rem);
+    }
+
+    .table-row {
+        & > * {
+            padding: 0 3px;            
+        }
+    }
+
     .name {
-        width: 32%;
+        width: 37%;
     }
     .type {
         width: 15%;
@@ -275,19 +272,22 @@ button.btn-save {
     .count {
         width: 15%;
     }
-    .detail-link {
-        display: flex;
-        width: 25%;
-        justify-content: center;
-        align-items: center;
+    .links {
+        width: 20%;
 
-        .button {
-            width: 80px;
-            margin: 0 5px;
+        &-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .button {
+                width: 60px;
+                margin: 0 5px;
+    
+                &.button-detail, &.button-mail {
+                    font-size: 1.2rem;
+                }
+            }
         }
     }
-}
-
-.search-cuisine {
-    height: 100%;
 }

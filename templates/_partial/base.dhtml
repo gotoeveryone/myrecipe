@@ -3,6 +3,7 @@
         {% load static %}
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="{{ ASSETS_URL }}css/common.css" />
         <link rel="stylesheet" href="{% static "css/app.css" %}"/>
         <title>レシピ管理 - {{title}}</title>
@@ -11,41 +12,53 @@
         <section class="container">
             <!-- 見出し -->
             <header class="header">
-                <div class="system-name">
-                    <span>レシピ管理システム</span>
+                <div class="header-wrap">
+                    <div class="system-name">レシピ管理システム</div>
+                    <h1 class="page-title">{{title}}</h1>
+                    <div class="other">
+                        {% if request.session.user %}
+                        <span>{{request.user}} ({{request.user.mail_address}})</span>
+                        <span><a href="{% url 'recipe:logout' %}">ログアウト</a></span>
+                        {% endif %}
+                    </div>
                 </div>
-                <h1 class="page-title">{{title}}</h1>
-                <div class="other">
-                    {% if request.session.user %}
-                    <span>{{request.user}} ({{request.user.mail_address}})</span>
-                    <a href="{% url 'recipe:logout' %}">ログアウト</a>
-                    {% endif %}
-                </div>
+                {% if request.session.user %}
                 <div class="other-icon"></div>
                 <div class="other-icon-open">
                     <div class="other-icon-open-arrow">>></div>
                     <div class="other-icon-open-item">
-                        <div class="other-icon-open-item-text">【ログインユーザ】</div>
-                        <div class="other-icon-open-item-text">{{request.user}} ({{request.user.mail_address}})</div>
+                        <div class="other-icon-open-item-text">{{request.user}} でログイン中</div>
+                        <div>
+                            <a href="{% url 'recipe:logout' %}" class="other-icon-open-item-text">ログアウト</a>
+                        </div>
                     </div>
                 </div>
+                {% endif %}
             </header>
             <main class="content fade">
                 {% block content %}{% endblock %}
+                <div class="block-ui"></div>
             </main>
             <footer class="footer">
                 <div>&copy; 2017 - レシピ管理</div>
             </footer>
         </section>
+        <script src="{{ ASSETS_URL }}js/common.js"></script>
         <script>
             var icon = document.querySelector('.other-icon');
-            var open = document.querySelector('.other-icon-open')
-            icon.addEventListener('click', function() {
-                open.classList.add('active');
-            }, false);
-            open.addEventListener('click', function() {
-                this.classList.remove('active');
-            }, false);
+            var open = document.querySelector('.other-icon-open');
+            if (icon && open) {
+                icon.addEventListener('click', function() {
+                    if (open.classList.contains('active')) {
+                        open.classList.remove('active');
+                    } else {
+                        open.classList.add('active');
+                    }
+                }, false);
+                open.addEventListener('click', function() {
+                    this.classList.remove('active');
+                }, false);
+            }
         </script>
     </body>
 </html>

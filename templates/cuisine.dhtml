@@ -1,7 +1,7 @@
 {% extends '_partial/base.dhtml' %}
 {% load static %}
 {% block content %}
-<app>Loading...</app>
+<div class="app">Loading...</div>
 <script>
 window.Django = {
     userId: '{{ request.user.user_id }}'
