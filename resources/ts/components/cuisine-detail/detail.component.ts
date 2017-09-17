@@ -13,7 +13,7 @@ declare var require: any;
  * レシピ詳細コンポーネント
  */
 @Component({
-    selector: 'detail-cuisine',
+    selector: '.content-inner',
     template: require('./detail.component.html'),
 })
 export class DetailComponent implements OnInit {
@@ -59,7 +59,7 @@ export class DetailComponent implements OnInit {
 
     /**
      * レスポンスからエラーメッセージを生成
-     * 
+     *
      * @param err
      */
     apiError(err: Response) {
@@ -114,7 +114,7 @@ export class DetailComponent implements OnInit {
 
     /**
      * 対象APIのURLを取得
-     * 
+     *
      * @private
      * @param _type
      */
@@ -132,7 +132,7 @@ export class DetailComponent implements OnInit {
 
     /**
      * 分類一覧取得
-     * 
+     *
      * @private
      * @return {Array} 分類一覧
      */

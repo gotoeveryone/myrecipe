@@ -4,7 +4,7 @@
         <span class="type">分類</span>
         <span class="kcal">カロリー</span>
         <span class="count">作成回数</span>
-        <span class="detail-link">詳細</span>
+        <span class="links">詳細</span>
     </li>
 </ul>
 <ul class="table-body" *ngIf="items.length">
@@ -13,9 +13,15 @@
         <span class="type" [innerText]="item.classification"></span>
         <span class="kcal" [innerText]="item.ingestion_kcal"></span>
         <span class="count" [innerText]="item.create_number_of_times"></span>
-        <span class="detail-link">
-            <a class="button" (click)="detailUrl(item.id)">詳細を見る</a>
-            <a class="button" [href]="noticeUrl(item.id)">メール送信</a>
+        <span class="links">
+            <span class="links-row">
+                <a class="button button-detail" (click)="detailUrl(item.id)">
+                    <i class="fa fa-newspaper-o" area-hidden="true"></i>
+                </a>
+                <a class="button button-mail" [href]="noticeUrl(item.id)">
+                    <i class="fa fa-envelope" area-hidden="true"></i>
+                </a>
+            </span>
         </span>
     </li>
 </ul>

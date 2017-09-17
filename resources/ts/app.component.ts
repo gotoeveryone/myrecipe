@@ -7,7 +7,7 @@ declare var require: any;
  * レシピ検索コンポーネント
  */
 @Component({
-    selector: 'app',
+    selector: '.app',
     template: require('./app.component.html'),
 })
 export class AppComponent implements AfterViewInit {
