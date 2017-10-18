@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 import { NgModel } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WEB_ROOT } from '../../const';
 
 declare var require: any;
 
@@ -35,6 +34,6 @@ export class ItemComponent {
      * @return {string} URL
      */
     noticeUrl(id: number) {
-        return `${WEB_ROOT}/cuisine/notice/${id}`;
+        return `/cuisine/notice/${id}`;
     }
 }

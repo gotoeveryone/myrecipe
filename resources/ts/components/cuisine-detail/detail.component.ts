@@ -4,7 +4,6 @@ import { NgIf, NgFor, NgClass } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgModel } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { WEB_ROOT } from '../../const';
 import { DialogService } from '../../services/dialog.service';
 
 declare var require: any;
@@ -106,7 +105,7 @@ export class DetailComponent implements OnInit {
             }
 
             // 食材の補完情報を取得
-            this.http.get(`${WEB_ROOT}/api/foodstuffs/`).forEach((res) => {
+            this.http.get('/api/foodstuffs/').forEach((res) => {
                 this.dataList = res.json();
             });
         });
@@ -123,9 +122,9 @@ export class DetailComponent implements OnInit {
             case 'GET':
             case 'PUT':
             case 'DELETE':
-                return `${WEB_ROOT}/api/cuisine/${this.cuisineId}/`;
+                return `/api/cuisine/${this.cuisineId}/`;
             case 'POST':
-                return `${WEB_ROOT}/api/cuisine/`;
+                return '/api/cuisine/';
         }
         return '';
     }

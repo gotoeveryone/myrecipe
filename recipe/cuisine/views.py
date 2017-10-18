@@ -1,7 +1,7 @@
 """
     メニュー関連
 """
-import os
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.messages import get_messages
 from django.core.mail import send_mail
@@ -48,8 +48,10 @@ def notice(request: HttpRequest, pk: int):
         'foodstuffs': cuisine.foodstuffs.all(),
     })
 
+    from_email = '%s <%s>' % (
+        settings.EMAIL_FROM_ALIAS, settings.EMAIL_HOST_USER)
     send_mail('レシピ通知【%s】' % cuisine.name, mail_body,
-              os.environ.get('EMAIL_HOST_USER'), [request.user.mail_address])
+              from_email, [request.user.mail_address])
 
     messages.add_message(request, messages.INFO,
                          '【%s】のレシピをメール送信しました。' % cuisine.name)
