@@ -133,10 +133,9 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/%sstatic/' % (os.environ.get('RECIPE_PREFIX'))
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'public/')
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 ASSETS_URL = os.environ.get('ASSETS_URL', '')
@@ -201,6 +200,7 @@ EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+EMAIL_FROM_ALIAS = os.environ.get('EMAIL_FROM_ALIAS', '')
 
 if DEBUG:
     MIDDLEWARE.append(

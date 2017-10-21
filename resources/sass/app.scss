@@ -11,7 +11,7 @@
 
 .container button {
     @extend %button;
-    @include active-button(#404188);
+    @include active-button(#585aad);
 
     &.btn-little {
         min-width: 30px;
@@ -283,7 +283,12 @@
             .button {
                 width: 60px;
                 margin: 0 5px;
+                cursor: pointer;
     
+                &:hover {
+                    background-color: darken(#aaa, 15%);
+                }
+
                 &.button-detail, &.button-mail {
                     font-size: 1.2rem;
                 }
