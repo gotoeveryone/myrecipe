@@ -8,7 +8,7 @@ module.exports = [
             app: './resources/ts/app.module',
         },
         output: {
-            path: path.join(__dirname, 'static/js'),
+            path: path.join(__dirname, 'public/js'),
             filename: '[name].js',
         },
         resolve: {
@@ -35,7 +35,7 @@ module.exports = [
     {
         entry: './resources/sass/app.scss',
         output: {
-            path: path.join(__dirname, 'static/css'),
+            path: path.join(__dirname, 'public/css'),
             filename: 'app.css',
         },
         resolve: {
