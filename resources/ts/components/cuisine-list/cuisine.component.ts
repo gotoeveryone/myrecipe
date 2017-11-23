@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgIf, NgForOf, NgClass } from '@angular/common';
 import { NgModel } from '@angular/forms';
 
 declare var require: any;

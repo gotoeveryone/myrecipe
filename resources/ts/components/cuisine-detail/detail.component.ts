@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgIf, NgForOf, NgClass } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgModel } from '@angular/forms';
 import { Observable } from 'rxjs';
