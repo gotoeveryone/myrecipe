@@ -16,8 +16,8 @@ class MyUser(User):
     def __init__(self, access_token, user_info, *args, **kwargs):
         super(MyUser, self).__init__(*args, **kwargs)
         self.pk = user_info.get('id')
-        self.user_id = user_info.get('userId')
-        self.user_name = user_info.get('userName')
+        self.user_id = user_info.get('account')
+        self.user_name = user_info.get('name')
         self.sex = user_info.get('sex')
         self.mail_address = user_info.get('mailAddress')
         self.access_token = access_token

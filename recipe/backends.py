@@ -6,6 +6,7 @@ from django.contrib.auth.backends import ModelBackend
 from django.http import HttpRequest
 from recipe.core.models import MyUser
 
+
 class WebResourceBackend(ModelBackend):
     """
     WebリソースAPIを利用した認証クラス
@@ -33,7 +34,7 @@ class WebResourceBackend(ModelBackend):
 
         # 取得したアクセストークンからユーザ情報を取得
         json = auth_response.json()
-        token = json['access_token']
+        token = json['accessToken']
 
         user_url = '%susers' % settings.API_URL
         user_response = requests.get(
