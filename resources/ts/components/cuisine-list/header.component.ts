@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgIf, NgForOf, NgClass } from '@angular/common';
 import { NgModel } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
