@@ -49,6 +49,16 @@
         top: 0;
         left: 10px;
         z-index: 50;
+        color: #e2d278;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .page-title-top {
+        width: 100%;
+        color: #e2d278;
+        font-weight: bold;
+        -webkit-text-stroke: .1rem #e2d278;
     }
 
     .other {
@@ -84,7 +94,7 @@
     cursor: pointer;
     background-color: $c_black;
     background-size: 3.5em 3.5em;
-    z-index: 30;
+    z-index: 100;
 }
 
 .information {
@@ -97,7 +107,7 @@
     width: 250px;
     height: 3.5rem;
     background-color: $c_black;
-    z-index: 20;
+    z-index: 80;
     color: $c_white;
     transition: right .5s ease-in-out;
     &.active {
@@ -167,6 +177,10 @@
 }
 
 .menu-detail {
+    @include pc() {
+        display: flex;
+        align-items: center;
+    }
     @include sp() {
         height: auto;
     }
@@ -174,8 +188,6 @@
     height: 50px;
     margin: 0 0 10px;
     padding: .3em;
-    display: flex;
-    align-items: center;
     border: 2px solid $c_black;
     border-radius: 5px;
 

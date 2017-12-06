@@ -18,8 +18,10 @@ def index(request: HttpRequest, form=None):
     @param form
     @return: django template
     """
+    if request.session.get('user'):
+        return redirect('recipe_cuisine:index')
+
     return render(request, 'index.dhtml', {
-        'title': 'ログイン',
         'form': LoginForm() if form is None else form,
         'messages': get_messages(request),
     })
