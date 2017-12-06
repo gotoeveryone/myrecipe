@@ -24,13 +24,15 @@
                     </div>
                 </div>
                 {% if request.session.user %}
-                <div class="other-icon"></div>
-                <div class="other-icon-open">
-                    <div class="other-icon-open-arrow">>></div>
-                    <div class="other-icon-open-item">
-                        <div class="other-icon-open-item-text">{{request.user}} でログイン中</div>
+                <div class="person">
+                    <div class="personal-icon"></div>
+                </div>
+                <div class="information">
+                    <div class="information-arrow">>></div>
+                    <div class="information-item">
+                        <div class="information-item-text">{{request.user}} でログイン中</div>
                         <div>
-                            <a href="{% url 'recipe:logout' %}" class="other-icon-open-item-text">ログアウト</a>
+                            <a href="{% url 'recipe:logout' %}" class="information-item-text">ログアウト</a>
                         </div>
                     </div>
                 </div>
@@ -46,8 +48,8 @@
         </section>
         <script src="{{ ASSETS_URL }}js/common.js"></script>
         <script>
-            var icon = document.querySelector('.other-icon');
-            var open = document.querySelector('.other-icon-open');
+            var icon = document.querySelector('.person');
+            var open = document.querySelector('.information');
             if (icon && open) {
                 icon.addEventListener('click', function() {
                     if (open.classList.contains('active')) {

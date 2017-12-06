@@ -35,87 +35,115 @@
     }
 }
 
-.header {
-    * {
-        font-family: sans-serif;
-        font-weight: initial;
-    }
-    &-wrap {
-        display: flex;
-        width: 100%;
-        position: relative;
+.header-wrap {
+    display: flex;
+    width: 100%;
+    position: relative;
 
-        .system-name {
-            position: absolute;
-            top: 0;
-            left: 10px;
-            z-index: 50;
-        }
-        .other {
-            @include sp() {
-                display: none;
-            }
-            display: flex;
-            height: auto;
-            flex-wrap: wrap;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 10px;
-            min-width: 150px;
-            z-index: 50;
-            
-            & > * {
-                width: 100%;
-                text-align: right;
-            }
-        }
+    & > * {
+        margin-top: 3px;
     }
-    .other-icon {
-        @include pc() {
-            display: none;
-        }
+
+    .system-name {
         position: absolute;
         top: 0;
-        right: 0;
-        width: 3.5rem;
-        height: 3.5rem;
-        background-color: $c_black;
-        background-image: url('/img/person.png');
-        background-size: 3.5em 3.5em;
-        z-index: 30;
-        &-open {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            position: absolute;
-            top: 0;
-            right: -250px;
-            width: 250px;
-            height: 3.5rem;
-            background-color: $c_black;
-            z-index: 20;
-            color: $c_white;
-            transition: right .5s ease-in-out;
-            &.active {
-                right: 0;
-            }
-            &-item {
-                display: flex;
-                width: calc(250px - 30px);
-                flex-wrap: wrap;
-                padding: .3em .5em;
-                &-text {
-                    width: 100%;
-                    font-size: .6em;
-                }
-            }
-            &-arrow {
-                width: 30px;
-                text-align: center;
-                text-decoration: none;
-            }
+        left: 10px;
+        z-index: 50;
+    }
+
+    .other {
+        @include sp() {
+            display: none;
         }
+        display: flex;
+        height: auto;
+        flex-wrap: wrap;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 10px;
+        min-width: 150px;
+        z-index: 50;
+        
+        & > * {
+            width: 100%;
+            text-align: right;
+        }
+    }
+}
+
+.person {
+    @include pc() {
+        display: none;
+    }
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    cursor: pointer;
+    background-color: $c_black;
+    background-size: 3.5em 3.5em;
+    z-index: 30;
+}
+
+.information {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 3.5rem;
+    background-color: $c_black;
+    z-index: 20;
+    color: $c_white;
+    transition: right .5s ease-in-out;
+    &.active {
+        right: 0;
+    }
+    &-item {
+        display: flex;
+        width: calc(250px - 30px);
+        flex-wrap: wrap;
+        padding: .3em .5em;
+        &-text {
+            width: 100%;
+            font-size: .8em;
+        }
+    }
+    &-arrow {
+        width: 30px;
+        text-align: center;
+        text-decoration: none;
+    }
+}
+
+// アイコン
+.personal-icon {
+    color: $c_white;
+    position: absolute;
+    margin-left: 8px;
+    margin-top: 26px;
+    width: 36px;
+    height: 17px;
+    border-left: solid 1px currentColor;
+    border-right: solid 1px currentColor;
+    border-top: solid 1px currentColor;
+    border-bottom: solid 1px transparent;
+    background-color: currentColor;
+    border-radius: 6px 6px 0 0;
+    &:before {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: -20px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: solid 1px currentColor;
+        background-color: currentColor;
     }
 }
 
@@ -140,24 +168,16 @@
 
 .menu-detail {
     @include sp() {
-        height: 120px;
+        height: auto;
     }
     position: relative;
     height: 50px;
     margin: 0 0 10px;
     padding: .3em;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     border: 2px solid $c_black;
     border-radius: 5px;
-
-    label {
-        margin: auto 1em auto .5em;
-    }
-    .button-wrap {
-        margin-left: auto;
-    }
 
     &-other {
         @include sp() {
@@ -228,22 +248,49 @@
 .recipe-row {
     padding: 0;
     flex-wrap: wrap;
-    &-box {
-        margin: .3em 0;
-        padding: 0 .2em;
-        &.wide {
-            width: 320px;
-            .name {
-                width: 250px;
+}
+
+.recipe-row-box {
+    @include sp() {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+
+        .label-column, .input-column {
+            width: 100%;
+            & > * {
+                width: 100%;
             }
+        }    
+    }
+    display: flex;
+    align-items: center;
+    margin: .3em 0;
+    padding: 0 .2em;
+
+    .label-column {
+        @include pc() {
+            margin: auto 5px auto 15px;
+        }
+    }
+
+    &.button-wrap {
+        @include pc() {
+            margin-left: auto;
+        }
+        @include sp() {
+            justify-content: flex-end;
         }
     }
 }
 
-.search-header {
+.recipe-row-box_half {
     @include sp() {
-        height: 130px;
+        width: 50%;
     }
+}
+
+.search-header {
     .search-row {
         padding: 0 .2rem;
     }

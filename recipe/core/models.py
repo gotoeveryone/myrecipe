@@ -97,7 +97,7 @@ class Instruction(BaseModel):
     sort_order = models.IntegerField('並び順',
                                      validators=[MinValueValidator(1), MaxValueValidator(999)])
     description = models.CharField('手順', max_length=255)
-    cuisine = models.ForeignKey(Cuisine, related_name='instructions')
+    cuisine = models.ForeignKey(Cuisine, models.CASCADE, related_name='instructions')
 
     def __str__(self):
         return self.description
@@ -112,7 +112,7 @@ class Foodstuff(BaseModel):
     """ 食材 """
     name = models.CharField(max_length=255)
     quantity = models.CharField(max_length=100)
-    cuisine = models.ForeignKey(Cuisine, related_name='foodstuffs')
+    cuisine = models.ForeignKey(Cuisine, models.CASCADE, related_name='foodstuffs')
 
     def __str__(self):
         return self.name
