@@ -1,6 +1,6 @@
-# レシピ管理システム
+# MyRecipe
 
-[Django](https://github.com/django/django) 1.x を利用したレシピ管理システムです。
+[Django](https://github.com/django/django) 2.x を利用したレシピ管理ツールです。
 
 ## 前提
 以下がインストールされていること。
@@ -13,10 +13,19 @@
 
 1. `.env.example`をもとに、`.env`ファイルを生成します。
 2. ルートディレクトリで`npm install`を実行します。
-3. 以下コマンドを実行して、必要なライブラリを取得します。
+3. 以下コマンドを実行して、Djangoの実行環境を準備します。
 
 ```
-$ pip install -r setup/requirements.txt
+$ cd <project_root>
+$ python -m venv venv
+
+$ # Mac/Linux
+$ ./venv/bin/activate
+
+$ # Windows
+$ venv\Scripts\activate.bat
+
+$ pip install -r requirements.txt
 ```
 
 ## 実行
@@ -27,7 +36,7 @@ $ pip install -r setup/requirements.txt
 $ # フロントコード
 $ npm run dev
 $ # サーバ側
-$ <python_path> ./manage.py runserver
+$ python ./manage.py runserver
 ```
 
 ### サーバ側でDockerを利用する場合
@@ -41,7 +50,7 @@ $ docker-compose build && docker-compose up
 以下コマンドを実行し、静的ファイルを`static`ディレクトリにまとめます。
 
 ```
-$ <python_path> ./manage.py collectstatic
+$ python ./manage.py collectstatic
 ```
 
 ## 注意事項
