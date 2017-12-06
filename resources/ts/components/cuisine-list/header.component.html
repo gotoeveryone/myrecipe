@@ -1,17 +1,29 @@
 <li class="search-row recipe-row">
-    <div class="recipe-row-box wide">
-        <label>名前：</label>
-        <input type="text" name="name" class="name" ([ngModel])="name" (change)="changeValue($event)">
+    <div class="recipe-row-box">
+        <div class="label-column">
+            <label>名前</label>
+        </div>
+        <div class="input-column">
+            <input type="text" name="name" class="name" ([ngModel])="name" (change)="changeValue($event)">
+        </div>
     </div>
     <div class="recipe-row-box">
-        <label>分類：</label>
-        <select name="classification" ([ngModel])="classification" (change)="changeValue($event)" [ngModel]="classification">
-            <option *ngFor="let type of types" [value]="type" [innerText]="type"></option>
-        </select>
+        <div class="label-column">
+            <label>分類</label>
+        </div>
+        <div class="input-column">
+            <select name="classification" ([ngModel])="classification" (change)="changeValue($event)" [ngModel]="classification">
+                <option *ngFor="let type of types" [value]="type" [innerText]="type"></option>
+            </select>
+        </div>
     </div>
     <div class="recipe-row-box">
-        <label>カロリー：</label>
-        <input type="number" name="kcal" ([ngModel])="kcal" (change)="changeValue($event)">以下
+        <div class="label-column">
+            <label>カロリー(以下)</label>
+        </div>
+        <div class="input-column">
+            <input type="number" class="kcal" name="kcal" ([ngModel])="kcal" (change)="changeValue($event)">
+        </div>
     </div>
     <div class="recipe-row-box button-wrap">
         <button type="button" (click)="toAdd()">新規追加</button>

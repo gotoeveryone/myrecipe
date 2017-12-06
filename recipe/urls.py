@@ -18,9 +18,9 @@ from django.contrib import admin
 from . import settings
 
 urlpatterns = [
-    url(r'^', include('recipe.core.urls', namespace='recipe')),
-    url(r'^cuisine/', include('recipe.cuisine.urls', namespace='recipe_cuisine')),
-    url(r'^api/', include('recipe.api.urls', namespace='recipe_api')),
+    url(r'^', include('recipe.core.urls')),
+    url(r'^cuisine/', include('recipe.cuisine.urls')),
+    url(r'^api/', include('recipe.api.urls')),
     url(r'^admin/', admin.site.urls),
 ]
 
