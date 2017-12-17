@@ -4,7 +4,7 @@
 <div class="app">Loading...</div>
 <script>
 window.Django = {
-    userId: '{{ request.user.user_id }}'
+    userId: '{{ request.user.get_username }}'
 };
 </script>
 <script src="{% static 'js/app.js' %}"></script>

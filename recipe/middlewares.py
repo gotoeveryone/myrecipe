@@ -1,16 +1,17 @@
 """
 カスタムミドルウェア
 """
-from django.contrib import auth
+import json
 from django.conf import settings
+from django.contrib import auth
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.functional import SimpleLazyObject
-from django.contrib.auth.middleware import RemoteUserMiddleware
+from recipe.core.models import ApiUser
 
 
-class WebResourceMiddleware(MiddlewareMixin):
+class WebApiAuthenticationMiddleware(MiddlewareMixin):
     """
-    独自の認証ミドルウェア
+    API認証ミドルウェア
     """
 
     def process_request(self, request):
@@ -32,4 +33,10 @@ class WebResourceMiddleware(MiddlewareMixin):
         @param request
         """
         from django.contrib.auth.models import AnonymousUser
-        return request.session.get('user') or AnonymousUser()
+        user_data = request.session.get('user')
+        if not user_data:
+            return AnonymousUser()
+
+        user = ApiUser().from_json(json.loads(user_data))
+        user.backend = request.session[auth.BACKEND_SESSION_KEY]
+        return user
