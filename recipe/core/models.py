@@ -51,10 +51,12 @@ class ApiUser(AbstractUser):
         }
 
     class Meta(AbstractUser.Meta):
+        swappable = 'AUTH_USER_MODEL'
         app_label = 'core'
         db_table = 'auth_user'
         verbose_name = 'ログインユーザ'
         verbose_name_plural = 'ログインユーザ'
+        abstract = False
         managed = False
 
 

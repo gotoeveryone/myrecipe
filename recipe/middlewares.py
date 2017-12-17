@@ -3,7 +3,6 @@
 """
 import json
 from django.conf import settings
-from django.contrib import auth
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.functional import SimpleLazyObject
 from recipe.core.models import ApiUser
@@ -23,7 +22,7 @@ class WebApiAuthenticationMiddleware(MiddlewareMixin):
             "The Django authentication middleware requires session middleware "
             "to be installed. Edit your MIDDLEWARE%s setting to insert "
             "'django.contrib.sessions.middleware.SessionMiddleware' before "
-            "'recipe.middlewares.WebResourceMiddleware'."
+            "'recipe.middlewares.WebApiAuthenticationMiddleware'."
         ) % ("_CLASSES" if settings.MIDDLEWARE is None else "")
         request.user = SimpleLazyObject(lambda: self.get_user(request))
 
@@ -37,6 +36,4 @@ class WebApiAuthenticationMiddleware(MiddlewareMixin):
         if not user_data:
             return AnonymousUser()
 
-        user = ApiUser().from_json(json.loads(user_data))
-        user.backend = request.session[auth.BACKEND_SESSION_KEY]
-        return user
+        return ApiUser().from_json(json.loads(user_data))
