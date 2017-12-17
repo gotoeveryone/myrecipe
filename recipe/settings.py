@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.environ.get('ENVIRONMENT') != 'production' else False
+DEBUG = True if os.environ.get('ENVIRONMENT', 'local') != 'production' else False
 
 ALLOWED_HOSTS = [
     '*',
@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'recipe.middlewares.WebResourceMiddleware',
+    'recipe.middlewares.WebApiAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -93,7 +93,7 @@ DATABASES = {
     }
 }
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 SESSION_COOKIE_AGE = 10 * 60
 
 # Password validation
@@ -115,8 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'recipe.backends.WebResourceBackend',
+    'recipe.backends.WebApiBackend',
 ]
+AUTH_USER_MODEL = 'core.ApiUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

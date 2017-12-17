@@ -3,8 +3,7 @@
 """
 from logging import getLogger
 from django.conf import settings
-from django.contrib.auth import authenticate, load_backend, login as logged, logout as logged_out
-from django.contrib import messages
+from django.contrib import auth, messages
 from django.contrib.messages import get_messages
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
@@ -38,7 +37,7 @@ def login(request: HttpRequest):
         messages.add_message(request, messages.ERROR, 'ログインに失敗しました。')
         return index(request, form)
 
-    user = authenticate(request,
+    user = auth.authenticate(request,
                         username=form.cleaned_data['account'],
                         password=form.cleaned_data['password'])
 
@@ -46,19 +45,20 @@ def login(request: HttpRequest):
         messages.add_message(request, messages.ERROR, 'ログインに失敗しました。')
         return index(request, form)
 
-    logged(request, user, backend=user.backend)
+    auth.login(request, user, backend=user.backend)
 
     logger = getLogger(__name__)
     logger.info('ユーザ【%s】がログインしました。', user.get_username())
 
     next_url = request.POST.get('next', '')
     if next_url == "":
-        next_url = 'recipe_cuisine:index';
+        next_url = 'recipe_cuisine:index'
 
     # Cookieにログインユーザを設定してリダイレクト
     response = redirect(next_url)
+    logger.info(user.get_username())
     response.set_cookie(
-        'user', value=user.user_id, max_age=settings.SESSION_COOKIE_AGE)
+        'account', value=user.get_username(), max_age=settings.SESSION_COOKIE_AGE)
     return response
 
 
@@ -68,11 +68,8 @@ def logout(request: HttpRequest):
     @param request
     @return: django template
     """
-    user = getattr(request, 'user', None)
-    if user is not None and getattr(user, 'backend', None) is not None:
-        backend = load_backend(user.backend)
-        backend.deauthenticate(user)
+    auth.logout(request)
 
-    logged_out(request)
-
-    return redirect('recipe:index')
+    response = redirect('recipe:index')
+    response.delete_cookie('account')
+    return response

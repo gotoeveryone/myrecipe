@@ -1,19 +1,41 @@
 """ ログイン用のAPI認証バックエンド """
+import json
 from logging import getLogger
 import requests
 from django.conf import settings
-from django.contrib.auth.backends import ModelBackend
-from django.http import HttpRequest
-from recipe.core.models import MyUser
+from django.contrib.auth.backends import RemoteUserBackend
+from django.contrib.auth.signals import user_logged_out
+from django.dispatch import receiver
+from recipe.core.models import ApiUser
 
 
-class WebResourceBackend(ModelBackend):
+@receiver(user_logged_out)
+def deauthenticate(request, **kwargs):
     """
-    WebリソースAPIを利用した認証クラス
+    認証解除処理
+    :param request
+    :param kwargs
+    """
+    user = getattr(request, 'user', None)
+
+    # APIの認証解除
+    if isinstance(user, ApiUser):
+        url = '%sdeauth' % settings.API_URL
+        response = requests.delete(
+            url, headers={'Authorization': 'Bearer %s' % user.get_access_token()})
+
+        if not response.ok:
+            logger = getLogger(__name__)
+            logger.error(response.json())
+
+
+class WebApiBackend(RemoteUserBackend):
+    """
+    WebAPIを利用した認証クラス
     """
     logger = getLogger(__name__)
 
-    def authenticate(self, request: HttpRequest, username=None, password=None, **kwargs):
+    def authenticate(self, request, username=None, password=None, **kwargs):
         """
         認証処理
         :param request
@@ -27,51 +49,30 @@ class WebResourceBackend(ModelBackend):
         auth_response = requests.post(
             url, json={'account': username, 'password': password})
 
-        # 認証エラーの場合
-        if auth_response.status_code != 200:
+        # アクセストークン取得エラー
+        if not auth_response.ok:
             self.logger.error(auth_response.json())
             return None
 
         # 取得したアクセストークンからユーザ情報を取得
-        json = auth_response.json()
-        token = json['accessToken']
-
+        token = auth_response.json().get('accessToken')
         user_url = '%susers' % settings.API_URL
         user_response = requests.get(
             user_url, headers={'Authorization': 'Bearer %s' % token})
 
-        # 取得エラーの場合
-        if user_response.status_code != 200:
+        # ユーザ情報取得エラー
+        if not user_response.ok:
             self.logger.error(user_response.json())
             return None
 
-        user = MyUser(token, user_response.json())
-        request.session['user'] = user
+        user_json = user_response.json()
+        user_json['accessToken'] = token
 
+        # DBに保存したIDを取得する（管理画面用）
+        db_user = super().authenticate(request, username)
+        if db_user:
+            user_json['id'] = db_user.pk
+
+        user = ApiUser().from_json(user_json)
+        request.session['user'] = json.dumps(user.to_json())
         return user
-
-    def deauthenticate(self, user: MyUser):
-        """
-        認証解除処理
-        :param user
-        :return bool
-        """
-        url = '%sdeauth' % settings.API_URL
-        response = requests.delete(
-            url, headers={'Authorization': 'Bearer %s' % user.get_access_token()})
-
-        if response.status_code != 204:
-            self.logger.error(response.json())
-            return False
-
-        return True
-
-    def has_module_perms(self, user_obj, app_label):
-        """
-        管理画面へのアクセス許可
-        :param user_obj
-        :param app_label
-        """
-        if not user_obj.is_active or not user_obj.is_superuser:
-            return False
-        return True

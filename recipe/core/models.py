@@ -1,51 +1,58 @@
 """ Models """
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.utils import timezone
 
 
-class MyUser(User):
-    """ API認証に成功したユーザモデル """
-    USERNAME_FIELD = 'user_name'
-    EMAIL_FIELD = 'mail_address'
-    REQUIRED_FIELDS = ['id', 'user_id', 'user_name', 'mail_address', 'role']
+class ApiUser(AbstractUser):
+    """ API認証ユーザ """
+    REQUIRED_FIELDS = ['account', 'name', 'email']
 
-    authenticated = False
-
-    def __init__(self, access_token, user_info, *args, **kwargs):
-        super(MyUser, self).__init__(*args, **kwargs)
-        self.pk = user_info.get('id')
-        self.user_id = user_info.get('account')
-        self.user_name = user_info.get('name')
-        self.sex = user_info.get('sex')
-        self.mail_address = user_info.get('mailAddress')
-        self.access_token = access_token
-
-        # ユーザの権限設定
-        self.is_active = True
-        self.is_staff = True
-        self.is_superuser = True if user_info.get('role') == '管理者' else False
-
-        # 認証済み
-        self.authenticated = True
+    is_staff = True
+    is_superuser = False
 
     def get_access_token(self):
-        return self.access_token
+        """ アクセストークン取得 """
+        return self.access_token if hasattr(self, 'access_token') else None
 
     def get_full_name(self):
-        return self.get_short_name()
+        return self.fullname
 
-    def get_short_name(self):
-        return self.user_name
-
+    @property
     def is_authenticated(self):
-        return self.authenticated
+        return True if self.get_username() else False
 
     def save(self, *args, **kwargs):
         pass
 
-    class Meta:
+    def from_json(self, data):
+        """ JSONの値をオブジェクトに設定 """
+        self.pk = data.get('id')
+        self.access_token = data.get('accessToken')
+        self.username = data.get('account')
+        self.fullname = data.get('name')
+        self.email = data.get('mailAddress')
+        if data.get('admin'):
+            self.is_superuser = data.get('admin')
+        elif data.get('role'):
+            self.is_superuser = True if data.get('role') == '管理者' else False
+        return self
+
+    def to_json(self):
+        """ オブジェクトの値をJSONで取得 """
+        return {
+            'id': self.pk,
+            'accessToken': self.access_token,
+            'account': self.username,
+            'name': self.fullname,
+            'mailAddress': self.email,
+            'admin': self.is_superuser,
+        }
+
+    class Meta(AbstractUser.Meta):
+        app_label = 'core'
+        db_table = 'auth_user'
         verbose_name = 'ログインユーザ'
         verbose_name_plural = 'ログインユーザ'
         managed = False
@@ -62,7 +69,7 @@ class BaseModel(models.Model):
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
 
-        if self.id is None:
+        if self.pk is None:
             self.created = timezone.now()
 
         self.modified = timezone.now()

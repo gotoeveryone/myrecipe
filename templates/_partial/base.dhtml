@@ -14,27 +14,27 @@
             <!-- 見出し -->
             <header class="header">
                 <div class="header-wrap">
-                    {% if request.session.user %}
+                    {% if request.user.is_authenticated %}
                     <div class="system-name">MyRecipe</div>
                     <h1 class="page-title">{{title}}</h1>
                     {% else %}
                     <h1 class="page-title-top">MyRecipe</h1>
                     {% endif %}
                     <div class="other">
-                        {% if request.session.user %}
-                        <span>{{request.user}} ({{request.user.mail_address}})</span>
+                        {% if request.user.is_authenticated %}
+                        <span>{{request.user.get_full_name}} ({{request.user.email}})</span>
                         <span><a href="{% url 'recipe:logout' %}">ログアウト</a></span>
                         {% endif %}
                     </div>
                 </div>
-                {% if request.session.user %}
+                {% if request.user.is_authenticated %}
                 <div class="person">
                     <div class="personal-icon"></div>
                 </div>
                 <div class="information">
                     <div class="information-arrow">>></div>
                     <div class="information-item">
-                        <div class="information-item-text">{{request.user}} でログイン中</div>
+                        <div class="information-item-text">{{request.get_full_name}} でログイン中</div>
                         <div>
                             <a href="{% url 'recipe:logout' %}" class="information-item-text">ログアウト</a>
                         </div>
