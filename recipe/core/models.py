@@ -1,3 +1,4 @@
+# pylint: disable=C0103
 """ Models """
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -5,33 +6,33 @@ from django.db import models
 from django.utils import timezone
 
 
-class ApiUser(AbstractUser):
+class User(AbstractUser):
     """ API認証ユーザ """
     REQUIRED_FIELDS = ['account', 'name', 'email']
 
     is_staff = True
     is_superuser = False
 
+    access_token = None
+    name = None
+
     def get_access_token(self):
         """ アクセストークン取得 """
         return self.access_token if hasattr(self, 'access_token') else None
 
     def get_full_name(self):
-        return self.fullname
+        return self.name
 
     @property
     def is_authenticated(self):
         return True if self.get_username() else False
-
-    def save(self, *args, **kwargs):
-        pass
 
     def from_json(self, data):
         """ JSONの値をオブジェクトに設定 """
         self.pk = data.get('id')
         self.access_token = data.get('accessToken')
         self.username = data.get('account')
-        self.fullname = data.get('name')
+        self.name = data.get('name')
         self.email = data.get('mailAddress')
         if data.get('admin'):
             self.is_superuser = data.get('admin')
@@ -43,21 +44,19 @@ class ApiUser(AbstractUser):
         """ オブジェクトの値をJSONで取得 """
         return {
             'id': self.pk,
-            'accessToken': self.access_token,
-            'account': self.username,
-            'name': self.fullname,
+            'accessToken': self.get_access_token(),
+            'account': self.get_username(),
+            'name': self.get_full_name(),
             'mailAddress': self.email,
             'admin': self.is_superuser,
         }
 
     class Meta(AbstractUser.Meta):
-        swappable = 'AUTH_USER_MODEL'
         app_label = 'core'
         db_table = 'auth_user'
         verbose_name = 'ログインユーザ'
         verbose_name_plural = 'ログインユーザ'
         abstract = False
-        managed = False
 
 
 class BaseModel(models.Model):
@@ -106,7 +105,8 @@ class Instruction(BaseModel):
     sort_order = models.IntegerField('並び順',
                                      validators=[MinValueValidator(1), MaxValueValidator(999)])
     description = models.CharField('手順', max_length=255)
-    cuisine = models.ForeignKey(Cuisine, models.CASCADE, related_name='instructions')
+    cuisine = models.ForeignKey(
+        Cuisine, models.CASCADE, related_name='instructions')
 
     def __str__(self):
         return self.description
@@ -121,7 +121,8 @@ class Foodstuff(BaseModel):
     """ 食材 """
     name = models.CharField(max_length=255)
     quantity = models.CharField(max_length=100)
-    cuisine = models.ForeignKey(Cuisine, models.CASCADE, related_name='foodstuffs')
+    cuisine = models.ForeignKey(
+        Cuisine, models.CASCADE, related_name='foodstuffs')
 
     def __str__(self):
         return self.name

@@ -7,5 +7,5 @@ app_name = 'recipe_cuisine'
 
 urlpatterns = [
     url(r'^$', login_required(CuisineListView.as_view()), name='index'),
-    url(r'^notice/(?P<pk>\d+)/', login_required(notice), name='notice'),
+    url(r'^notice/(?P<key>\d+)/', login_required(notice), name='notice'),
 ]

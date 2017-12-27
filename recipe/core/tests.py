@@ -3,7 +3,6 @@ import random
 from django.test import TestCase
 from recipe.core.models import Cuisine
 
-# Create your tests here.
 
 class CuisineModelTests(TestCase):
     """ レシピモデルのテスト """
@@ -13,11 +12,11 @@ class CuisineModelTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         # テストデータを10件登録しておく
-        for x in range(1,10):
+        for count in range(1, 10):
             cuisine = Cuisine()
-            cuisine.name = 'テスト%d' % x
+            cuisine.name = 'テスト%d' % count
             cuisine.classification = random.choice(cls.classifications)
-            cuisine.ingestion_kcal = x * 100
+            cuisine.ingestion_kcal = count * 100
             cuisine.save()
             cls.cuisines.append(cuisine)
 
@@ -26,9 +25,9 @@ class CuisineModelTests(TestCase):
 
         # DBから取得して比較
         exists = Cuisine.objects.filter(name__contains='テスト').all()
-        for e in exists:
-            self.assertIsNotNone(e.id)
-            self.assertIn('テスト', e.name)
+        for row in exists:
+            self.assertIsNotNone(row.id)
+            self.assertIn('テスト', row.name)
 
     def test_is_search_cuisine_by_name(self):
         """ レシピの検索 """
