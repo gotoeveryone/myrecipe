@@ -23,7 +23,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.environ.get('ENVIRONMENT', 'local') != 'production' else False
+DEBUG = True if os.environ.get(
+    'ENVIRONMENT', 'local') != 'production' else False
 
 ALLOWED_HOSTS = [
     '*',
@@ -117,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = [
     'recipe.backends.WebApiBackend',
 ]
-AUTH_USER_MODEL = 'core.ApiUser'
+AUTH_USER_MODEL = 'core.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

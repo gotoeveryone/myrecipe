@@ -30,7 +30,7 @@ class CuisineListView(generic.ListView):
         })
 
 
-def notice(request: HttpRequest, pk: int):
+def notice(request: HttpRequest, key: int):
     """
     メール送信
     @param request
@@ -40,7 +40,7 @@ def notice(request: HttpRequest, pk: int):
     prefetch = Prefetch(
         'instructions', queryset=Instruction.objects.order_by('sort_order'))
     cuisine = Cuisine.objects.prefetch_related(
-        prefetch, 'foodstuffs').get(pk=pk)
+        prefetch, 'foodstuffs').get(pk=key)
 
     mail_body = get_template('_partial/email.dhtml').render({
         'name': cuisine.name,
@@ -51,7 +51,7 @@ def notice(request: HttpRequest, pk: int):
     from_email = '%s <%s>' % (
         settings.EMAIL_FROM_ALIAS, settings.EMAIL_HOST_USER)
     send_mail('レシピ通知【%s】' % cuisine.name, mail_body,
-              from_email, [request.user.mail_address])
+              from_email, [request.user.email])
 
     messages.add_message(request, messages.INFO,
                          '【%s】のレシピをメール送信しました。' % cuisine.name)

@@ -5,7 +5,7 @@ import json
 from django.conf import settings
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.functional import SimpleLazyObject
-from recipe.core.models import ApiUser
+from recipe.core.models import User
 
 
 class WebApiAuthenticationMiddleware(MiddlewareMixin):
@@ -26,7 +26,8 @@ class WebApiAuthenticationMiddleware(MiddlewareMixin):
         ) % ("_CLASSES" if settings.MIDDLEWARE is None else "")
         request.user = SimpleLazyObject(lambda: self.get_user(request))
 
-    def get_user(self, request):
+    @classmethod
+    def get_user(cls, request):
         """
         セッションからログインユーザを取得する
         @param request
@@ -36,4 +37,4 @@ class WebApiAuthenticationMiddleware(MiddlewareMixin):
         if not user_data:
             return AnonymousUser()
 
-        return ApiUser().from_json(json.loads(user_data))
+        return User().from_json(json.loads(user_data))

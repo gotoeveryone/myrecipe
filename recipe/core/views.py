@@ -38,8 +38,8 @@ def login(request: HttpRequest):
         return index(request, form)
 
     user = auth.authenticate(request,
-                        username=form.cleaned_data['account'],
-                        password=form.cleaned_data['password'])
+                             username=form.cleaned_data['account'],
+                             password=form.cleaned_data['password'])
 
     if user is None:
         messages.add_message(request, messages.ERROR, 'ログインに失敗しました。')

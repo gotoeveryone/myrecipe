@@ -3,10 +3,10 @@ import json
 from logging import getLogger
 import requests
 from django.conf import settings
-from django.contrib.auth.backends import RemoteUserBackend
+from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.signals import user_logged_out
 from django.dispatch import receiver
-from recipe.core.models import ApiUser
+from recipe.core.models import User
 
 
 @receiver(user_logged_out)
@@ -19,7 +19,7 @@ def deauthenticate(request, **kwargs):
     user = getattr(request, 'user', None)
 
     # APIの認証解除
-    if isinstance(user, ApiUser):
+    if isinstance(user, User):
         url = '%sdeauth' % settings.API_URL
         response = requests.delete(
             url, headers={'Authorization': 'Bearer %s' % user.get_access_token()})
@@ -29,7 +29,7 @@ def deauthenticate(request, **kwargs):
             logger.error(response.json())
 
 
-class WebApiBackend(RemoteUserBackend):
+class WebApiBackend(ModelBackend):
     """
     WebAPIを利用した認証クラス
     """
@@ -69,10 +69,15 @@ class WebApiBackend(RemoteUserBackend):
         user_json['accessToken'] = token
 
         # DBに保存したIDを取得する（管理画面用）
-        db_user = super().authenticate(request, username)
-        if db_user:
-            user_json['id'] = db_user.pk
+        db_user, _ = User.objects.get_or_create(**{
+            User.USERNAME_FIELD: username
+        })
+        user_json['id'] = db_user.pk
 
-        user = ApiUser().from_json(user_json)
+        # メールアドレスを保存
+        user = User().from_json(user_json)
+        db_user.email = user.email
+        db_user.save()
+
         request.session['user'] = json.dumps(user.to_json())
         return user
