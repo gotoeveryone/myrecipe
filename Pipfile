@@ -1,0 +1,28 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+django = ">=2.0"
+djangorestframework = "*"
+mysqlclient = "*"
+requests = "*"
+python-dotenv = "*"
+
+
+[dev-packages]
+
+pylint = "==1.7.5"
+pylint-django = "*"
+pylint-plugin-utils = "*"
+astroid = "==1.5.3"
+django-debug-toolbar = "*"
+
+
+[requires]
+
+python_version = "3"

@@ -2,6 +2,6 @@ __pycache__
 /node_modules
 /public
 /static
-/venv*
+/.venv
 .env
 /.vscode
