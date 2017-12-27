@@ -16,8 +16,14 @@
 3. 以下コマンドを実行して、Djangoの実行環境を準備します。
 
 ```
+$ # プロジェクト内部に作成する場合は以下を設定
+$ # mac / linux
+$ PIPENV_VENV_IN_PROJECT=1
+$ # windows
+$ set PIPENV_VENV_IN_PROJECT=1
+$
 $ cd <project_root>
-$ PIPENV_VENV_IN_PROJECT=1 pipenv install -d
+$ pipenv install -d
 ```
 
 ## 実行
