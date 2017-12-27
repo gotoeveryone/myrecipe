@@ -6,7 +6,7 @@
 以下がインストールされていること。
 
 - python3.x
-- pip
+- pipenv
 - nodejs
 
 ## セットアップ
@@ -17,15 +17,7 @@
 
 ```
 $ cd <project_root>
-$ python -m venv venv
-
-$ # Mac/Linux
-$ ./venv/bin/activate
-
-$ # Windows
-$ venv\Scripts\activate.bat
-
-$ pip install -r requirements.txt
+$ PIPENV_VENV_IN_PROJECT=1 pipenv install -d
 ```
 
 ## 実行
@@ -36,7 +28,8 @@ $ pip install -r requirements.txt
 $ # フロントコード
 $ npm run dev
 $ # サーバ側
-$ python ./manage.py runserver
+$ cd <project_root>
+$ pipenv run manage.py runserver
 ```
 
 ### サーバ側でDockerを利用する場合
@@ -50,7 +43,8 @@ $ docker-compose build && docker-compose up
 以下コマンドを実行し、静的ファイルを`static`ディレクトリにまとめます。
 
 ```
-$ python ./manage.py collectstatic
+$ cd <project_root>
+$ pipenv run manage.py collectstatic
 ```
 
 ## 注意事項
