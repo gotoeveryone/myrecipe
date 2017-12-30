@@ -1,5 +1,7 @@
 # MyRecipe
 
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/gotoeveryone/myrecipe/blob/master/LICENSE)
+
 [Django](https://github.com/django/django) 2.x を利用したレシピ管理ツールです。
 
 ## 前提
