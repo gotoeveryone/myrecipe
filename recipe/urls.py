@@ -13,19 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.contrib import admin
 from . import settings
 
 urlpatterns = [
-    url(r'^', include('recipe.core.urls')),
-    url(r'^cuisine/', include('recipe.cuisine.urls')),
-    url(r'^api/', include('recipe.api.urls')),
-    url(r'^admin/', admin.site.urls),
+    path('', include('recipe.core.urls')),
+    path('cuisine/', include('recipe.cuisine.urls')),
+    path('api/', include('recipe.api.urls')),
+    path('admin/', admin.site.urls),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
+        path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns

@@ -34,7 +34,7 @@
                 <div class="information">
                     <div class="information-arrow">>></div>
                     <div class="information-item">
-                        <div class="information-item-text">{{request.get_full_name}} でログイン中</div>
+                        <div class="information-item-text">{{request.user.get_full_name}} でログイン中</div>
                         <div>
                             <a href="{% url 'recipe:logout' %}" class="information-item-text">ログアウト</a>
                         </div>
