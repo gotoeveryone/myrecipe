@@ -1,6 +1,8 @@
 # MyRecipe
 
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/gotoeveryone/myrecipe/blob/master/LICENSE)
+[![Dependency Status](https://beta.gemnasium.com/badges/github.com/gotoeveryone/myrecipe.svg)](https://beta.gemnasium.com/projects/github.com/gotoeveryone/myrecipe)
+[![GitHub version](https://badge.fury.io/gh/gotoeveryone%2Fmyrecipe.svg)](https://badge.fury.io/gh/gotoeveryone%2Fmyrecipe)
 
 [Django](https://github.com/django/django) 2.x を利用したレシピ管理ツールです。
 
@@ -18,14 +20,11 @@
 3. 以下コマンドを実行して、Djangoの実行環境を準備します。
 
 ```
-$ # プロジェクト内部に作成する場合は以下を設定
-$ # mac / linux
-$ PIPENV_VENV_IN_PROJECT=1
-$ # windows
-$ set PIPENV_VENV_IN_PROJECT=1
-$
 $ cd <project_root>
 $ pipenv install -d
+$
+$ # プロジェクト内部に作成する場合は以下を設定
+$ PIPENV_VENV_IN_PROJECT=1 pipenv install -d
 ```
 
 ## 実行

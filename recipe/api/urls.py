@@ -1,5 +1,5 @@
 """ URL """
-from django.conf.urls import url, include
+from django.urls import include, path
 from rest_framework import routers
 from . import views
 
@@ -10,5 +10,5 @@ router.register(r'foodstuffs', views.FoodstuffViewSet)
 app_name = 'recipe_api'
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    path('', include(router.urls)),
 ]
