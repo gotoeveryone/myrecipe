@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
-import { NgIf, NgForOf, NgClass } from '@angular/common';
-import { NgModel } from '@angular/forms';
 
 declare var require: any;
 
@@ -24,12 +22,12 @@ export class SearchComponent {
      * @param {any} _params
      */
     search(_params: any = {}) {
-        Object.keys(_params).forEach(key => {
+        Object.keys(_params).forEach((key) => {
             this.params[key] = _params[key];
         });
 
         this.http.get('/api/cuisine/', new RequestOptions({ search: this.params }))
-            .forEach(res => {
+            .forEach((res) => {
                 this.items = res.json();
             });
     }

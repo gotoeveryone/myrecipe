@@ -1,7 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NgIf, NgForOf, NgClass } from '@angular/common';
-import { NgModel } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare var require: any;
 

@@ -1,13 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseRequestOptions } from '@angular/http';
 
-declare global {
-    interface Window {
-        Django: any;
-    }
-}
-
-// declare var window: Window;
+declare var window: any;
+window.Django = window.Django || {};
 
 @Injectable()
 export class MyRequestOptions extends BaseRequestOptions {

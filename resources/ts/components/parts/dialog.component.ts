@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { DialogService } from '../../services/dialog.service';
 
 declare var require: any;

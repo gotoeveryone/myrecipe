@@ -5,11 +5,11 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class DialogService {
-    private _title: String = 'タイトル';
-    private _message: String = '';
-    private _error: Boolean = false;
+    private _title = 'タイトル';
+    private _message = '';
+    private _error = false;
 
-    open(title: String = '', message: String = '', error: Boolean = false) {
+    open(title = '', message = '', error = false) {
         this._title = title;
         this._message = message;
         this._error = error;

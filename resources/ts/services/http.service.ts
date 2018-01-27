@@ -1,9 +1,9 @@
-import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import {
-    Http, ConnectionBackend, Request, Response,
-    RequestOptions, RequestOptionsArgs
+    ConnectionBackend, Http, Request,
+    RequestOptions, RequestOptionsArgs, Response,
 } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { BlockUIService } from './blockui.service';
 
 /**
