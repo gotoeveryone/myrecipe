@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, RequestOptions } from '@angular/http';
-import { NgIf, NgForOf, NgClass } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
-import { NgModel } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Http } from '@angular/http';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
 
 declare var require: any;
@@ -26,8 +23,7 @@ export class DetailComponent implements OnInit {
     types = this.getTypes();
     dataList: string[];
 
-    constructor(private http: Http, private router: Router,
-        private route: ActivatedRoute, private dialog: DialogService) { }
+    constructor(private http: Http, private router: Router, private route: ActivatedRoute, private dialog: DialogService) { }
 
     toSearch() {
         this.router.navigate(['/']);
@@ -43,16 +39,16 @@ export class DetailComponent implements OnInit {
     save() {
         if (this.cuisineId) {
             this.http.put(this.getUrl('put'), this.cuisine)
-                .subscribe(res => {
+                .subscribe((res) => {
                     this.cuisine = res.json();
                     this.dialog.open('メッセージ', 'レシピを更新しました。');
-                }, err => this.apiError(err));
+                }, (err) => this.apiError(err));
         } else {
             this.http.post(this.getUrl('post'), this.cuisine)
-                .subscribe(res => {
+                .subscribe((res) => {
                     this.cuisine = res.json();
                     this.dialog.open('メッセージ', 'レシピを登録しました。');
-                }, err => this.apiError(err));
+                }, (err) => this.apiError(err));
         }
     }
 
@@ -68,11 +64,11 @@ export class DetailComponent implements OnInit {
         }
         const errors = new Array();
         const obj = err.json();
-        Object.keys(obj).forEach(k => {
-            let values: Array<any> = obj[k];
-            values.forEach(v => {
+        Object.keys(obj).forEach((k) => {
+            const values: any[] = obj[k] || [];
+            values.forEach((v) => {
                 if (v instanceof Object) {
-                    Object.keys(v).forEach(ck => {
+                    Object.keys(v).forEach((ck) => {
                         errors.push(`${ck}: ${v[ck]}`);
                     });
                 } else {
@@ -88,7 +84,7 @@ export class DetailComponent implements OnInit {
      */
     ngOnInit() {
         // パラメータからIDを取得
-        this.route.params.subscribe(params => {
+        this.route.params.subscribe((params) => {
             this.cuisineId = params['id'];
 
             if (!this.cuisineId) {

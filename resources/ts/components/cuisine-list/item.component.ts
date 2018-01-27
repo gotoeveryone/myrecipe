@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgIf, NgForOf, NgClass } from '@angular/common';
-import { NgModel } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 declare var require: any;
 
@@ -19,7 +17,7 @@ export class ItemComponent {
 
     /**
      * 詳細画面表示
-     * 
+     *
      * @param {number} id
      * @return void
      */
@@ -29,7 +27,7 @@ export class ItemComponent {
 
     /**
      * メール送信URL取得
-     * 
+     *
      * @param {number} id
      * @return {string} URL
      */

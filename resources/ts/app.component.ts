@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { BlockUIService } from './services/blockui.service';
 
 declare var require: any;

@@ -1,7 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
-import { NgIf, NgForOf, NgClass } from '@angular/common';
-import { NgModel } from '@angular/forms';
+import { Component, Input } from '@angular/core';
 
 declare var require: any;
 

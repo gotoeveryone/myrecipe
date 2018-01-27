@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { NgIf, NgForOf, NgClass } from '@angular/common';
-import { NgModel } from '@angular/forms';
 
 declare var require: any;
 
