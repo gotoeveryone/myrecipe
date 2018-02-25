@@ -7,11 +7,12 @@ name = "pypi"
 
 [packages]
 
-django = ">=2.0"
+Django = ">=2.0"
 djangorestframework = "*"
 mysqlclient = "*"
 requests = "*"
-python-dotenv = "*"
+django-extensions = "*"
+django-dotenv = "*"
 
 
 [dev-packages]

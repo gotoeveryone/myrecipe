@@ -10,11 +10,11 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 import os
 from os.path import join, dirname
 
-from dotenv import load_dotenv
+from dotenv import read_dotenv
 from django.core.wsgi import get_wsgi_application
 
-DOTENV_PATH = join(dirname(__file__), '../.env')
-load_dotenv(DOTENV_PATH)
+# Get environment variable
+read_dotenv(join(dirname(__file__), '.env'))
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "recipe.settings")
 
