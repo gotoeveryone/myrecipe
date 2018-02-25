@@ -12,6 +12,7 @@ djangorestframework = "*"
 mysqlclient = "*"
 requests = "*"
 python-dotenv = "*"
+django-extensions = "*"
 
 
 [dev-packages]
