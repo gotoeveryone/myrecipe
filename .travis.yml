@@ -1,0 +1,39 @@
+branches:
+  only:
+  - master
+
+language: python
+
+sudo: false
+
+cache:
+  directories:
+    - node_modules
+
+python:
+  - 3.5
+  - 3.6
+
+services:
+  - mysql
+
+before_install:
+  - nvm install node
+  - nvm alias default node
+  - node --version
+
+install:
+  - pip install pipenv
+  - pipenv install --dev
+  - npm install
+
+before_script:
+  - cat .env.example | sed -e "s/SECRET_KEY=''/SECRET_KEY='$(pipenv run python generate_secret_key.py)'/g" > .env
+
+script:
+  - pipenv run python manage.py test --noinput
+  - npm run tslint
+  - npm run sasslint
+
+notifications:
+  email: false

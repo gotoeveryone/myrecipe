@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'rest_framework',
     'recipe.core',
     'recipe.cuisine',
@@ -85,12 +86,16 @@ WSGI_APPLICATION = 'recipe.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_RECIPE_NAME', 'recipe'),
+        'NAME': os.environ.get('DB_RECIPE_NAME', 'myrecipe'),
         'HOST': os.environ.get('DB_RECIPE_HOST', 'localhost'),
-        'USER': os.environ.get('DB_RECIPE_USER', 'forge'),
-        'PASSWORD': os.environ.get('DB_RECIPE_PASSWORD', 'forge'),
+        'USER': os.environ.get('DB_RECIPE_USER'),
+        'PASSWORD': os.environ.get('DB_RECIPE_PASSWORD'),
         'PORT': 3306,
         'ATOMIC_REQUESTS': True,
+        'TEST': {
+            'CHARSET': 'utf8',
+            'COLLATION': 'utf8_general_ci',
+        },
     }
 }
 

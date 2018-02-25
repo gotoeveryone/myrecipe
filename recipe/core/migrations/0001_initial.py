@@ -77,7 +77,7 @@ class Migration(migrations.Migration):
                 ('created_by', models.CharField(max_length=10)),
                 ('modified_by', models.CharField(max_length=10)),
                 ('name', models.CharField(max_length=255)),
-                ('classification', models.CharField(max_length=5)),
+                ('classification', models.CharField(max_length=20)),
                 ('ingestion_kcal', models.IntegerField(blank=True, null=True, validators=[
                     django.core.validators.MinValueValidator(1),
                     django.core.validators.MaxValueValidator(9999)])),
