@@ -14,7 +14,7 @@ from dotenv import read_dotenv
 from django.core.wsgi import get_wsgi_application
 
 # Get environment variable
-read_dotenv(join(dirname(__file__), '.env'))
+read_dotenv(join(dirname(__file__), '../.env'))
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "recipe.settings")
 
