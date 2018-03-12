@@ -2,10 +2,10 @@
 import os
 from os.path import join, dirname
 import sys
-from dotenv import read_dotenv
+from dotenv import load_dotenv
 
 # Get environment variable
-read_dotenv(join(dirname(__file__), '.env'))
+load_dotenv(join(dirname(__file__), '.env'))
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "recipe.settings")
