@@ -28,7 +28,7 @@ install:
   - npm install
 
 before_script:
-  - cat .env.example | sed -e "s/SECRET_KEY=''/SECRET_KEY='$(pipenv run python generate_secret_key.py)'/g" > .env
+  - cp .env.example .env
 
 script:
   - pipenv run python manage.py test --noinput
