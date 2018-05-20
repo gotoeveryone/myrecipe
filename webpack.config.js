@@ -1,64 +1,49 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
-module.exports = [
-    {
-        entry: {
-            app: './resources/ts/main',
-        },
-        output: {
-            path: path.join(__dirname, 'public/js'),
-            filename: '[name].js',
-        },
-        resolve: {
-            extensions: ['.ts', '.tsx', '.js'],
-        },
-        module: {
-            loaders: [
-                {
-                    test: /\.tsx?$/,
-                    loader: 'ts-loader',
-                },
-                {
-                    test: /\.(html|css)$/,
-                    loader: 'raw-loader',
-                },
-            ],
-        },
-        plugins: [
-            new webpack.DefinePlugin({
-                'PRODUCTION': (process.env.NODE_ENV === 'production'),
-            }),
+module.exports = {
+    entry: {
+        'js/app.js': './resources/ts/main.ts',
+        'css/app.css': './resources/sass/app.scss',
+    },
+    output: {
+        path: path.join(__dirname, 'static'),
+        filename: '[name]',
+    },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.scss', 'css'],
+    },
+    stats: 'minimal',
+    module: {
+        loaders: [{
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+            },
+            {
+                test: /\.(html|css)$/,
+                loader: 'raw-loader',
+            },
+            {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader!sass-loader',
+                }),
+            },
         ],
     },
-    {
-        entry: './resources/sass/app.scss',
-        output: {
-            path: path.join(__dirname, 'public/css'),
-            filename: 'app.css',
-        },
-        resolve: {
-            extensions: ['.scss', 'css'],
-        },
-        plugins: [
-            new ExtractTextPlugin({
-                filename: 'app.css',
-                disable: false,
-                allChunks: true,
-            }),
-        ],
-        module: {
-            loaders: [
-                {
-                    test: /\.scss$/,
-                    exclude: /node_modules/,
-                    use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: 'css-loader!sass-loader',
-                    }),
-                },
-            ],
-        },
-    },
-];
+    plugins: [
+        new ExtractTextPlugin({
+            filename: '[name]',
+            disable: false,
+            allChunks: true,
+        }),
+        new webpack.DefinePlugin({
+            'PRODUCTION': (process.env.NODE_ENV === 'production'),
+        }),
+        new FriendlyErrorsWebpackPlugin(),
+    ],
+};

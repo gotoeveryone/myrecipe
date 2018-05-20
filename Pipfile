@@ -9,13 +9,15 @@ djangorestframework = "*"
 requests = "*"
 python-dotenv = "*"
 gunicorn = "*"
-"psycopg2-binary" = "*"
+psycopg2-binary = "*"
+whitenoise = "*"
 
 [dev-packages]
 pylint = "*"
 pylint-django = "*"
 pylint-plugin-utils = "*"
 django-debug-toolbar = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3"
