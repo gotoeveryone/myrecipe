@@ -84,12 +84,12 @@ WSGI_APPLICATION = 'recipe.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('DB_RECIPE_NAME', 'myrecipe'),
         'HOST': os.environ.get('DB_RECIPE_HOST', 'localhost'),
         'USER': os.environ.get('DB_RECIPE_USER'),
         'PASSWORD': os.environ.get('DB_RECIPE_PASSWORD'),
-        'PORT': 3306,
+        'PORT': os.environ.get('DB_RECIPE_PORT'),
         'ATOMIC_REQUESTS': True,
         'TEST': {
             'CHARSET': 'utf8',
