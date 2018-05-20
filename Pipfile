@@ -1,27 +1,21 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 Django = ">=2.0"
 djangorestframework = "*"
 mysqlclient = "*"
 requests = "*"
 python-dotenv = "*"
-
+gunicorn = "*"
 
 [dev-packages]
-
 pylint = "*"
 pylint-django = "*"
 pylint-plugin-utils = "*"
 django-debug-toolbar = "*"
 
-
 [requires]
-
 python_version = "3"
