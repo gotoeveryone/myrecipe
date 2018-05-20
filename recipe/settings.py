@@ -93,8 +93,7 @@ DATABASES = {
         'PORT': os.environ.get('DB_RECIPE_PORT'),
         'ATOMIC_REQUESTS': True,
         'TEST': {
-            'CHARSET': 'utf8',
-            'COLLATION': 'utf8_general_ci',
+            'CHARSET': 'UTF-8',
         },
     }
 }

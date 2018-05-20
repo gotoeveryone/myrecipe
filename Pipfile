@@ -21,3 +21,7 @@ autopep8 = "*"
 
 [requires]
 python_version = "3"
+
+[scripts]
+test = "python manage.py test --no-input"
+migrate = "python manage.py migrate"
