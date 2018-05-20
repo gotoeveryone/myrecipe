@@ -5,6 +5,7 @@
   "description": "My Recipe managementing system.",
   "main": "app.js",
   "scripts": {
+    "start": "npm run prod",
     "webpack": "webpack --colors --config=./webpack.config.js",
     "dev": "npm run webpack -- -w --progress",
     "ngc": "ngc -p ./tsconfig.json",
