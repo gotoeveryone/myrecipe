@@ -1,6 +1,7 @@
 __pycache__
 /node_modules
-/public
+/templates/css
+/templates/js
 /static
 /.venv
 .env

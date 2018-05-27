@@ -21,6 +21,7 @@ django-debug-toolbar = "*"
 python_version = "3"
 
 [scripts]
-server = "python manage.py runserver"
-test = "python manage.py test --no-input"
-migrate = "python manage.py migrate"
+s = "python manage.py runserver"
+t = "python manage.py test --no-input"
+m = "python manage.py migrate"
+cs = "python manage.py collectstatic"
