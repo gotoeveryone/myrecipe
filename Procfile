@@ -1,1 +1,1 @@
-web: npm run prod && gunicorn recipe.wsgi --log-file -
+web: yarn run prod && gunicorn recipe.wsgi --log-file -
