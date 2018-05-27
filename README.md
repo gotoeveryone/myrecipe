@@ -1,42 +1,39 @@
 # MyRecipe
 
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/gotoeveryone/myrecipe/blob/master/LICENSE)
-[![Dependency Status](https://beta.gemnasium.com/badges/github.com/gotoeveryone/myrecipe.svg)](https://beta.gemnasium.com/projects/github.com/gotoeveryone/myrecipe)
 [![GitHub version](https://badge.fury.io/gh/gotoeveryone%2Fmyrecipe.svg)](https://badge.fury.io/gh/gotoeveryone%2Fmyrecipe)
 
 [Django](https://github.com/django/django) 2.x を利用したレシピ管理ツールです。
 
-## 前提
-
-以下がインストールされていること。
+## Requirements
 
 *   python3.5+
 *   pipenv
 *   nodejs
+*   yarn
 
-## セットアップ
+## Setup
 
-1.  `.env.example`をもとに、`.env`ファイルを生成します。
-2.  ルートディレクトリで`npm install`を実行します。
-3.  以下コマンドを実行して、Django の実行環境を準備します。
-
-```
+```console
 $ cd <project_root>
+$ cp .env.example .env
+$ yarn
 $ pipenv install -d
 $
 $ # プロジェクト内部に作成する場合は以下を設定
 $ PIPENV_VENV_IN_PROJECT=1 pipenv install -d
 ```
 
-## 実行
+## Run
 
 ```
-$ # フロントコード
+$ # フロントエンド
 $ cd <project_root>
-$ npm run dev
-$ # サーバ側
+$ yarn run dev
+$
+$ # バックエンド
 $ cd <project_root>
-$ pipenv run manage.py runserver
+$ pipenv run s
 ```
 
 ### Docker を利用する場合
@@ -51,20 +48,20 @@ $ docker-compose build && docker-compose up
 
 ```
 $ cd <project_root>
-$ pipenv run manage.py collectstatic
+$ pipenv run cs
 ```
 
-## テスト
+## Test
 
 ```
-$ pipenv run manage.py test
+$ pipenv run t
 ```
 
-## 注意事項
+## Notes
 
 ### タスクランナー
 
-`npm run dev`を実行すると、SCSS,TypeScript の変更を監視して`public`ディレクトリに変換後の CSS,JS を出力します。
+`yarn run dev`を実行すると、SCSS,TypeScript の変更を監視して`public`ディレクトリに変換後の CSS,JS を出力します。
 
 ### ログ出力
 

@@ -9,7 +9,7 @@ module.exports = {
         'css/app.css': './resources/sass/app.scss',
     },
     output: {
-        path: path.join(__dirname, 'static'),
+        path: path.join(__dirname, 'templates', 'assets'),
         filename: '[name]',
     },
     resolve: {
@@ -36,13 +36,17 @@ module.exports = {
         ],
     },
     plugins: [
+        new webpack.ContextReplacementPlugin(
+            /(.+)?angular(\\|\/)core(.+)?/,
+            path.join(__dirname, 'resources'), {}
+        ),
+        new webpack.DefinePlugin({
+            'PRODUCTION': (process.env.NODE_ENV === 'production'),
+        }),
         new ExtractTextPlugin({
             filename: '[name]',
             disable: false,
             allChunks: true,
-        }),
-        new webpack.DefinePlugin({
-            'PRODUCTION': (process.env.NODE_ENV === 'production'),
         }),
         new FriendlyErrorsWebpackPlugin(),
     ],

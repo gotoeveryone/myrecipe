@@ -86,11 +86,11 @@ WSGI_APPLICATION = 'recipe.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_RECIPE_NAME', 'myrecipe'),
-        'HOST': os.environ.get('DB_RECIPE_HOST', 'localhost'),
-        'USER': os.environ.get('DB_RECIPE_USER'),
-        'PASSWORD': os.environ.get('DB_RECIPE_PASSWORD'),
-        'PORT': os.environ.get('DB_RECIPE_PORT'),
+        'NAME': os.environ.get('DATABASE_NAME', 'myrecipe'),
+        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'PORT': os.environ.get('DATABASE_PORT', 5432),
         'ATOMIC_REQUESTS': True,
         'TEST': {
             'CHARSET': 'UTF-8',
@@ -142,6 +142,9 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'templates', 'assets'),
+)
 
 ASSETS_URL = os.environ.get('ASSETS_URL', '')
 

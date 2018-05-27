@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import 'rxjs/Rx';
+import 'rxjs';
 import 'zone.js/dist/zone';
 
 import { enableProdMode } from '@angular/core';

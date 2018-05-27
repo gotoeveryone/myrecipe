@@ -17,11 +17,13 @@ pylint = "*"
 pylint-django = "*"
 pylint-plugin-utils = "*"
 django-debug-toolbar = "*"
-autopep8 = "*"
+"autopep8" = "*"
 
 [requires]
 python_version = "3"
 
 [scripts]
-test = "python manage.py test --no-input"
-migrate = "python manage.py migrate"
+s = "python manage.py runserver"
+t = "python manage.py test --no-input"
+m = "python manage.py migrate"
+cs = "python manage.py collectstatic"
