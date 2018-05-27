@@ -9,7 +9,7 @@ module.exports = {
         'css/app.css': './resources/sass/app.scss',
     },
     output: {
-        path: path.join(__dirname, 'static'),
+        path: path.join(__dirname, 'templates'),
         filename: '[name]',
     },
     resolve: {

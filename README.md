@@ -33,7 +33,7 @@ $ yarn run dev
 $
 $ # バックエンド
 $ cd <project_root>
-$ pipenv run manage.py runserver
+$ pipenv run s
 ```
 
 ### Docker を利用する場合
@@ -48,13 +48,13 @@ $ docker-compose build && docker-compose up
 
 ```
 $ cd <project_root>
-$ pipenv run manage.py collectstatic
+$ pipenv run cs
 ```
 
 ## Test
 
 ```
-$ pipenv run manage.py test
+$ pipenv run t
 ```
 
 ## Notes
