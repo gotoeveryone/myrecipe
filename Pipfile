@@ -1,27 +1,26 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 Django = ">=2.0"
 djangorestframework = "*"
 mysqlclient = "*"
 requests = "*"
 python-dotenv = "*"
 
-
 [dev-packages]
-
 pylint = "*"
 pylint-django = "*"
 pylint-plugin-utils = "*"
 django-debug-toolbar = "*"
-
+"autopep8" = "*"
 
 [requires]
-
 python_version = "3"
+
+[scripts]
+server = "python manage.py runserver"
+test = "python manage.py test --no-input"
+migrate = "python manage.py migrate"

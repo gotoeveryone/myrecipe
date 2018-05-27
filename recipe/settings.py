@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'recipe.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_RECIPE_NAME', 'myrecipe'),
-        'HOST': os.environ.get('DB_RECIPE_HOST', 'localhost'),
-        'USER': os.environ.get('DB_RECIPE_USER'),
-        'PASSWORD': os.environ.get('DB_RECIPE_PASSWORD'),
-        'PORT': 3306,
+        'NAME': os.environ.get('DATABASE_NAME', 'myrecipe'),
+        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
+        'USER': os.environ.get('DATABASE_USER'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
+        'PORT': os.environ.get('DATABASE_PORT', 3306),
         'ATOMIC_REQUESTS': True,
         'TEST': {
             'CHARSET': 'utf8',
