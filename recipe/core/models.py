@@ -82,7 +82,7 @@ class BaseModel(models.Model):
 class Cuisine(BaseModel):
     """ メニュー """
     name = models.CharField(max_length=255)
-    classification = models.CharField(max_length=5)
+    classification = models.CharField(max_length=20)
     ingestion_kcal = models.IntegerField(
         blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(9999)])
     create_number_of_times = models.IntegerField(
