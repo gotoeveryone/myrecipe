@@ -1,1 +1,1 @@
-web: yarn run prod && gunicorn recipe.wsgi --log-file -
+web: gunicorn recipe.wsgi --log-file -
