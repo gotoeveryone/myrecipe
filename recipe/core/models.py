@@ -8,10 +8,7 @@ from django.utils import timezone
 
 class User(AbstractUser):
     """ API認証ユーザ """
-    REQUIRED_FIELDS = ['account', 'name', 'email']
-
-    is_staff = True
-    is_superuser = False
+    REQUIRED_FIELDS = ['email']
 
     access_token = None
     name = None
@@ -54,8 +51,8 @@ class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         app_label = 'core'
         db_table = 'auth_user'
-        verbose_name = 'ログインユーザ'
-        verbose_name_plural = 'ログインユーザ'
+        verbose_name = 'ユーザ'
+        verbose_name_plural = 'ユーザ'
         abstract = False
 
 

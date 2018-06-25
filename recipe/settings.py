@@ -50,7 +50,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'recipe.middlewares.WebApiAuthenticationMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'recipe.middlewares.WebApiAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -119,9 +120,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = [
-    'recipe.backends.WebApiBackend',
-]
+# AUTHENTICATION_BACKENDS = [
+#     'recipe.backends.WebApiBackend',
+# ]
 AUTH_USER_MODEL = 'core.User'
 
 # Internationalization
