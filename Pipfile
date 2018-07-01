@@ -6,9 +6,11 @@ name = "pypi"
 [packages]
 Django = ">=2.0"
 djangorestframework = "*"
-mysqlclient = "*"
 requests = "*"
 python-dotenv = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+whitenoise = "*"
 
 [dev-packages]
 pylint = "*"
@@ -25,3 +27,4 @@ s = "python manage.py runserver"
 t = "python manage.py test --no-input"
 m = "python manage.py migrate"
 cs = "python manage.py collectstatic"
+kg = "python -c 'from django.core.management import utils; print(utils.get_random_secret_key())'"

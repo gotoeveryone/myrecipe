@@ -30,6 +30,7 @@ install:
 
 before_script:
   - cp .env.example .env
+  - echo "SECRET_KEY='$(pipenv run kg)'" >> .env
 
 script:
   - pipenv run python manage.py test --noinput

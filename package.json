@@ -5,10 +5,11 @@
     "description": "My Recipe managementing system.",
     "main": "app.js",
     "scripts": {
+        "heroku-prebuild": "yarn run prod",
         "webpack": "webpack --colors --config=./webpack.config.js",
-        "dev": "npm run webpack -- -w --progress",
+        "dev": "yarn run webpack -w --progress",
         "ngc": "ngc -p ./tsconfig.json",
-        "prod": "cross-env NODE_ENV=production npm run webpack -- -p",
+        "prod": "cross-env NODE_ENV=production yarn run webpack -p",
         "tslint": "tslint -c ./tslint.json resources/ts/**/*.ts",
         "sasslint": "sass-lint -c ./.sass-lint.yml -v -q"
     },

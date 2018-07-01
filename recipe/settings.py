@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -85,16 +86,15 @@ WSGI_APPLICATION = 'recipe.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('DATABASE_NAME', 'myrecipe'),
         'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
         'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD'),
-        'PORT': os.environ.get('DATABASE_PORT', 3306),
+        'PORT': os.environ.get('DATABASE_PORT', 5432),
         'ATOMIC_REQUESTS': True,
         'TEST': {
-            'CHARSET': 'utf8',
-            'COLLATION': 'utf8_general_ci',
+            'CHARSET': 'UTF-8',
         },
     }
 }
