@@ -18,7 +18,11 @@ class User(AbstractUser):
         return self.access_token if hasattr(self, 'access_token') else None
 
     def get_full_name(self):
-        return self.name
+        if self.name:
+            return self.self.name
+
+        full_name = '%s %s' % (self.last_name, self.first_name)
+        return full_name.strip()
 
     @property
     def is_authenticated(self):

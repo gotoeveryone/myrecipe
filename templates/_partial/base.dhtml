@@ -7,7 +7,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
         <link rel="stylesheet" href="{{ ASSETS_URL }}css/common.css" />
         <link rel="stylesheet" href="{% static "css/app.css" %}"/>
+        {% if title %}
         <title>MyRecipe - {{title}}</title>
+        {% else %}
+        <title>MyRecipe</title>
+        {% endif %}
     </head>
     <body>
         <section class="container">
@@ -42,13 +46,13 @@
                 </div>
                 {% endif %}
             </header>
+            <footer class="footer">
+                <div>&copy; 2017 - MyRecipe</div>
+            </footer>
             <main class="content fade">
                 {% block content %}{% endblock %}
                 <div class="block-ui"></div>
             </main>
-            <footer class="footer">
-                <div>&copy; 2017 - レシピ管理</div>
-            </footer>
         </section>
         <script src="{{ ASSETS_URL }}js/common.js"></script>
         <script>
