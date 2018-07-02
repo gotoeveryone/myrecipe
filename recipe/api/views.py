@@ -1,6 +1,8 @@
 """ APIのビューセット """
 from django.http import HttpRequest
 from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from recipe.core.models import Cuisine, Foodstuff
 from .serializer import CuisineSerializer, CuisineListSerializer, FoodstuffListSerializer
 
@@ -52,3 +54,11 @@ class FoodstuffViewSet(viewsets.ModelViewSet):
     """ 食材 REST API """
     queryset = Foodstuff.objects.distinct().order_by('name').values('name')
     serializer_class = FoodstuffListSerializer
+
+
+@api_view()
+def status(request: HttpRequest):
+    """ 死活監視 """
+    return Response({
+        'message': 'OK',
+    }, status=200)

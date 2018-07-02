@@ -11,4 +11,5 @@ app_name = 'recipe_api'
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('status', views.status, name='status'),
 ]
