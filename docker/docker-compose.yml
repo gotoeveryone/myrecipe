@@ -1,0 +1,16 @@
+version: '2'
+services:
+  myrecipe:
+    image: busybox
+
+  postgres:
+    image: postgres:10.4
+    volumes_from: [myrecipe]
+    ports:
+      - 15432:5432
+    volumes:
+      - ./postgresql:/var/lib/postgresql
+    environment:
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: myrecipe
+      POSTGRES_USER: postgres
