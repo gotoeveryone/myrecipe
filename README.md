@@ -39,8 +39,11 @@ $ pipenv run s
 
 ### Docker を利用する場合
 
+Python（Django）は`pipenv`を利用するため、データベースのみDockerイメージを用意しています。
+
 ```
-$ docker-compose build && docker-compose up
+$ cd <project_root>/docker
+$ docker-compose up -d
 ```
 
 ### gunicorn や wsgi などで動作させる場合
