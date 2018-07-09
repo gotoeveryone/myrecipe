@@ -27,10 +27,10 @@
     </div>
     <div class="recipe-row-box recipe-row-box_half">
         <div class="label-column">
-            <label>作成回数</label>
+            <label>量</label>
         </div>
         <div class="input-column">
-            <input type="number" [(ngModel)]="cuisine.create_number_of_times">
+            <input type="number" [(ngModel)]="cuisine.serves">人前
         </div>
     </div>
     <div class="recipe-row-box button-wrap">
@@ -40,7 +40,7 @@
 </div>
 <div class="menu-detail-other">
     <div class="menu-items" instructions [items]="cuisine.instructions"></div>
-    <div class="menu-items" foodstuffs [items]="cuisine.foodstuffs"></div>  
+    <div class="menu-items" foodstuffs [items]="cuisine.foodstuffs"></div>
 </div>
 <datalist id="foodstuffs">
     <option *ngFor="let item of dataList" [value]="item.name"></option>

@@ -116,4 +116,4 @@ class CuisineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cuisine
         fields = ('id', 'name', 'classification', 'ingestion_kcal',
-                  'create_number_of_times', 'instructions', 'foodstuffs', 'created_by', 'modified_by')
+                  'serves', 'instructions', 'foodstuffs', 'created_by', 'modified_by')
