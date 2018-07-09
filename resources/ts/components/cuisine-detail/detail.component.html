@@ -17,20 +17,22 @@
             </select>
         </div>
     </div>
-    <div class="recipe-row-box recipe-row-box_half">
+    <div class="recipe-row-box">
         <div class="label-column">
             <label>カロリー</label>
         </div>
         <div class="input-column">
             <input type="number" [(ngModel)]="cuisine.ingestion_kcal">
+            <span class="after-label">KCal</span>
         </div>
     </div>
-    <div class="recipe-row-box recipe-row-box_half">
+    <div class="recipe-row-box">
         <div class="label-column">
-            <label>量</label>
+            <label>分量</label>
         </div>
         <div class="input-column">
-            <input type="number" [(ngModel)]="cuisine.serves">人前
+            <input type="number" [(ngModel)]="cuisine.serves">
+            <span class="after-label">人前</span>
         </div>
     </div>
     <div class="recipe-row-box button-wrap">

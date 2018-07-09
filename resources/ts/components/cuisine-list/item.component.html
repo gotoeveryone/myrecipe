@@ -3,7 +3,7 @@
         <span class="name">メニュー</span>
         <span class="type">分類</span>
         <span class="kcal">カロリー</span>
-        <span class="count">作成回数</span>
+        <span class="count">分量</span>
         <span class="links">詳細</span>
     </li>
 </ul>
@@ -12,7 +12,7 @@
         <span class="name" [innerText]="item.name"></span>
         <span class="type" [innerText]="item.classification"></span>
         <span class="kcal" [innerText]="item.ingestion_kcal"></span>
-        <span class="count" [innerText]="item.create_number_of_times"></span>
+        <span class="count" [innerText]="item.serves"></span>
         <span class="links">
             <span class="links-row">
                 <a class="button button-detail" (click)="detailUrl(item.id)">

@@ -74,7 +74,7 @@
         flex-wrap: wrap;
         min-width: 150px;
         z-index: 50;
-        
+
         & > * {
             width: 100%;
             text-align: right;
@@ -273,7 +273,7 @@
             & > * {
                 width: 100%;
             }
-        }    
+        }
     }
     display: flex;
     margin: .3em 0;
@@ -284,6 +284,18 @@
         @include pc() {
             margin: auto 5px auto 15px;
         }
+    }
+
+    .input-column {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .after-label {
+        width: 2.5rem;
+        margin-left: .3rem;
+        font-size: 90%;
     }
 
     &.button-wrap {
@@ -311,28 +323,34 @@
 .search-results {
     @include sp() {
         height: calc(100% - 130px - .5rem);
+
+        .table-row {
+            & > * {
+                font-size: 90%;
+            }
+        }
     }
 
     .table-row {
         & > * {
-            padding: 0 3px;            
+            padding: 0 3px;
         }
     }
 
     .name {
-        width: 37%;
+        width: 35%;
     }
     .type {
         width: 15%;
     }
     .kcal {
-        width: 13%;
-    }
-    .count {
         width: 15%;
     }
+    .count {
+        width: 10%;
+    }
     .links {
-        width: 20%;
+        width: 25%;
 
         &-row {
             display: flex;
@@ -340,10 +358,11 @@
             align-items: center;
 
             .button {
-                margin: 0 5px;
+                margin: 0 .2rem;
+                padding: .3rem;
                 width: 60px;
                 cursor: pointer;
-    
+
                 &:hover {
                     background-color: darken(#aaa, 15%);
                 }
