@@ -4,6 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 module.exports = {
+    devtool: process.env.NODE_ENV !== 'production' ? false : 'source-map',
     entry: {
         'js/app.js': './resources/ts/main.ts',
         'css/app.css': './resources/sass/app.scss',
@@ -17,7 +18,8 @@ module.exports = {
     },
     stats: 'minimal',
     module: {
-        loaders: [{
+        rules: [
+            {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
             },
@@ -33,16 +35,21 @@ module.exports = {
                     use: 'css-loader!sass-loader',
                 }),
             },
+            // Ignore warnings about System.import in Angular
+            {
+                test: /[\/\\]@angular[\/\\].+\.js$/,
+                parser: {
+                    system: true,
+                },
+            },
         ],
     },
     plugins: [
+        // Ignore warnings about Critical dependency in Angular
         new webpack.ContextReplacementPlugin(
             /(.+)?angular(\\|\/)core(.+)?/,
             path.join(__dirname, 'resources'), {}
         ),
-        new webpack.DefinePlugin({
-            'PRODUCTION': (process.env.NODE_ENV === 'production'),
-        }),
         new ExtractTextPlugin({
             filename: '[name]',
             disable: false,
@@ -50,4 +57,7 @@ module.exports = {
         }),
         new FriendlyErrorsWebpackPlugin(),
     ],
+    performance: {
+        hints: false,
+    },
 };
