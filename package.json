@@ -5,7 +5,7 @@
     "description": "My Recipe managementing system.",
     "main": "app.js",
     "scripts": {
-        "heroku-prebuild": "yarn run prod",
+        "heroku-postbuild": "yarn run prod",
         "webpack": "webpack --colors --config=./webpack.config.js",
         "dev": "yarn run webpack -w --progress --mode development",
         "ngc": "ngc -p ./tsconfig.json",
