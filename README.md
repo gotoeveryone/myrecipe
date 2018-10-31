@@ -1,8 +1,10 @@
 # MyRecipe
 
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/gotoeveryone/myrecipe/blob/master/LICENSE)
-[![Known Vulnerabilities](https://snyk.io/test/github/gotoeveryone/myrecipe/badge.svg)](https://snyk.io/test/github/gotoeveryone/myrecipe)
 [![Build Status](https://travis-ci.org/gotoeveryone/myrecipe.svg?branch=master)](https://travis-ci.org/cicatrice/travis-test)
+[![Known Vulnerabilities](https://snyk.io/test/github/gotoeveryone/myrecipe/badge.svg)](https://snyk.io/test/github/gotoeveryone/myrecipe)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django.svg)](https://github.com/gotoeveryone/myrecipe/)
+[![PyPI - Django Version](https://img.shields.io/pypi/djversions/djangorestframework.svg)](https://github.com/gotoeveryone/myrecipe/)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/gotoeveryone/myrecipe/blob/master/LICENSE)
 [![GitHub version](https://badge.fury.io/gh/gotoeveryone%2Fmyrecipe.svg)](https://badge.fury.io/gh/gotoeveryone%2Fmyrecipe)
 
 [Django](https://github.com/django/django) 2.x を利用したレシピ管理ツールです。
