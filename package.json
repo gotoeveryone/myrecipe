@@ -14,7 +14,7 @@
         "sasslint": "sass-lint -c ./.sass-lint.yml -v -q"
     },
     "engines": {
-        "node": ">=8.11 <9",
+        "node": ">=8.11",
         "yarn": ">=1.10"
     },
     "repository": {
