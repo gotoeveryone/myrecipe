@@ -19,7 +19,7 @@ class User(AbstractUser):
 
     def get_full_name(self):
         if self.name:
-            return self.self.name
+            return self.name
 
         full_name = '%s %s' % (self.last_name, self.first_name)
         return full_name.strip()
