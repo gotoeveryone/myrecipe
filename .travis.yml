@@ -8,7 +8,7 @@ sudo: false
 
 cache:
   directories:
-    - node_modules
+    - $HOME/.yarn-cache
 
 python:
   - 3.4
@@ -16,17 +16,18 @@ python:
   - 3.6
 
 services:
-  - mysql
+  - postgresql
 
 before_install:
-  - nvm install node
-  - nvm alias default node
+  - nvm install lts/*
+  - nvm alias default lts/*
   - node --version
+  - npm i -g yarn
 
 install:
   - pip install pipenv
   - pipenv install --dev
-  - npm install
+  - yarn
 
 before_script:
   - cp .env.example .env
@@ -34,8 +35,8 @@ before_script:
 
 script:
   - pipenv run python manage.py test --noinput
-  - npm run tslint
-  - npm run sasslint
+  - yarn run tslint
+  - yarn run sasslint
 
 notifications:
   email: false

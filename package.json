@@ -13,6 +13,10 @@
         "tslint": "tslint -c ./tslint.json resources/ts/**/*.ts",
         "sasslint": "sass-lint -c ./.sass-lint.yml -v -q"
     },
+    "engines": {
+        "node": ">=8.11 <9",
+        "yarn": ">=1.10"
+    },
     "repository": {
         "type": "git",
         "url": "git+ssh://git@bitbucket.org/k2ss/recipe.git"
@@ -22,6 +26,7 @@
     "homepage": "https://github.com/gotoeveryone/myrecipe#readme",
     "dependencies": {},
     "devDependencies": {
+        "@angular/cli": "^6.2.5",
         "@angular/common": "^6.1.0",
         "@angular/compiler": "^6.1.0",
         "@angular/core": "^6.1.0",
@@ -36,7 +41,7 @@
         "extract-text-webpack-plugin": "^4.0.0-beta.0",
         "friendly-errors-webpack-plugin": "^1.7.0",
         "loader-utils": "^1.1.0",
-        "node-sass": "^4.9.2",
+        "node-sass": "^4.9.3",
         "raw-loader": "^0.5.1",
         "reflect-metadata": "^0.1.12",
         "rxjs": "^6.2.2",
