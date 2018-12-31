@@ -16,6 +16,8 @@ import os
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+LOG_DIR = os.environ.get('LOG_DIR', os.path.join(BASE_DIR, 'logs'))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -158,7 +160,7 @@ LOGGING = {
             'format': '[%(levelname)s] %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
         },
         'simple': {
-            'format': '[%(levelname)s] %(message)s'
+            'format': '[%(levelname)s] %(asctime)s %(message)s'
         },
     },
     'filters': {
@@ -167,28 +169,44 @@ LOGGING = {
         }
     },
     'handlers': {
-        'file': {
+        'app_log_file': {
             'level': ('DEBUG' if DEBUG else 'INFO'),
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(os.environ.get('LOG_DIR', BASE_DIR + '/logs'), 'recipe.log'),
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'appplication.log'),
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 14,
             'encoding': 'utf-8',
-            'formatter': 'verbose'
+            'formatter': 'simple'
+        },
+        'query_log_file': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'query.log'),
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 14,
+            'encoding': 'utf-8',
+            'formatter': 'simple'
         },
         'console': {
-            'level': ('DEBUG' if DEBUG else 'INFO'),
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         }
     },
     'loggers': {
         'recipe': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console', 'app_log_file'],
             'level': 'DEBUG',
             'propagate': True,
         },
         'django.db.backends': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console', 'query_log_file'],
             'level': 'DEBUG',
+            'propagate': True,
         },
     }
 }
