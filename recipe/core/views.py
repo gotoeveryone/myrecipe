@@ -17,7 +17,7 @@ def index(request: HttpRequest, form=None):
     @param form
     @return: django template
     """
-    if request.session.get('user'):
+    if request.user.is_authenticated:
         return redirect('recipe_cuisine:index')
 
     return render(request, 'index.dhtml', {
