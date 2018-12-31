@@ -1,11 +1,7 @@
-version: '2'
+version: '3'
 services:
-  myrecipe:
-    image: busybox
-
   postgres:
     image: postgres:10.4
-    volumes_from: [myrecipe]
     ports:
       - 15432:5432
     volumes:
