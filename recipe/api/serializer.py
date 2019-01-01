@@ -1,7 +1,7 @@
 """ API用シリアライザ """
 from logging import getLogger
 from rest_framework import serializers
-from recipe.core.models import Cuisine, Instruction, Foodstuff
+from recipe.core.models import Cuisine, Classification, Instruction, Foodstuff
 
 
 class InstructionSerializer(serializers.ModelSerializer):
@@ -29,12 +29,11 @@ class FoodstuffListSerializer(serializers.ModelSerializer):
         fields = ('name',)
 
 
-class CuisineListSerializer(serializers.ModelSerializer):
-    """ レシピ一覧  """
+class ClassificationSerializer(serializers.ModelSerializer):
+    """ 調理手順 """
     class Meta:
-        model = Cuisine
-        fields = ('id', 'name', 'classification',
-                  'ingestion_kcal', 'serves')
+        model = Classification
+        fields = ('id', 'name', 'sort_order')
 
 
 class CuisineSerializer(serializers.ModelSerializer):
@@ -115,5 +114,15 @@ class CuisineSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cuisine
-        fields = ('id', 'name', 'classification', 'ingestion_kcal',
+        fields = ('id', 'name', 'classification_id', 'ingestion_kcal',
                   'serves', 'instructions', 'foodstuffs', 'created_by', 'modified_by')
+        extra_kwargs = {'classification_id': {'source': 'classification'}}
+
+
+class CuisineListSerializer(serializers.ModelSerializer):
+    """ レシピ一覧 """
+    classification = ClassificationSerializer(read_only=True)
+
+    class Meta:
+        model = Cuisine
+        fields = ('id', 'name', 'classification', 'ingestion_kcal', 'serves')

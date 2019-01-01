@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 
 declare var require: any;
@@ -11,14 +12,17 @@ declare var require: any;
     template: require('./header.component.html'),
 })
 export class HeaderComponent implements OnInit {
-    types = this.getTypes();
     @Output() onSearch = new EventEmitter<any>();
 
+    types = new Array();
     name = '';
     classification = '';
     kcal = '';
 
-    constructor(private router: Router) { }
+    constructor(
+        private http: Http,
+        private router: Router,
+    ) { }
 
     /**
      * 値変更時
@@ -43,18 +47,10 @@ export class HeaderComponent implements OnInit {
      */
     ngOnInit() {
         // 初期表示時に検索する
-        this.onSearch.emit();
-    }
-
-    /**
-     * 分類一覧取得
-     *
-     * @private
-     * @return {Array} 分類一覧
-     */
-    private getTypes() {
-        return [
-            '', '主菜', '副菜', '主食', 'デザート', 'その他',
-        ];
+        this.http.get('/api/classifications')
+            .subscribe((res) => {
+                this.types = res.json();
+                this.onSearch.emit();
+            });
     }
 }

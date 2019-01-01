@@ -13,7 +13,8 @@
         </div>
         <div class="input-column">
             <select name="classification" ([ngModel])="classification" (change)="changeValue($event)" [ngModel]="classification">
-                <option *ngFor="let type of types" [value]="type" [innerText]="type"></option>
+                <option value=""></option>
+                <option *ngFor="let type of types" [value]="type.id" [innerText]="type.name"></option>
             </select>
         </div>
     </div>

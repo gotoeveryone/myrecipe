@@ -20,10 +20,15 @@ export class DetailComponent implements OnInit {
         instructions: new Array(),
         foodstuffs: new Array(),
     };
-    types = this.getTypes();
+    types = new Array();
     dataList: string[];
 
-    constructor(private http: Http, private router: Router, private route: ActivatedRoute, private dialog: DialogService) { }
+    constructor(
+        private http: Http,
+        private router: Router,
+        private route: ActivatedRoute,
+        private dialog: DialogService,
+    ) { }
 
     toSearch() {
         this.router.navigate(['/']);
@@ -83,28 +88,33 @@ export class DetailComponent implements OnInit {
      * {@inheritDoc}
      */
     ngOnInit() {
-        // パラメータからIDを取得
-        this.route.params.subscribe((params) => {
-            this.cuisineId = params['id'];
+        // 初期表示時に検索する
+        this.http.get('/api/classifications')
+            .subscribe((res) => {
+                this.types = res.json();
+                // パラメータからIDを取得
+                this.route.params.subscribe((params) => {
+                    this.cuisineId = params['id'];
 
-            if (!this.cuisineId) {
-                for (let i = 0; i < 3; i++) {
-                    this.cuisine.instructions.push({
-                        sort_order: i + 1,
+                    if (!this.cuisineId) {
+                        for (let i = 0; i < 3; i++) {
+                            this.cuisine.instructions.push({
+                                sort_order: i + 1,
+                            });
+                            this.cuisine.foodstuffs.push({});
+                        }
+                    } else {
+                        this.http.get(this.getUrl('get')).forEach((res) => {
+                            this.cuisine = res.json();
+                        });
+                    }
+
+                    // 食材の補完情報を取得
+                    this.http.get('/api/foodstuffs/').forEach((res) => {
+                        this.dataList = res.json();
                     });
-                    this.cuisine.foodstuffs.push({});
-                }
-            } else {
-                this.http.get(this.getUrl('get')).forEach((res) => {
-                    this.cuisine = res.json();
                 });
-            }
-
-            // 食材の補完情報を取得
-            this.http.get('/api/foodstuffs/').forEach((res) => {
-                this.dataList = res.json();
             });
-        });
     }
 
     /**
@@ -123,17 +133,5 @@ export class DetailComponent implements OnInit {
                 return '/api/cuisine/';
         }
         return '';
-    }
-
-    /**
-     * 分類一覧取得
-     *
-     * @private
-     * @return {Array} 分類一覧
-     */
-    private getTypes() {
-        return [
-            '', '主菜', '副菜', '主食', 'デザート', 'その他',
-        ];
     }
 }

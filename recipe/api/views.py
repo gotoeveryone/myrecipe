@@ -3,8 +3,8 @@ from django.http import HttpRequest
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from recipe.core.models import Cuisine, Foodstuff
-from .serializer import CuisineSerializer, CuisineListSerializer, FoodstuffListSerializer
+from recipe.api.serializer import CuisineSerializer, CuisineListSerializer, ClassificationSerializer, FoodstuffListSerializer
+from recipe.core.models import Cuisine, Classification, Foodstuff
 
 
 class CuisineViewSet(viewsets.ModelViewSet):
@@ -19,7 +19,7 @@ class CuisineViewSet(viewsets.ModelViewSet):
 
     def list(self, request: HttpRequest, *args, **kwargs):
         self.serializer_class = CuisineListSerializer
-        return viewsets.ModelViewSet.list(self, request, *args, **kwargs)
+        return super(CuisineViewSet, self).list(self, request, *args, **kwargs)
 
     def create(self, request: HttpRequest, *args, **kwargs):
         # 登録ユーザの追加
@@ -48,6 +48,12 @@ class CuisineViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(ingestion_kcal__lte=kcal)
 
         return queryset
+
+
+class ClassificationViewSet(viewsets.ModelViewSet):
+    """ 調理分類 REST API """
+    queryset = Classification.objects.order_by('sort_order')
+    serializer_class = ClassificationSerializer
 
 
 class FoodstuffViewSet(viewsets.ModelViewSet):

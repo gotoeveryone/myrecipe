@@ -83,10 +83,26 @@ class BaseModel(models.Model):
         abstract = True
 
 
+class Classification(BaseModel):
+    """ 調理分類 """
+    name = models.CharField('名前', max_length=255)
+    sort_order = models.IntegerField('並び順',
+                                     validators=[MinValueValidator(1), MaxValueValidator(999)])
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'classifications'
+        verbose_name = '調理分類'
+        verbose_name_plural = '調理分類'
+
+
 class Cuisine(BaseModel):
     """ メニュー """
     name = models.CharField(max_length=255)
-    classification = models.CharField(max_length=20)
+    classification = models.ForeignKey(
+        Classification, models.PROTECT, related_name='cuisine')
     ingestion_kcal = models.IntegerField(
         blank=True, null=True, validators=[MinValueValidator(1), MaxValueValidator(9999)])
     serves = models.IntegerField(
