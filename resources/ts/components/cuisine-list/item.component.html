@@ -10,7 +10,7 @@
 <ul class="table-body" *ngIf="items.length">
     <li class="table-row" *ngFor="let item of items">
         <span class="name" [innerText]="item.name"></span>
-        <span class="type" [innerText]="item.classification"></span>
+        <span class="type" [innerText]="item.classification.name"></span>
         <span class="kcal" [innerText]="item.ingestion_kcal"></span>
         <span class="count" [innerText]="item.serves"></span>
         <span class="links">

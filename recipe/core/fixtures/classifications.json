@@ -1,0 +1,57 @@
+[
+    {
+        "model": "core.classification",
+        "fields": {
+            "name": "主菜",
+            "sort_order": 1,
+            "created": "2018-07-10 06:12:00",
+            "modified": "2018-07-10 06:12:00",
+            "created_by": "System",
+            "modified_by": "System"
+        }
+    },
+    {
+        "model": "core.classification",
+        "fields": {
+            "name": "副菜",
+            "sort_order": 2,
+            "created": "2018-07-10 06:12:00",
+            "modified": "2018-07-10 06:12:00",
+            "created_by": "System",
+            "modified_by": "System"
+        }
+    },
+    {
+        "model": "core.classification",
+        "fields": {
+            "name": "主食",
+            "sort_order": 3,
+            "created": "2018-07-10 06:12:00",
+            "modified": "2018-07-10 06:12:00",
+            "created_by": "System",
+            "modified_by": "System"
+        }
+    },
+    {
+        "model": "core.classification",
+        "fields": {
+            "name": "デザート",
+            "sort_order": 4,
+            "created": "2018-07-10 06:12:00",
+            "modified": "2018-07-10 06:12:00",
+            "created_by": "System",
+            "modified_by": "System"
+        }
+    },
+    {
+        "model": "core.classification",
+        "fields": {
+            "name": "その他",
+            "sort_order": 5,
+            "created": "2018-07-10 06:12:00",
+            "modified": "2018-07-10 06:12:00",
+            "created_by": "System",
+            "modified_by": "System"
+        }
+    }
+]

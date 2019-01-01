@@ -1,7 +1,7 @@
 """ コアライブラリのテストケース """
 import random
 from django.test import TestCase
-from recipe.core.models import Cuisine
+from recipe.core.models import Cuisine, Classification
 
 
 class CuisineModelTests(TestCase):
@@ -11,6 +11,9 @@ class CuisineModelTests(TestCase):
 
     @classmethod
     def setUpTestData(cls):
+        for i, c in enumerate(cls.classifications):
+            Classification.objects.create(name=c, sort_order=i)
+
         # テストデータを10件登録しておく
         for count in range(1, 10):
             cuisine = Cuisine()
@@ -18,7 +21,9 @@ class CuisineModelTests(TestCase):
                 cuisine.name = 'Test Name%d' % count
             else:
                 cuisine.name = 'Test Name'
-            cuisine.classification = random.choice(cls.classifications)
+            classification = Classification.objects.filter(
+                name=random.choice(cls.classifications)).first()
+            cuisine.classification = classification
             cuisine.ingestion_kcal = count * 100
             cuisine.save()
             cls.cuisines.append(cuisine)

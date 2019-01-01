@@ -12,8 +12,8 @@
             <label>分類</label>
         </div>
         <div class="input-column">
-            <select name="classification" [(ngModel)]="cuisine.classification">
-                <option *ngFor="let type of types" [value]="type" [innerText]="type"></option>
+            <select name="classification" [(ngModel)]="cuisine.classification_id">
+                <option *ngFor="let type of types" [value]="type.id" [innerText]="type.name"></option>
             </select>
         </div>
     </div>
