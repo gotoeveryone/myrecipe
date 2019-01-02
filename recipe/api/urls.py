@@ -12,5 +12,9 @@ app_name = 'recipe_api'
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('status', views.status, name='status'),
+    path('health', views.health, name='health'),
+    path('user', views.user, name='user'),
+    path('login', views.login, name='login'),
+    path('logout', views.logout, name='logout'),
+    path('notice', views.notice, name='notice'),
 ]

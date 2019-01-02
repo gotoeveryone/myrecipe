@@ -6,18 +6,21 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DialogService {
     private _title = 'タイトル';
-    private _message = '';
+    private _messages = new Array();
     private _error = false;
 
-    open(title = '', message = '', error = false) {
+    open(title = '', messages: string | string[] = '', error = false) {
         this._title = title;
-        this._message = message;
+        if (!Array.isArray(messages)) {
+            messages = [messages];
+        }
+        this._messages = messages;
         this._error = error;
     }
 
     close() {
         this._title = '';
-        this._message = '';
+        this._messages = new Array();
         this._error = false;
     }
 
@@ -29,7 +32,7 @@ export class DialogService {
         return this._title;
     }
 
-    get message() {
-        return this._message;
+    get messages() {
+        return this._messages;
     }
 }

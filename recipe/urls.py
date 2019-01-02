@@ -14,12 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.urls import include, path
+from django.conf.urls import handler500
 from django.contrib import admin
-from . import settings
+from recipe import settings
 
 urlpatterns = [
     path('', include('recipe.core.urls')),
-    path('cuisine/', include('recipe.cuisine.urls')),
     path('api/', include('recipe.api.urls')),
     path('admin/', admin.site.urls),
 ]
@@ -29,3 +29,18 @@ if settings.DEBUG:
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
+
+
+def error(request):
+    """ 500エラー時は詳細なエラーをログ出力する """
+    from logging import getLogger
+    import traceback
+    from django.shortcuts import render_to_response
+
+    logger = getLogger(__name__)
+    logger.error(traceback.format_exc())
+
+    return render_to_response('error.dhtml')
+
+
+handler500 = 'recipe.urls.error'

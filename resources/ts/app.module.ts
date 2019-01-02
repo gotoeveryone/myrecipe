@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 import { ROUTES } from './routes';
+import { AuthGuardService } from './services/auth.service';
 import { BlockUIService } from './services/blockui.service';
 import { DialogService } from './services/dialog.service';
 import { MyHttp } from './services/http.service';
@@ -17,7 +18,10 @@ import { InstructionComponent } from './components/cuisine-detail/instruction.co
 import { SearchComponent } from './components/cuisine-list/cuisine.component';
 import { HeaderComponent } from './components/cuisine-list/header.component';
 import { ItemComponent } from './components/cuisine-list/item.component';
+import { LoginComponent } from './components/login/login.component';
 import { Dialog } from './components/parts/dialog.component';
+import { Header } from './components/parts/header.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
     imports: [
@@ -43,12 +47,16 @@ import { Dialog } from './components/parts/dialog.component';
             provide: RequestOptions,
             useClass: MyRequestOptions,
         },
+        AuthGuardService,
         BlockUIService,
         DialogService,
     ],
     declarations: [
         AppComponent,
         Dialog,
+        Header,
+        NotFoundComponent,
+        LoginComponent,
         SearchComponent,
         HeaderComponent,
         ItemComponent,
@@ -58,6 +66,7 @@ import { Dialog } from './components/parts/dialog.component';
     ],
     bootstrap: [
         AppComponent,
+        Header,
     ],
 })
 export class AppModule { }

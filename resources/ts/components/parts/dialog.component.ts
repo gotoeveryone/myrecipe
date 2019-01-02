@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DialogService } from '../../services/dialog.service';
 
 declare var require: any;
@@ -11,5 +11,11 @@ declare var require: any;
     template: require('./dialog.component.html'),
 })
 export class Dialog {
+    @Input() messages: string[];
+
     constructor(private dialog: DialogService) { }
+
+    isShow() {
+        return this.dialog.messages && this.dialog.messages.length;
+    }
 }

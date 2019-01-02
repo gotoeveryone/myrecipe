@@ -1,24 +1,5 @@
 {% extends '_partial/base.dhtml' %}
+
 {% block content %}
-<section class="login">
-    <form method="post" action="{% url 'recipe:login' %}">
-        {% for message in messages %}
-        <div class="field-validation-error">{{ message }}</div>
-        {% endfor %}
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{request.GET.next}}" />
-        <div class="row">
-            <label>{{ form.account.label }}</label>
-            {{ form.account }}
-        </div>
-        <div class="row">
-            <label>{{ form.password.label }}</label>
-            {{ form.password }}
-        </div>
-        <div class="row">
-            <button type="submit">ログイン</button>
-            <button type="reset">クリア</button>
-        </div>
-    </form>
-</section>
+<div class="app">Loading...</div>
 {% endblock %}

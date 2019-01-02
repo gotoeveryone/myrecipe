@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
+import { Title } from '@angular/platform-browser';
 
 declare var require: any;
 
@@ -10,11 +11,21 @@ declare var require: any;
     selector: '.content-inner',
     template: require('./cuisine.component.html'),
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
     items = new Array();
     params = new Object();
 
-    constructor(private http: Http) { }
+    constructor(
+        private http: Http,
+        private title: Title,
+    ) { }
+
+    /**
+     * {@inheritdoc}
+     */
+    ngOnInit() {
+        this.title.setTitle('レシピ検索');
+    }
 
     /**
      * 検索処理

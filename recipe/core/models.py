@@ -1,5 +1,6 @@
 # pylint: disable=C0103
 """ Models """
+import hashlib
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
@@ -12,6 +13,12 @@ class User(AbstractUser):
 
     access_token = None
     name = None
+
+    def generate_access_token(self):
+        """ アクセストークン生成 """
+        token_base = '%d-%s-%s' % (self.pk, self.get_full_name,
+                                   timezone.now().strftime('%Y%m%d%H%M%S%f'))
+        return hashlib.sha256(token_base.encode('utf-8')).hexdigest()
 
     def get_access_token(self):
         """ アクセストークン取得 """
@@ -48,7 +55,7 @@ class User(AbstractUser):
             'accessToken': self.get_access_token(),
             'account': self.get_username(),
             'name': self.get_full_name(),
-            'mailAddress': self.email,
+            'email': self.email,
             'admin': self.is_superuser,
         }
 
@@ -58,6 +65,22 @@ class User(AbstractUser):
         verbose_name = 'ユーザ'
         verbose_name_plural = 'ユーザ'
         abstract = False
+
+
+class UserToken(models.Model):
+    """ ユーザトークン """
+    created = models.DateTimeField('登録日時', auto_now_add=True)
+    modified = models.DateTimeField('最終更新日時', auto_now=True)
+    token = models.CharField(max_length=128)
+    expired = models.DateTimeField()
+    user = models.ForeignKey(
+        User, models.PROTECT, related_name='user_token')
+
+    class Meta(AbstractUser.Meta):
+        app_label = 'core'
+        db_table = 'user_tokens'
+        verbose_name = 'ユーザトークン'
+        verbose_name_plural = 'ユーザトークン'
 
 
 class BaseModel(models.Model):

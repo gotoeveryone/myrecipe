@@ -211,12 +211,20 @@ LOGGING = {
     }
 }
 
+# DRF (Django Rest Framework) の設定
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'EXCEPTION_HANDLER': 'recipe.api.handler.custom_exception_handler',
+}
+
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
 
 LOGIN_URL = '/'
-LOGIN_REDIRECT_URL = '/cuisine'
+LOGIN_REDIRECT_URL = '/#/cuisine'
 
 API_URL = os.environ.get('API_URL', 'http://localhost/')
 
@@ -226,6 +234,7 @@ EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
+EMAIL_FROM_USER = os.environ.get('EMAIL_FROM_USER')
 EMAIL_FROM_ALIAS = os.environ.get('EMAIL_FROM_ALIAS', '')
 
 if DEBUG:
