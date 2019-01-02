@@ -1,0 +1,34 @@
+<!-- 見出し -->
+<ng-container>
+    <div class="header-wrap">
+        <ng-container *ngIf="auth.hasUser(); else anonymous">
+            <div class="system-name">MyRecipe</div>
+            <h1 class="page-title" [innerText]="getTitle()"></h1>
+        </ng-container>
+        <ng-template #anonymous>
+            <h1 class="page-title-top">MyRecipe</h1>
+        </ng-template>
+        <div class="other">
+            <ng-container *ngIf="auth.hasUser()">
+                <span [innerText]="userNameAndEmail"></span>
+                <span><a (click)="logout()">ログアウト</a></span>
+            </ng-container>
+        </div>
+    </div>
+    <ng-container *ngIf="auth.hasUser()">
+        <div class="person" (click)="toggleMenu()">
+            <div class="personal-icon"></div>
+        </div>
+        <div class="information" [ngClass]="{'active': opened}" (click)="toggleMenu()">
+            <div class="information-arrow">&gt;&gt;</div>
+            <div class="information-item">
+                <div class="information-item-text">
+                    <span [innerText]="auth.getUser().name"></span> でログイン中
+                </div>
+                <div>
+                    <a (click)="logout()" class="information-item-text">ログアウト</a>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

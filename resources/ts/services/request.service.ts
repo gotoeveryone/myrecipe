@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BaseRequestOptions } from '@angular/http';
-
-declare var window: any;
-window.Django = window.Django || {};
+import { BaseRequestOptions, RequestOptions, RequestOptionsArgs } from '@angular/http';
 
 @Injectable()
 export class MyRequestOptions extends BaseRequestOptions {
     constructor() {
         super();
-        this.headers.set('X-USERID', window.Django.userId);
+    }
+
+    merge(options?: RequestOptionsArgs): RequestOptions {
+        const newOptions = super.merge(options);
+        newOptions.headers.set('Authorization', `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`);
+        return newOptions;
     }
 }

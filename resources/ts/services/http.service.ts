@@ -19,7 +19,7 @@ export class MyHttp extends Http {
     constructor(
         backend: ConnectionBackend,
         defaultOptions: RequestOptions,
-        private blockUI: BlockUIService
+        private blockUI: BlockUIService,
     ) {
         super(backend, defaultOptions);
     }

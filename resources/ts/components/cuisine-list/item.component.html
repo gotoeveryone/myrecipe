@@ -18,7 +18,7 @@
                 <a class="button button-detail" (click)="detailUrl(item.id)">
                     <i class="fa fa-newspaper-o" area-hidden="true"></i>
                 </a>
-                <a class="button button-mail" [href]="noticeUrl(item.id)">
+                <a class="button button-mail" (click)="notice(item.id)">
                     <i class="fa fa-envelope" area-hidden="true"></i>
                 </a>
             </span>

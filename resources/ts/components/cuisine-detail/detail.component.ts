@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
 
@@ -15,7 +16,7 @@ declare var require: any;
 export class DetailComponent implements OnInit {
     items = new Array();
     params = new Object();
-    cuisineId = 1;
+    cuisineId: number;
     cuisine = {
         instructions: new Array(),
         foodstuffs: new Array(),
@@ -27,11 +28,12 @@ export class DetailComponent implements OnInit {
         private http: Http,
         private router: Router,
         private route: ActivatedRoute,
+        private title: Title,
         private dialog: DialogService,
     ) { }
 
     toSearch() {
-        this.router.navigate(['/']);
+        this.router.navigate(['cuisine']);
     }
 
     getLabel() {
@@ -81,7 +83,7 @@ export class DetailComponent implements OnInit {
                 }
             });
         });
-        this.dialog.open('エラー', errors.join('<br>'), true);
+        this.dialog.open('エラー', errors, true);
     }
 
     /**
@@ -97,6 +99,7 @@ export class DetailComponent implements OnInit {
                     this.cuisineId = params['id'];
 
                     if (!this.cuisineId) {
+                        this.title.setTitle('レシピ登録');
                         for (let i = 0; i < 3; i++) {
                             this.cuisine.instructions.push({
                                 sort_order: i + 1,
@@ -104,15 +107,14 @@ export class DetailComponent implements OnInit {
                             this.cuisine.foodstuffs.push({});
                         }
                     } else {
-                        this.http.get(this.getUrl('get')).forEach((res) => {
-                            this.cuisine = res.json();
-                        });
+                        this.title.setTitle('レシピ編集');
+                        this.http.get(this.getUrl('get'))
+                            .forEach((cuisine) => this.cuisine = cuisine.json());
                     }
 
                     // 食材の補完情報を取得
-                    this.http.get('/api/foodstuffs/').forEach((res) => {
-                        this.dataList = res.json();
-                    });
+                    this.http.get('/api/foodstuffs/')
+                        .forEach((foods) => this.dataList = foods.json());
                 });
             });
     }

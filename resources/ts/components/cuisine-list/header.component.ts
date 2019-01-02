@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
      * 追加画面へ
      */
     toAdd() {
-        this.router.navigate(['/add']);
+        this.router.navigate(['cuisine/new']);
     }
 
     /**

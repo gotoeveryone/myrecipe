@@ -1,11 +1,12 @@
-<div class="dialog" [class.hide]="!dialog.message">
+<div class="dialog" [class.hide]="!isShow()">
     <div class="dialog-content">
         <div class="dialog-content-header" *ngIf="dialog.title">
             <div class="dialog-content-title" [innerText]="dialog.title"></div>
         </div>
         <div class="dialog-content-body">
-            <div class="dialog-content-body-text" [class.field-validation-error]="dialog.error"
-                [innerHTML]="dialog.message"></div>
+            <ul class="dialog-content-body-text" [class.field-validation-error]="dialog.error">
+                <li *ngFor="let message of dialog.messages" [innerText]="message"></li>
+            </ul>
         </div>
         <div class="dialog-content-footer">
             <button (click)="dialog.close()">閉じる</button>

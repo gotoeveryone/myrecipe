@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Http } from '@angular/http';
 import { Router } from '@angular/router';
+import { DialogService } from '../../services/dialog.service';
 
 declare var require: any;
 
@@ -13,7 +15,11 @@ declare var require: any;
 export class ItemComponent {
     @Input() items: any[];
 
-    constructor(private router: Router) { }
+    constructor(
+        private http: Http,
+        private router: Router,
+        private dialog: DialogService,
+    ) { }
 
     /**
      * 詳細画面表示
@@ -22,16 +28,19 @@ export class ItemComponent {
      * @return void
      */
     detailUrl(id: number): void {
-        this.router.navigate(['/edit/', id]);
+        this.router.navigate(['cuisine/', id]);
     }
 
     /**
      * メール送信URL取得
      *
-     * @param {number} id
-     * @return {string} URL
+     * @param id
      */
-    noticeUrl(id: number) {
-        return `/cuisine/notice/${id}`;
+    notice(id: number) {
+        this.http.post('/api/notice', { id })
+            .subscribe(
+                (_) => this.dialog.open('メッセージ', 'メールを送信しました。'),
+                (_) => this.dialog.open('エラー', 'メール送信に失敗しました。', true),
+            );
     }
 }
