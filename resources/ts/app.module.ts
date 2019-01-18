@@ -1,6 +1,13 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CookieXSRFStrategy, Http, HttpModule, RequestOptions, XHRBackend, XSRFStrategy } from '@angular/http';
+import {
+    CookieXSRFStrategy,
+    Http,
+    HttpModule,
+    RequestOptions,
+    XHRBackend,
+    XSRFStrategy,
+} from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -19,9 +26,9 @@ import { SearchComponent } from './components/cuisine-list/cuisine.component';
 import { HeaderComponent } from './components/cuisine-list/header.component';
 import { ItemComponent } from './components/cuisine-list/item.component';
 import { LoginComponent } from './components/login/login.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { Dialog } from './components/parts/dialog.component';
 import { Header } from './components/parts/header.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
     imports: [
@@ -34,7 +41,11 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     providers: [
         {
             provide: Http,
-            useFactory: (backend: XHRBackend, options: RequestOptions, blockUI: BlockUIService) => {
+            useFactory: (
+                backend: XHRBackend,
+                options: RequestOptions,
+                blockUI: BlockUIService
+            ) => {
                 return new MyHttp(backend, options, blockUI);
             },
             deps: [XHRBackend, RequestOptions, BlockUIService],
@@ -64,9 +75,6 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
         InstructionComponent,
         FoodstuffComponent,
     ],
-    bootstrap: [
-        AppComponent,
-        Header,
-    ],
+    bootstrap: [AppComponent, Header],
 })
-export class AppModule { }
+export class AppModule {}
