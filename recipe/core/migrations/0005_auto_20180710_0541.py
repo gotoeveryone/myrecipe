@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cuisine',
             name='serves',
-            field=models.IntegerField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(999)]),
+            field=models.IntegerField(blank=True, null=True, validators=[
+                                      django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(999)]),
         ),
     ]
