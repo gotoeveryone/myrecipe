@@ -34,9 +34,9 @@ before_script:
   - echo "SECRET_KEY='$(pipenv run kg)'" >> .env
 
 script:
-  - pipenv run python manage.py test --noinput
-  - yarn run tslint
-  - yarn run sasslint
+  - pipenv run lint
+  - pipenv run test
+  - yarn run lint
 
 notifications:
   email: false

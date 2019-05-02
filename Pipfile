@@ -23,9 +23,9 @@ python_version = "3.6"
 
 [scripts]
 s = "python manage.py runserver"
-t = "python manage.py test --no-input"
 m = "python manage.py migrate"
 cs = "python manage.py collectstatic"
 kg = "python -c 'from django.core.management import utils; print(utils.get_random_secret_key())'"
 lint = "flake8 ."
 format = "autopep8 --in-place --recursive ."
+test = "python manage.py test --no-input"

@@ -1,0 +1,24 @@
+{
+  "plugins": ["stylelint-scss"],
+  "extends": "stylelint-config-standard",
+  "files": ["**/*.scss", "**/*.vue"],
+  "rules": {
+    "scss/dollar-variable-colon-space-after": "always",
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "mixin",
+          "content",
+          "include",
+          "extend",
+          "each",
+          "if",
+          "else",
+          "for"
+        ]
+      }
+    ],
+    "no-descending-specificity": null
+  }
+}
