@@ -62,7 +62,8 @@ $ pipenv run cs
 ## Test
 
 ```
-$ pipenv run t
+$ cd <project_root>
+$ pipenv run test
 ```
 
 ## Notes
