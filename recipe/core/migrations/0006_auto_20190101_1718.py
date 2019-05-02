@@ -11,7 +11,7 @@ from recipe.core.models import Classification
 def migrate_str_to_relational_id(apps, schema_editor):
     # Fixture のデータを投入
     data = json.loads(open(os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), '..', 'fixtures', 'classifications.json')).read())
+        os.path.dirname(os.path.abspath(__file__)), '..', 'fixtures', 'classifications.json'), encoding='utf-8').read())
     for d in data:
         Classification.objects.create(**d['fields'])
 
