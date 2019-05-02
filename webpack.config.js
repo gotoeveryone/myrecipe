@@ -1,65 +1,81 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const StylelintBarePlugin = require('stylelint-bare-webpack-plugin');
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 module.exports = (_, args) => {
-    return {
-        devtool: args.mode !== 'production' ? false : 'source-map',
-        entry: {
-            'js/app.js': './resources/ts/main.ts',
-            'css/app.css': './resources/sass/app.scss',
+  return {
+    devtool: args.mode !== 'production' ? false : 'source-map',
+    entry: {
+      'js/app': './resources/scripts/main.ts',
+      'css/app': './resources/styles/app.scss',
+    },
+    output: {
+      path: path.join(__dirname, 'templates', 'assets'),
+    },
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.scss', 'css'],
+    },
+    stats: 'minimal',
+    module: {
+      rules: [
+        {
+          enforce: 'pre',
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: 'eslint-loader',
+              options: {
+                esModule: true,
+              },
+            },
+          ],
         },
-        output: {
-            path: path.join(__dirname, 'templates', 'assets'),
-            filename: '[name]',
+        {
+          test: /\.tsx?$/,
+          loader: 'ts-loader',
         },
-        resolve: {
-            extensions: ['.ts', '.tsx', '.js', '.scss', 'css'],
+        {
+          test: /\.(html|css)$/,
+          loader: 'raw-loader',
         },
-        stats: 'minimal',
-        module: {
-            rules: [
-                {
-                    test: /\.tsx?$/,
-                    loader: 'ts-loader',
-                },
-                {
-                    test: /\.(html|css)$/,
-                    loader: 'raw-loader',
-                },
-                {
-                    test: /\.scss$/,
-                    exclude: /node_modules/,
-                    use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: 'css-loader!sass-loader',
-                    }),
-                },
-                // Ignore warnings about System.import in Angular
-                {
-                    test: /[\/\\]@angular[\/\\].+\.js$/,
-                    parser: {
-                        system: true,
-                    },
-                },
-            ],
+        {
+          test: /\.(sa|sc|c)ss$/,
+          exclude: /node_modules/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
         },
-        plugins: [
-            // Ignore warnings about Critical dependency in Angular
-            new webpack.ContextReplacementPlugin(
-                /(.+)?angular(\\|\/)core(.+)?/,
-                path.join(__dirname, 'resources'), {}
-            ),
-            new ExtractTextPlugin({
-                filename: '[name]',
-                disable: false,
-                allChunks: true,
-            }),
-            new FriendlyErrorsWebpackPlugin(),
-        ],
-        performance: {
-            hints: false,
+        // Ignore warnings about System.import in Angular
+        {
+          test: /[\/\\]@angular[\/\\].+\.js$/,
+          parser: {
+            system: true,
+          },
         },
-    };
+      ],
+    },
+    plugins: [
+      // Ignore warnings about Critical dependency in Angular
+      new webpack.ContextReplacementPlugin(
+        /(.+)?angular(\\|\/)core(.+)?/,
+        path.join(__dirname, 'resources'),
+        {},
+      ),
+      new FixStyleOnlyEntriesPlugin(),
+      new FriendlyErrorsWebpackPlugin(),
+      new MiniCssExtractPlugin({
+        filename: '[name].css',
+      }),
+      new StylelintBarePlugin({
+        files: ['resources/styles/**/*.scss'],
+      }),
+    ],
+    performance: {
+      hints: false,
+    },
+  };
 };

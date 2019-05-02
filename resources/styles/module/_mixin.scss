@@ -1,0 +1,19 @@
+@mixin sp() {
+  @media screen and (max-width: ($breakpoint)) {
+    @content;
+  }
+}
+
+@mixin pc() {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin active-button($active) {
+  &:enabled:hover {
+    background-color: darken($active, 15%);
+  }
+
+  background-color: #{$active};
+}
