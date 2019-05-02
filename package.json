@@ -14,7 +14,7 @@
     "lint:fix": "yarn run eslint:fix && yarn run stylelint:fix",
     "eslint": "eslint --ext .ts ./resources/scripts",
     "eslint:fix": "yarn run eslint --fix",
-    "stylelint": "stylelint \"./resources/styles/**/*.scss\" \"./resources/scripts/**/*.vue\"",
+    "stylelint": "stylelint \"./resources/styles/**/*.scss\"",
     "stylelint:fix": "yarn run stylelint --fix"
   },
   "engines": {
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/k2ss/recipe.git"
+    "url": "git+ssh://git@github.com:gotoeveryone/myrecipe.git"
   },
   "author": "k2ss",
   "license": "BSD-3-Clause",
