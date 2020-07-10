@@ -1,0 +1,82 @@
+name: Myrecipe Build
+
+on: [push]
+
+jobs:
+  frontend_code_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.11'
+
+      - name: Install dependencies
+        run: yarn
+
+      # node_modulesをキャッシュする
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Execute code check
+        run: yarn run lint
+
+  backend_code_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install -d
+
+      - name: Execute code check
+        run: pipenv run lint
+
+  backend_test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:10.13
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: myrecipe
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install -d
+
+      - name: Setup DotEnv
+        run: |
+          cp .env.example .env
+          echo "SECRET_KEY='$(pipenv run kg)'" >> .env
+
+      - name: Execute test
+        run: pipenv run test
