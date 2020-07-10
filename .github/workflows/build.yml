@@ -45,10 +45,66 @@ jobs:
           pip install pipenv
           pipenv install -d
 
-      - name: Before code check
+      - name: Execute code check
+        run: pipenv run lint
+
+  frontend_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.11'
+
+      - name: Install dependencies
+        run: yarn
+
+      # node_modulesをキャッシュする
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Execute test
+        run: yarn run test
+
+  backend_test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: myrecipe
+          POSTGRES_USER: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install -d
+
+      - name: Setup DotEnv
         run: |
           cp .env.example .env
           echo "SECRET_KEY='$(pipenv run kg)'" >> .env
 
-      - name: Execute code check
-        run: pipenv run lint
+      - name: Execute test
+        run: pipenv run test
