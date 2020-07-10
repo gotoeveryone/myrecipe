@@ -1,0 +1,54 @@
+name: Myrecipe Build
+
+on: [push]
+
+jobs:
+  frontend_code_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.11'
+
+      - name: Install dependencies
+        run: yarn
+
+      # node_modulesをキャッシュする
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Execute code check
+        run: yarn run lint
+
+  backend_code_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install -d
+
+      - name: Before code check
+        run: |
+          cp .env.example .env
+          echo "SECRET_KEY='$(pipenv run kg)'" >> .env
+
+      - name: Execute code check
+          run: pipenv run lint
