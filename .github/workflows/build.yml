@@ -51,4 +51,4 @@ jobs:
           echo "SECRET_KEY='$(pipenv run kg)'" >> .env
 
       - name: Execute code check
-          run: pipenv run lint
+        run: pipenv run lint
