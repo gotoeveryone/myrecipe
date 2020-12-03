@@ -80,3 +80,18 @@ jobs:
 
       - name: Execute test
         run: pipenv run test
+
+  slack-notify:
+    if: always()
+    needs:
+      - frontend_code_check
+      - backend_code_check
+      - backend_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify deployment
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          name: Slack Workflow Notification
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
