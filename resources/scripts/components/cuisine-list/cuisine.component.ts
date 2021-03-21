@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
+import { Cuisine} from '../../types';
 
 declare var require: any;
 
@@ -15,7 +16,7 @@ export class SearchComponent implements OnInit {
   public items = [] as any[];
   public params = new Object();
 
-  public constructor(private http: Http, private title: Title) {}
+  public constructor(private http: HttpClient, private title: Title) {}
 
   /**
    * {@inheritdoc}
@@ -29,13 +30,17 @@ export class SearchComponent implements OnInit {
    *
    * @param {any} _params
    */
-  public search(_params: any = {}) {
+  public search(_params: {
+    [param: string]: string | string[];
+  } = {}) {
     Object.keys(_params).forEach(key => {
       this.params[key] = _params[key];
     });
 
-    this.http.get('/api/cuisine/', new RequestOptions({ search: this.params })).forEach(res => {
-      this.items = res.json();
+    this.http.get<Cuisine[]>('/api/cuisine/', {
+      params: this.params as any,
+    }).forEach(res => {
+      this.items = res;
     });
   }
 }

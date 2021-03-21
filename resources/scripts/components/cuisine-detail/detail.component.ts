@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Classification, Cuisine, Foodstuff, Instruction } from '../../types';
 import { DialogService } from '../../services/dialog.service';
 
 declare var require: any;
@@ -18,14 +19,14 @@ export class DetailComponent implements OnInit {
   public params = new Object();
   public cuisineId: number;
   public cuisine = {
-    instructions: [] as any[],
-    foodstuffs: [] as any[],
+    instructions: [] as Instruction[],
+    foodstuffs: [] as Foodstuff[],
   };
-  public types = [] as any[];
+  public types = [] as Classification[];
   public dataList: string[];
 
   public constructor(
-    private http: Http,
+    private http: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
     private title: Title,
@@ -45,17 +46,17 @@ export class DetailComponent implements OnInit {
    */
   public save() {
     if (this.cuisineId) {
-      this.http.put(this.getUrl('put'), this.cuisine).subscribe(
+      this.http.put<Cuisine>(this.getUrl('put'), this.cuisine).subscribe(
         res => {
-          this.cuisine = res.json();
+          this.cuisine = res;
           this.dialog.open('メッセージ', 'レシピを更新しました。');
         },
         err => this.apiError(err),
       );
     } else {
-      this.http.post(this.getUrl('post'), this.cuisine).subscribe(
+      this.http.post<Cuisine>(this.getUrl('post'), this.cuisine).subscribe(
         res => {
-          this.cuisine = res.json();
+          this.cuisine = res;
           this.dialog.open('メッセージ', 'レシピを登録しました。');
         },
         err => this.apiError(err),
@@ -68,13 +69,13 @@ export class DetailComponent implements OnInit {
    *
    * @param err
    */
-  public apiError(err: Response) {
+  public apiError(err: any) {
     if (err.status !== 400) {
       this.dialog.open('エラー', 'エラーが発生しました。', true);
       return;
     }
     const errors = [] as string[];
-    const obj = err.json();
+    const obj = err.error;
     Object.keys(obj).forEach(k => {
       const values: any[] = obj[k] || [];
       values.forEach(v => {
@@ -95,8 +96,8 @@ export class DetailComponent implements OnInit {
    */
   public ngOnInit() {
     // 初期表示時に検索する
-    this.http.get('/api/classifications').subscribe(res => {
-      this.types = res.json();
+    this.http.get<Classification[]>('/api/classifications').subscribe(res => {
+      this.types = res;
       // パラメータからIDを取得
       this.route.params.subscribe(params => {
         this.cuisineId = params['id'];
@@ -107,15 +108,15 @@ export class DetailComponent implements OnInit {
             this.cuisine.instructions.push({
               sort_order: i + 1,
             });
-            this.cuisine.foodstuffs.push({});
+            this.cuisine.foodstuffs.push({} as unknown as Foodstuff);
           }
         } else {
           this.title.setTitle('レシピ編集');
-          this.http.get(this.getUrl('get')).subscribe(res => (this.cuisine = res.json()));
+          this.http.get<Cuisine>(this.getUrl('get')).subscribe(res => (this.cuisine = res));
         }
 
         // 食材の補完情報を取得
-        this.http.get('/api/foodstuffs/').subscribe(res => (this.dataList = res.json()));
+        this.http.get<string[]>('/api/foodstuffs/').subscribe(res => (this.dataList = res));
       });
     });
   }

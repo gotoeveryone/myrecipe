@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Classification } from '../../types';
 
 declare var require: any;
 
@@ -19,7 +20,7 @@ export class HeaderComponent implements OnInit {
   public classification = '';
   public kcal = '';
 
-  public constructor(private http: Http, private router: Router) {}
+  public constructor(private http: HttpClient, private router: Router) {}
 
   /**
    * 値変更時
@@ -44,8 +45,8 @@ export class HeaderComponent implements OnInit {
    */
   public ngOnInit() {
     // 初期表示時に検索する
-    this.http.get('/api/classifications').subscribe(res => {
-      this.types = res.json();
+    this.http.get<Classification[]>('/api/classifications').subscribe(res => {
+      this.types = res;
       this.onSearch.emit();
     });
   }

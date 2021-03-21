@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { CanActivate, Router } from '@angular/router';
 
 interface User {
@@ -15,7 +15,7 @@ interface User {
 export class AuthGuardService implements CanActivate {
   private user: User;
 
-  public constructor(private http: Http, private router: Router) {}
+  public constructor(private http: HttpClient, private router: Router) {}
 
   public getUser() {
     return this.user;
@@ -40,11 +40,11 @@ export class AuthGuardService implements CanActivate {
 
   private async isAuthenticated() {
     return await this.http
-      .get('/api/user')
+      .get<User>('/api/user', { observe: 'response' })
       .toPromise()
       .then(res => {
         if (res.status === 200) {
-          this.user = res.json();
+          this.user = res.body;
           return true;
         }
         return false;

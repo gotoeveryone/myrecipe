@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
+import { Token } from '../../types';
 
 declare var require: any;
 
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   @Input() public password: string;
 
   public constructor(
-    private http: Http,
+    private http: HttpClient,
     private router: Router,
     private title: Title,
     private dialog: DialogService,
@@ -30,17 +31,17 @@ export class LoginComponent implements OnInit {
 
   public login() {
     this.http
-      .post('/api/login', {
-        account: this.account,
-        password: this.password,
-      })
+      .post<Token>('/api/login', {
+      account: this.account,
+      password: this.password,
+    })
       .subscribe(
         res => {
-          localStorage.setItem('ACCESS_TOKEN', res.json().token);
+          localStorage.setItem('ACCESS_TOKEN', res.token);
           this.router.navigate(['cuisine']);
         },
         err => {
-          const errors = err.json().message;
+          const errors = err.error.message;
           if (err.status !== 400) {
             this.dialog.open('エラー', errors, true);
           } else {

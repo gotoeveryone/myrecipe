@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Foodstuff } from '../../types';
 
 declare var require: any;
 
@@ -10,7 +11,7 @@ declare var require: any;
   template: require('./foodstuff.component.html'),
 })
 export class FoodstuffComponent {
-  @Input() public items: any[];
+  @Input() public items: Foodstuff[];
 
   public addRow() {
     this.items.push({});
