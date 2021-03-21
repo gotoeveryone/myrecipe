@@ -218,10 +218,6 @@ REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'recipe.api.handler.custom_exception_handler',
 }
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
-
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/#/cuisine'
 
@@ -243,3 +239,10 @@ if DEBUG:
     INSTALLED_APPS.append(
         'debug_toolbar',
     )
+
+    def show_toolbar_callback(*args, **kwargs):
+        return True
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar_callback,
+    }
