@@ -15,7 +15,7 @@ export class BlockUIService {
     this.showBlock = true;
   }
 
-  public unBlock() {
+  public unblock() {
     this.showBlock = false;
   }
 }

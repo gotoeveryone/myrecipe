@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthGuardService } from '../../services/auth.service';
@@ -17,7 +17,7 @@ export class Header {
   private opened = false;
 
   public constructor(
-    private http: Http,
+    private http: HttpClient,
     private router: Router,
     private auth: AuthGuardService,
     private title: Title,

@@ -15,7 +15,7 @@ export class AppComponent implements AfterViewInit {
 
   public ngAfterViewInit() {
     setTimeout(() => {
-      this.blockUI.unBlock();
+      this.blockUI.unblock();
     }, 1000);
   }
 }

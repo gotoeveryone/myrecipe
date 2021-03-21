@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
 
@@ -15,7 +15,7 @@ declare var require: any;
 export class ItemComponent {
   @Input() public items: any[];
 
-  public constructor(private http: Http, private router: Router, private dialog: DialogService) {}
+  public constructor(private http: HttpClient, private router: Router, private dialog: DialogService) {}
 
   /**
    * 詳細画面表示

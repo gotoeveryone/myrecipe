@@ -1,22 +1,14 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  CookieXSRFStrategy,
-  Http,
-  HttpModule,
-  RequestOptions,
-  XHRBackend,
-  XSRFStrategy,
-} from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 import { ROUTES } from './routes';
+import { provideHttpInterceptors } from './interceptors/http.interceptor';
 import { AuthGuardService } from './services/auth.service';
 import { BlockUIService } from './services/blockui.service';
 import { DialogService } from './services/dialog.service';
-import { MyHttp } from './services/http.service';
-import { MyRequestOptions } from './services/request.service';
 
 import { AppComponent } from './app.component';
 import { DetailComponent } from './components/cuisine-detail/detail.component';
@@ -33,27 +25,17 @@ import { Header } from './components/parts/header.component';
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'csrftoken',
+      headerName: 'X-CSRFToken',
+    }),
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(ROUTES, { useHash: true }),
   ],
   providers: [
-    {
-      provide: Http,
-      useFactory: (backend: XHRBackend, options: RequestOptions, blockUI: BlockUIService) => {
-        return new MyHttp(backend, options, blockUI);
-      },
-      deps: [XHRBackend, RequestOptions, BlockUIService],
-    },
-    {
-      provide: XSRFStrategy,
-      useValue: new CookieXSRFStrategy('csrftoken', 'X-CSRFToken'),
-    },
-    {
-      provide: RequestOptions,
-      useClass: MyRequestOptions,
-    },
+    provideHttpInterceptors(),
     AuthGuardService,
     BlockUIService,
     DialogService,
