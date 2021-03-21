@@ -1,7 +1,6 @@
 # MyRecipe
 
 ![Myrecipe Build](https://github.com/gotoeveryone/myrecipe/workflows/Myrecipe%20Build/badge.svg)
-[![Heroku](http://heroku-badge.herokuapp.com/?app=myrecipe-k2ss&svg=1)](https://myrecipe-k2ss.herokuapp.com/)
 [![Known Vulnerabilities](https://snyk.io/test/github/gotoeveryone/myrecipe/badge.svg)](https://snyk.io/test/github/gotoeveryone/myrecipe)
 [![Python Version](https://img.shields.io/badge/python-3.5%20|%203.6%20|%203.7-0366d6.svg)](https://www.python.org/)
 [![Django Version](https://img.shields.io/badge/django-2.0-0366d6.svg)](https://docs.djangoproject.com/ja/2.0/)
