@@ -1,0 +1,95 @@
+
+// ダイアログ
+.dialog {
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba($c_gray, 0.4);
+  z-index: 5000;
+
+  &.hide {
+    display: none;
+  }
+
+  &-content {
+    position: fixed;
+    width: auto;
+    height: auto;
+    margin: auto;
+    max-width: 400px;
+    min-height: 200px;
+    max-height: 200px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px 3px $c_gray;
+    z-index: 10;
+
+    &-header {
+      display: flex;
+      height: 30px;
+      align-items: center;
+      background-color: #4ba;
+      border-radius: 5px 5px 0 0;
+    }
+
+    &-title {
+      margin-left: 10px;
+      color: $c_white;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    &-body {
+      height: calc(100% - 30px - 40px);
+      overflow-y: auto;
+      font-size: 15px;
+      background-color: #eee;
+      border-bottom: 1px solid #aaa;
+
+      &-text {
+        margin: 10px;
+
+        .message {
+          margin: 0;
+
+          &-info {
+            color: $c_black;
+          }
+
+          &-warning {
+            color: $c_blue;
+          }
+
+          &-error {
+            color: $c_red;
+          }
+        }
+      }
+    }
+
+    &-footer {
+      position: relative;
+      height: 40px;
+      color: #22f;
+      background-color: #eee;
+      border-radius: 0 0 5px 5px;
+
+      button {
+        @include button(#bbb);
+
+        position: absolute;
+        top: 2px;
+        right: 5px;
+        font-size: 15px;
+      }
+    }
+  }
+}

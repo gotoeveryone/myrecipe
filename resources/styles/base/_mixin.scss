@@ -1,0 +1,44 @@
+@mixin sp() {
+  @media screen and (max-width: ($breakpoint)) {
+    @content;
+  }
+}
+
+@mixin pc() {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin background() {
+  background: linear-gradient(to bottom right, #727883, #e9e9b8);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+@mixin button($color) {
+  background-color: #{$color};
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+
+  &:enabled {
+    cursor: pointer;
+  }
+
+  &:enabled:hover {
+    color: $c_white;
+    background-color: darken($color, 20%);
+  }
+
+  &:disabled {
+    color: darken($c_white, 20%);
+    background-color: darken($color, 35%);
+  }
+}
+
+@mixin active-button($active) {
+  &:enabled:hover {
+    background-color: darken($active, 15%);
+  }
+
+  background-color: #{$active};
+}

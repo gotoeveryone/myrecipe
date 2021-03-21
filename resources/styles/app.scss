@@ -1,5 +1,10 @@
-@import './module/_variables';
-@import './module/_mixin';
+@import './base/_variables';
+@import './base/_mixin';
+@import './base/_normalize';
+@import './modules/dialog';
+@import './modules/icon';
+@import './modules/login';
+@import './modules/search';
 
 /* -------------------------------------------
    共通レイアウト
@@ -55,6 +60,17 @@
     color: #e2d278;
     font-weight: bold;
     text-decoration: underline;
+  }
+
+  .page-title {
+    @include sp() {
+      font-size: 1.5rem;
+    }
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    z-index: 1;
   }
 
   .page-title-top {
@@ -136,34 +152,6 @@
     width: 30px;
     text-align: center;
     text-decoration: none;
-  }
-}
-
-// アイコン
-.personal-icon {
-  position: absolute;
-  margin-top: 26px;
-  margin-left: 8px;
-  width: 36px;
-  height: 17px;
-  border-left: solid 1px currentColor;
-  border-right: solid 1px currentColor;
-  border-top: solid 1px currentColor;
-  border-bottom: solid 1px transparent;
-  background-color: currentColor;
-  border-radius: 6px 6px 0 0;
-  color: $c_white;
-
-  &::before {
-    position: absolute;
-    top: -20px;
-    left: 5px;
-    width: 24px;
-    height: 24px;
-    content: '';
-    border-radius: 50%;
-    border: solid 1px currentColor;
-    background-color: currentColor;
   }
 }
 

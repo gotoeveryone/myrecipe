@@ -1,0 +1,56 @@
+.login {
+  @include sp() {
+    width: 80%;
+    max-width: 100%;
+  }
+
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid $c_black;
+  border-radius: 5px;
+  list-style: none;
+  width: 20%;
+  min-width: 300px;
+  background-color: rgb(210, 237, 233);
+  text-align: center;
+
+  .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+
+    label {
+      padding: 0 10px 0 0;
+      flex-basis: 30%;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    input {
+      flex-basis: 70%;
+    }
+  }
+
+  .button-row {
+    margin: 15px auto 0;
+
+    button[type=submit] {
+      @include button(lighten($c_blue, 15%));
+
+      padding: 6px;
+      width: 100px;
+      box-shadow: none;
+      color: $c_white;
+    }
+
+    button[type=reset] {
+      @include button(lighten($c_red, 15%));
+
+      padding: 6px;
+      width: 100px;
+      box-shadow: none;
+      color: $c_white;
+    }
+  }
+}
