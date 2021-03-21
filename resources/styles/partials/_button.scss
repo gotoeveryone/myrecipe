@@ -1,0 +1,16 @@
+.button {
+  @include button(#bbb);
+
+  display: block;
+  text-align: center;
+  margin: 0.2rem 0;
+  padding: 0.3rem 0;
+  color: $c_black;
+  border: 0.2rem solid;
+  border-radius: 5px;
+
+  border: {
+    color: #aaa #444 #444 #aaa;
+    radius: 5px;
+  }
+}
