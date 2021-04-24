@@ -17,8 +17,8 @@
     "stylelint:fix": "yarn run stylelint --fix"
   },
   "engines": {
-    "node": ">=8.11 <11",
-    "yarn": ">=1.10"
+    "node": ">=12 <13",
+    "yarn": ">=1.22"
   },
   "repository": {
     "type": "git",
