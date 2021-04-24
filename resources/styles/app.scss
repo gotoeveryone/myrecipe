@@ -1,6 +1,8 @@
 @import './base/_variables';
 @import './base/_mixin';
 @import './base/_normalize';
+@import './modules/cuisine-detail';
+@import './modules/cuisine-list';
 @import './modules/dialog';
 @import './modules/icon';
 @import './modules/login';
@@ -173,79 +175,6 @@
 .field-validation-error {
   color: $c_red;
   font-size: 14px;
-}
-
-.menu-detail {
-  @include pc() {
-    display: flex;
-    align-items: center;
-  }
-
-  @include sp() {
-    height: auto;
-  }
-
-  position: relative;
-  margin: 0 0 10px;
-  padding: 0.3em;
-  height: 50px;
-  border: 2px solid $c_black;
-  border-radius: 5px;
-
-  &-other {
-    @include sp() {
-      height: calc(100% - 120px - 10px);
-      flex-wrap: wrap;
-      justify-content: flex-start;
-    }
-
-    display: flex;
-    width: 100%;
-    height: calc(100% - 50px - 10px);   // content - detail - margin
-    overflow-y: auto;
-    border: 2px solid $c_black;
-    border-radius: 5px;
-  }
-}
-
-.menu-items {
-  @include sp() {
-    width: 100%;
-  }
-
-  margin: 15px 3px;
-  width: 50%;
-
-  .list-box {
-    margin: 0.5em;
-    padding: 0;
-    list-style: none;
-
-    &-header {
-      padding: 0.3em 0;
-      font-weight: bold;
-      font-size: 110%;
-    }
-
-    &-header,
-    &-item {
-      display: flex;
-      align-items: center;
-
-      .cooking-order {
-        width: 30px;
-        font-weight: bold;
-      }
-
-      .foodstuff-name {
-        width: 70%;
-      }
-
-      .foodstuff-quantity {
-        width: 30%;
-      }
-    }
-  }
 }
 
 .category-header {

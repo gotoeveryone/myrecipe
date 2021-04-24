@@ -46,7 +46,7 @@ footer {
 
 header {
   height: $h_header;
-  background-color: #3c66da;
+  background-color: #5f79c2;
 
   h1 {
     margin: 0;
@@ -60,7 +60,7 @@ header {
 
 main {
   display: block;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   padding: #{$h_header} 0 #{$h_footer};
 }
