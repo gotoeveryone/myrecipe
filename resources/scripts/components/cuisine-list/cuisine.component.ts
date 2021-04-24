@@ -22,7 +22,7 @@ export class SearchComponent implements OnInit {
    * {@inheritdoc}
    */
   public ngOnInit() {
-    this.title.setTitle('レシピ検索');
+    this.title.setTitle('レシピ一覧');
   }
 
   /**
