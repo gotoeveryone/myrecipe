@@ -11,10 +11,11 @@ services:
     depends_on:
       - database
   frontend:
-    image: node:10
+    image: node:12.22
     working_dir: /src
     volumes:
       - ./:/src
+      - node_modules:/src/node_modules
     command: sh -c 'yarn && yarn dev'
   database:
     image: postgres:10.4
@@ -25,3 +26,6 @@ services:
       POSTGRES_DB: myrecipe
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+
+volumes:
+  node_modules:
