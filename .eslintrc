@@ -4,16 +4,11 @@
     "es6": true
   },
   "extends": ["prettier", "plugin:@typescript-eslint/recommended"],
-  "overrides": [
-    {
-      "files": ["*.ts"]
-    }
-  ],
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 6
+    "ecmaVersion": 2020,
+    "parser": "@typescript-eslint/parser"
   },
-  "plugins": ["prettier", "@typescript-eslint", "angular"],
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "indent": ["off"],
@@ -25,8 +20,7 @@
     "semi": ["error", "always"],
     "@typescript-eslint/no-explicit-any": ["off"],
     "@typescript-eslint/indent": ["error", 2, { "SwitchCase": 1 }],
-    "@typescript-eslint/no-parameter-properties": ["error", { "allows": ["private"] }],
     "@typescript-eslint/explicit-function-return-type": ["off"],
-    "@typescript-eslint/camelcase": ["off"]
+    "@typescript-eslint/explicit-module-boundary-types": ["off"]
   }
 }

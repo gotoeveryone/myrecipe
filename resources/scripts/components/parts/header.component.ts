@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthGuardService } from '../../services/auth.service';
 
-declare var require: any;
+declare let require: any;
 
 /**
  * ヘッダを表示するためのコンポーネント

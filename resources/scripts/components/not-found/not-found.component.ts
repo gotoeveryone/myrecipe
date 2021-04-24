@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-declare var require: any;
+declare let require: any;
 
 /**
  * 404コンポーネント

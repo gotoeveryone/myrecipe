@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { Cuisine} from '../../types';
 
-declare var require: any;
+declare let require: any;
 
 /**
  * レシピ検索コンポーネント

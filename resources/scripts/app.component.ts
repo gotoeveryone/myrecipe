@@ -1,7 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { BlockUIService } from './services/blockui.service';
 
-declare var require: any;
+declare const require: any;
 
 /**
  * レシピ検索コンポーネント

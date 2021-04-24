@@ -35,7 +35,7 @@
   .button-row {
     margin: 15px auto 0;
 
-    button[type=submit] {
+    button[type="submit"] {
       @include button(lighten($c_blue, 15%));
 
       padding: 6px;
@@ -44,7 +44,7 @@
       color: $c_white;
     }
 
-    button[type=reset] {
+    button[type="reset"] {
       @include button(lighten($c_red, 15%));
 
       padding: 6px;
