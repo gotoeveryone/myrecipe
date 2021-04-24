@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Classification } from '../../types';
 
-declare var require: any;
+declare let require: any;
 
 /**
  * ヘッダ出力コンポーネント

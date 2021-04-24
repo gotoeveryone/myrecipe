@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
 
-declare var require: any;
+declare let require: any;
 
 /**
  * データ出力コンポーネント

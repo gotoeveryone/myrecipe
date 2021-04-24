@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DialogService } from '../../services/dialog.service';
 
-declare var require: any;
+declare let require: any;
 
 /**
  * ダイアログを表示するためのコンポーネント

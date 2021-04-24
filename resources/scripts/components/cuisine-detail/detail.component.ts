@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Classification, Cuisine, Foodstuff, Instruction } from '../../types';
 import { DialogService } from '../../services/dialog.service';
 
-declare var require: any;
+declare const require: any;
 
 /**
  * レシピ詳細コンポーネント

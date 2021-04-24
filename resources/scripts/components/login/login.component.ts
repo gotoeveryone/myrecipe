@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
 import { Token } from '../../types';
 
-declare var require: any;
+declare let require: any;
 
 /**
  * ログインコンポーネント

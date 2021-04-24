@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Foodstuff } from '../../types';
 
-declare var require: any;
+declare const require: any;
 
 /**
  * 食材コンポーネント

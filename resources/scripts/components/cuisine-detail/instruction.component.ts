@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Instruction } from '../../types';
 
-declare var require: any;
+declare const require: any;
 
 /**
  * 調理手順コンポーネント
