@@ -148,8 +148,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'templates', 'assets'),
 )
 
-ASSETS_URL = os.environ.get('ASSETS_URL', '')
-
 # ロガーの設定
 LOGGING = {
     'version': 1,
