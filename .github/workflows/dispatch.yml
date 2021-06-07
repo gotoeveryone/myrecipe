@@ -7,10 +7,14 @@ on:
         description: 'Base branch'
         required: true
         default: master
+      tag_name:
+        description: 'Create tag'
+        required: true
 
 jobs:
   say_hello:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo "Branch ${{ github.event.inputs.branch_name }}!"
+        git tag ${{ github.event.inputs.tag_name }} origin/${{ github.event.inputs.branch_name }}
+        git tag
