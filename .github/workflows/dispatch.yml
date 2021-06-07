@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - run: |
-        git tag ${{ github.event.inputs.tag_name }} origin/${{ github.event.inputs.branch_name }}
-        git tag
+      - name: Create tag
+        run: |
+          git tag ${{ github.event.inputs.tag_name }} origin/${{ github.event.inputs.branch_name }}
+          git tag
