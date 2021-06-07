@@ -15,6 +15,7 @@ jobs:
   say_hello:
     runs-on: ubuntu-latest
     steps:
-    - run: |
+      - uses: actions/checkout@v1
+      - run: |
         git tag ${{ github.event.inputs.tag_name }} origin/${{ github.event.inputs.branch_name }}
         git tag
