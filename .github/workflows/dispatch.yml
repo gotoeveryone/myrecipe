@@ -1,0 +1,16 @@
+name: Myrecipe Dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'Base branch'
+        required: true
+        default: master
+
+jobs:
+  say_hello:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Branch ${{ github.event.inputs.branch_name }}!"
