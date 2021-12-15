@@ -1,17 +1,19 @@
 version: '3'
 services:
   backend:
-    build: ./docker/api
-    command: sh -c 'pipenv install -d && pipenv run python manage.py runserver 0.0.0.0:8000'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c 'pipenv install -d && pipenv run pm runserver 0.0.0.0:8000'
     working_dir: /src
     volumes:
       - ./:/src
     ports:
-      - '8000:8000'
+      - 8000:8000
     depends_on:
       - database
   frontend:
-    image: node:12.22
+    image: node:14.16
     working_dir: /src
     volumes:
       - ./:/src
@@ -20,7 +22,7 @@ services:
   database:
     image: postgres:10.4
     ports:
-      - 15432:5432
+      - 5432:5432
     environment:
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: myrecipe
@@ -28,4 +30,4 @@ services:
       POSTGRES_PASSWORD: postgres
 
 volumes:
-  node_modules:
+  node_modules: null

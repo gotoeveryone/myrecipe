@@ -17,7 +17,7 @@
     "stylelint:fix": "yarn run stylelint --fix"
   },
   "engines": {
-    "node": ">=12 <13",
+    "node": ">=14 <15",
     "yarn": ">=1.22"
   },
   "repository": {

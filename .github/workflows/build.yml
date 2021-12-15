@@ -11,7 +11,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '12.22'
+          node-version: 14.16
 
       - name: Cache node modules
         uses: actions/cache@v1
@@ -35,7 +35,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.6'
+          python-version: 3.9.6
 
       - name: Setup pipenv
         run: pip install pipenv
@@ -72,7 +72,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.6'
+          python-version: 3.9.6
 
       - name: Setup pipenv
         run: pip install pipenv
