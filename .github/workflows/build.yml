@@ -11,7 +11,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '12.22'
+          node-version: 14.16
 
       - name: Cache node modules
         uses: actions/cache@v1
@@ -35,7 +35,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.6'
+          python-version: 3.9.6
 
       - name: Setup pipenv
         run: pip install pipenv
@@ -57,7 +57,7 @@ jobs:
   backend_test:
     runs-on: ubuntu-latest
     services:
-      postgres:
+      database:
         image: postgres:10.13
         ports:
           - 5432:5432
@@ -72,7 +72,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.6'
+          python-version: 3.9.6
 
       - name: Setup pipenv
         run: pip install pipenv
@@ -88,12 +88,19 @@ jobs:
         if: steps.backend_cache.outputs.cache-hit != 'true'
         run: pipenv install -d
 
-      - name: Setup DotEnv
-        run: |
-          cp .env.example .env
-          echo "SECRET_KEY='$(pipenv run kg)'" >> .env
+      - name: Setup environment variables
+        id: set-env
+        run: echo "::set-output name=secret-key::$(pipenv run kg)"
 
       - name: Execute test
+        env:
+          ENVIRONMENT: local
+          DATABASE_NAME: myrecipe
+          DATABASE_HOST: localhost
+          DATABASE_PORT: 5432
+          DATABASE_USER: postgres
+          DATABASE_PASSWORD: postgres
+          SECRET_KEY: ${{ steps.set-env.outputs.secret-key }}
         run: pipenv run test
 
   notify_slack:

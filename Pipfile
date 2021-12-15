@@ -5,13 +5,13 @@ verify_ssl = true
 
 [packages]
 Django = ">=2.0.10,<2.3"
-djangorestframework = "*"
-gunicorn = "*"
-psycopg2-binary = "*"
-python-dotenv = "*"
-requests = "*"
+djangorestframework = "~=3.11.2"
+gunicorn = "~=19.9.0"
+psycopg2-binary = "~=2.8.2"
+python-dotenv = "~=0.10.1"
+requests = "~=2.21.0"
 urllib3 = ">=1.24.2"
-whitenoise = "*"
+whitenoise = "~=4.1.2"
 
 [dev-packages]
 autopep8 = "*"
@@ -19,7 +19,7 @@ django-debug-toolbar = "*"
 flake8 = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.9"
 
 [scripts]
 format = "autopep8 --in-place --recursive ."
