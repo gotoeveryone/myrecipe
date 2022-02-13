@@ -18,14 +18,14 @@ jobs:
         id: frontend_cache
         with:
           path: node_modules
-          key: ${{ runner.OS }}-frontend-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.OS }}-frontend-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         if: steps.frontend_cache.outputs.cache-hit != 'true'
-        run: yarn
+        run: npm i --engine-strict
 
       - name: Execute code check
-        run: yarn run lint
+        run: npm run lint
 
   backend_code_check:
     runs-on: ubuntu-latest
