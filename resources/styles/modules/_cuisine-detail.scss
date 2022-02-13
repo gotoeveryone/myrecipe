@@ -1,23 +1,23 @@
 .menu-detail {
-  @include pc() {
+  @include pc {
     display: flex;
     align-items: center;
   }
 
-  @include sp() {
+  @include sp {
     height: auto;
   }
 
-  background-color: $c_white;
+  background-color: $c-white;
   position: relative;
   margin: 0 0 10px;
   padding: 0.3em;
   height: 50px;
-  border: 2px solid $c_black;
+  border: 2px solid $c-black;
   border-radius: 5px;
 
   &-other {
-    @include sp() {
+    @include sp {
       height: calc(100% - 120px - 10px);
       flex-wrap: wrap;
       justify-content: flex-start;
@@ -26,15 +26,15 @@
     display: flex;
     width: 100%;
     height: calc(100% - 50px - 10px);   // content - detail - margin
-    background-color: $c_white;
+    background-color: $c-white;
     overflow-y: auto;
-    border: 2px solid $c_black;
+    border: 2px solid $c-black;
     border-radius: 5px;
   }
 }
 
 .menu-items {
-  @include sp() {
+  @include sp {
     width: 100%;
   }
 

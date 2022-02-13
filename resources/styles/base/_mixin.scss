@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @mixin sp() {
   @media screen and (max-width: ($breakpoint)) {
     @content;
@@ -25,19 +27,19 @@
   }
 
   &:enabled:hover {
-    color: $c_white;
-    background-color: darken($color, 20%);
+    color: $c-white;
+    background-color: color.adjust($color, $lightness: -20%);
   }
 
   &:disabled {
-    color: darken($c_white, 20%);
-    background-color: darken($color, 35%);
+    color: color.adjust($c-white, $lightness: -20%);
+    background-color: color.adjust($color, $lightness: -35%);
   }
 }
 
 @mixin active-button($active) {
   &:enabled:hover {
-    background-color: darken($active, 15%);
+    background-color: color.adjust($active, $lightness: -15%);
   }
 
   background-color: #{$active};

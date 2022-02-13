@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const webpack = require('webpack');
-const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const EslintWebpackPlugin = require('eslint-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('@soda/friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const StylelintBarePlugin = require('stylelint-bare-webpack-plugin');
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 module.exports = (_, args) => {
@@ -24,19 +25,6 @@ module.exports = (_, args) => {
     module: {
       rules: [
         {
-          enforce: 'pre',
-          test: /\.tsx?$/,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'eslint-loader',
-              options: {
-                esModule: true,
-              },
-            },
-          ],
-        },
-        {
           test: /\.tsx?$/,
           loader: 'ts-loader',
         },
@@ -47,7 +35,19 @@ module.exports = (_, args) => {
         {
           test: /\.(sa|sc|c)ss$/,
           exclude: /node_modules/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                implementation: require('sass'),
+                sassOptions: {
+                  fiber: require('fibers'),
+                },
+              },
+            },
+          ],
         },
         // Ignore warnings about System.import in Angular
         {
@@ -65,13 +65,16 @@ module.exports = (_, args) => {
         path.join(__dirname, 'resources'),
         {},
       ),
-      new FixStyleOnlyEntriesPlugin(),
+      new RemoveEmptyScriptsPlugin(),
       new FriendlyErrorsWebpackPlugin(),
       new MiniCssExtractPlugin({
         filename: '[name].css',
       }),
       new StylelintBarePlugin({
         files: ['resources/styles/**/*.scss'],
+      }),
+      new EslintWebpackPlugin({
+        extensions: ['.ts', '.tsx', '.js'],
       }),
     ],
     performance: {

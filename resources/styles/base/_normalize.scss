@@ -1,5 +1,5 @@
 * {
-  @include sp() {
+  @include sp {
     font-size: 0.8rem;
   }
 
@@ -21,7 +21,7 @@ body {
 }
 
 body {
-  @include background();
+  @include background;
 
   width: 100vw;
   overflow: hidden;
@@ -40,12 +40,12 @@ footer {
   * {
     height: auto;
     font-style: italic;
-    color: $c_white;
+    color: $c-white;
   }
 }
 
 header {
-  height: $h_header;
+  height: $h-header;
   background-color: #5f79c2;
 
   h1 {
@@ -54,7 +54,7 @@ header {
     font-size: 2.5em;
     font-weight: bold;
     letter-spacing: 0.3rem;
-    -webkit-text-stroke: 0.1rem $c_white;
+    -webkit-text-stroke: 0.1rem $c-white;
   }
 }
 
@@ -62,7 +62,7 @@ main {
   display: block;
   height: 100vh;
   width: 100%;
-  padding: #{$h_header} 0 #{$h_footer};
+  padding: #{$h-header} 0 #{$h-footer};
 }
 
 label {
@@ -86,14 +86,14 @@ a {
 }
 
 footer {
-  height: $h_footer;
+  height: $h-footer;
   bottom: 0;
-  background-color: $c_black;
+  background-color: $c-black;
   font-size: 0.9rem;
 }
 
 h2 {
-  @include sp() {
+  @include sp {
     text-align: center;
     font-size: 1.5rem;
   }

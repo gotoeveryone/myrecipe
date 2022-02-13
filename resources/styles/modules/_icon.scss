@@ -4,13 +4,13 @@
   margin-left: 8px;
   width: 36px;
   height: 17px;
-  border-left: solid 1px currentColor;
-  border-right: solid 1px currentColor;
-  border-top: solid 1px currentColor;
+  border-left: solid 1px currentcolor;
+  border-right: solid 1px currentcolor;
+  border-top: solid 1px currentcolor;
   border-bottom: solid 1px transparent;
-  background-color: currentColor;
+  background-color: currentcolor;
   border-radius: 6px 6px 0 0;
-  color: $c_white;
+  color: $c-white;
 
   &::before {
     position: absolute;
@@ -18,9 +18,9 @@
     left: 5px;
     width: 24px;
     height: 24px;
-    content: '';
+    content: "";
     border-radius: 50%;
-    border: solid 1px currentColor;
-    background-color: currentColor;
+    border: solid 1px currentcolor;
+    background-color: currentcolor;
   }
 }

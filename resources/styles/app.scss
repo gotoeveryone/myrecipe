@@ -1,25 +1,25 @@
-@import './base/_variables';
-@import './base/_mixin';
-@import './base/_normalize';
-@import './modules/cuisine-detail';
-@import './modules/cuisine-list';
-@import './modules/dialog';
-@import './modules/icon';
-@import './modules/login';
-@import './modules/search';
-@import './partials/button';
+@use "sass:color";
+@import "./base/variables";
+@import "./base/mixin";
+@import "./base/normalize";
+@import "./modules/cuisine-detail";
+@import "./modules/cuisine-list";
+@import "./modules/dialog";
+@import "./modules/icon";
+@import "./modules/login";
+@import "./modules/search";
+@import "./partials/button";
 
 /* -------------------------------------------
    共通レイアウト
  ------------------------------------------- */
 %button {
-  color: $c_white;
+  color: $c-white;
   border: none;
 }
 
 .container button {
   @extend %button;
-
   @include active-button(#585aad);
 
   &.btn-little {
@@ -66,7 +66,7 @@
   }
 
   .page-title {
-    @include sp() {
+    @include sp {
       font-size: 1.5rem;
     }
 
@@ -84,7 +84,7 @@
   }
 
   .other {
-    @include sp() {
+    @include sp {
       display: none;
     }
 
@@ -106,7 +106,7 @@
 }
 
 .person {
-  @include pc() {
+  @include pc {
     display: none;
   }
 
@@ -116,7 +116,7 @@
   width: 3.5rem;
   height: 3.5rem;
   cursor: pointer;
-  background-color: $c_black;
+  background-color: $c-black;
   background-size: 3.5em 3.5em;
   z-index: 100;
 }
@@ -130,9 +130,9 @@
   height: 3.5rem;
   justify-content: flex-start;
   align-items: center;
-  background-color: $c_black;
+  background-color: $c-black;
   z-index: 80;
-  color: $c_white;
+  color: $c-white;
   transition: right 0.5s ease-in-out;
 
   &.active {
@@ -166,14 +166,14 @@
 }
 
 .content-inner {
-  @include pc() {
+  @include pc {
     width: 100%;
     height: 100%;
   }
 }
 
 .field-validation-error {
-  color: $c_red;
+  color: $c-red;
   font-size: 14px;
 }
 
@@ -204,7 +204,7 @@
 }
 
 .recipe-row-box {
-  @include sp() {
+  @include sp {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
@@ -225,7 +225,7 @@
   align-items: center;
 
   .label-column {
-    @include pc() {
+    @include pc {
       margin: auto 5px auto 15px;
     }
   }
@@ -243,19 +243,13 @@
   }
 
   &.button-wrap {
-    @include pc() {
+    @include pc {
       margin-left: auto;
     }
 
-    @include sp() {
+    @include sp {
       justify-content: flex-end;
     }
-  }
-}
-
-.recipe-row-box_half {
-  @include sp() {
-    width: 50%;
   }
 }
 
@@ -266,7 +260,7 @@
 }
 
 .search-results {
-  @include sp() {
+  @include sp {
     height: calc(100% - 130px - 0.5rem);
 
     .table-row {
@@ -313,7 +307,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: darken(#aaa, 15%);
+          background-color: color.adjust(#aaa, $lightness: -15%);
         }
 
         &.button-detail,
