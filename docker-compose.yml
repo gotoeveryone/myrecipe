@@ -12,13 +12,15 @@ services:
       - 8000:8000
     depends_on:
       - database
+    tty: true
   frontend:
     image: node:14.16
     working_dir: /src
     volumes:
       - ./:/src
       - node_modules:/src/node_modules
-    command: sh -c 'yarn && yarn dev'
+    command: sh -c 'npm i --engine-strict && npm run dev'
+    tty: true
   database:
     image: postgres:10.4
     ports:
