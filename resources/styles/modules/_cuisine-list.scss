@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .cuisine-items {
   display: flex;
   align-items: flex-start;
@@ -18,9 +20,9 @@
       display: flex;
       flex-direction: column;
       padding: 15px;
-      border: 1px solid $c_gray;
+      border: 1px solid $c-gray;
       border-radius: 5px;
-      background-color: $c_white;
+      background-color: $c-white;
       cursor: pointer;
       text-decoration: none;
 
@@ -38,17 +40,17 @@
       &_name {
         flex-basis: calc(100% - 60px);
         padding-right: 5px;
-        color: lighten($c_blue, 10%);
+        color: color.adjust($c-blue, $lightness: 10%);
         font-size: 20px;
         font-weight: bold;
       }
 
       &_type {
         flex-basis: 60px;
-        background-color: rgb(209, 169, 108);
+        background-color: rgb(209 169 108);
         border-radius: 5px;
         padding: 3px 5px;
-        color: $c_white;
+        color: $c-white;
         text-align: center;
         font-size: 11px;
       }
@@ -60,7 +62,7 @@
       justify-content: flex-end;
 
       &_mail {
-        color: lighten($c_blue, 10%);
+        color: color.adjust($c-blue, $lightness: 10%);
         cursor: pointer;
         text-decoration: none;
       }
