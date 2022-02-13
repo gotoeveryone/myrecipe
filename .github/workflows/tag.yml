@@ -1,4 +1,4 @@
-name: Myrecipe Dispatch
+name: Create Tag
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       branch_name:
         description: 'Base branch'
         required: true
-        default: master
+        default: main
       tag_name:
         description: 'Create tag'
         required: true
@@ -19,4 +19,4 @@ jobs:
       - name: Create tag
         run: |
           git tag ${{ github.event.inputs.tag_name }} origin/${{ github.event.inputs.branch_name }}
-          git tag
+          git push origin ${{ github.event.inputs.tag_name }}
