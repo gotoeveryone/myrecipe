@@ -34,12 +34,12 @@ def error(request):
     """ 500エラー時は詳細なエラーをログ出力する """
     from logging import getLogger
     import traceback
-    from django.shortcuts import render_to_response
+    from django.shortcuts import render
 
     logger = getLogger(__name__)
     logger.error(traceback.format_exc())
 
-    return render_to_response('error.dhtml')
+    return render('error.dhtml')
 
 
 handler500 = 'recipe.urls.error'
